@@ -33,3 +33,22 @@ Configuration file: /rackspace/developer.rackspace.com/_config.yml
 ```
 
 Browsing to http://127.0.0.1:4000/ should show you the site preview!
+
+
+## Plugins included in the _plugins directory:
+
+* https://github.com/kinnetica/jekyll-plugins/ (sitemap generator)
+* https://github.com/agelber/jekyll-rss/ (rss feeds)
+* https://github.com/olov/jekyll-references (global references)
+* https://github.com/gacha/gacha.id.lv/blob/master/_plugins/i18n_filter.rb (localizations)
+* https://github.com/recurser/jekyll-plugins (generate_categories.rb, octopress_filters.rb)
+
+
+## To Do:
+
+* Integrate [grunt](http://gruntjs.com/getting-started) or
+  [gulp](http://gulpjs.com/) for css/js/less file
+  management, do not make it part of the watch command (different rake task)
+  so that end-users don't have additional dependencies on node.
+  See this: https://github.com/dannygarcia/grunt-jekyll
+
