@@ -1,8 +1,0 @@
-<div class="highlight"><pre><span class="n">set</span> <span class="ss">:mailgun_api_key</span><span class="p">,</span> <span class="s1">&#39;key-12345678901234567890123456789012&#39;</span> <span class="c1"># your mailgun API key</span>
-<span class="n">set</span> <span class="ss">:mailgun_domain</span><span class="p">,</span> <span class="s1">&#39;example.com&#39;</span> <span class="c1"># your mailgun email domain</span>
-<span class="n">set</span> <span class="ss">:mailgun_from</span><span class="p">,</span> <span class="s1">&#39;deployment@example.com&#39;</span> <span class="c1"># who the email will appear to come from</span>
-<span class="n">set</span> <span class="ss">:mailgun_recipients</span><span class="p">,</span> <span class="o">[</span> <span class="s1">&#39;you@example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;otherguy@example.com&#39;</span> <span class="o">]</span> <span class="c1"># who will receive the email</span>
-
-<span class="c1"># create an after deploy hook</span>
-<span class="n">after</span> <span class="ss">:deploy</span><span class="p">,</span> <span class="s1">&#39;mailgun_notify&#39;</span>
-</pre></div>

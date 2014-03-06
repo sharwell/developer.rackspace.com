@@ -1,7 +1,0 @@
-<div class="highlight"><pre>var <span class="nv">http</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;http&#39;</span><span class="o">)</span><span class="p">;</span>
-http.createServer<span class="o">(</span><span class="k">function</span> <span class="o">(</span>req, res<span class="o">)</span> <span class="o">{</span>
-res.writeHead<span class="o">(</span>200, <span class="o">{</span><span class="s1">&#39;Content-Type&#39;</span>: <span class="s1">&#39;text/plain&#39;</span><span class="o">})</span><span class="p">;</span>
-res.end<span class="o">(</span><span class="s1">&#39;Hello World!\n&#39;</span><span class="o">)</span><span class="p">;</span>
-<span class="o">})</span>.listen<span class="o">(</span>8124, <span class="s2">&quot;$PUBLIC_IP_HERE&quot;</span><span class="o">)</span><span class="p">;</span>
-console.log<span class="o">(</span><span class="s1">&#39;Server running at http://$PUBLIC_IP_HERE:8124/&#39;</span><span class="o">)</span><span class="p">;</span>
-</pre></div>
