@@ -40,7 +40,6 @@ Browsing to http://127.0.0.1:4000/ should show you the site preview!
 * https://github.com/kinnetica/jekyll-plugins/ (sitemap generator)
 * https://github.com/agelber/jekyll-rss/ (rss feeds)
 * https://github.com/olov/jekyll-references (global references)
-* https://github.com/gacha/gacha.id.lv/blob/master/_plugins/i18n_filter.rb (localizations)
 * https://github.com/recurser/jekyll-plugins (generate_categories.rb, octopress_filters.rb)
 
 
