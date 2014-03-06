@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Rackspace Developer Documentation'
+project = u'Rackspace Developer Portal'
 copyright = u'2014, Rackspace'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -198,7 +198,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'RackspaceDeveloperDocumentation.tex', u'Rackspace Developer Documentation Documentation',
+  ('index', 'RackspaceDeveloperDocumentation.tex', u'Rackspace Developer Documentation',
    u'Rackspace', 'manual'),
 ]
 
@@ -228,7 +228,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'rackspacedeveloperdocumentation', u'Rackspace Developer Documentation Documentation',
+    ('index', 'rackspacedeveloperdocumentation', u'Rackspace Developer Documentation',
      [u'Rackspace'], 1)
 ]
 
@@ -242,7 +242,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'RackspaceDeveloperDocumentation', u'Rackspace Developer Documentation Documentation',
+  ('index', 'RackspaceDeveloperDocumentation', u'Rackspace Developer Documentation',
    u'Rackspace', 'RackspaceDeveloperDocumentation', 'One line description of project.',
    'Miscellaneous'),
 ]
