@@ -1,0 +1,10 @@
+<div class="highlight"><pre><span class="c">#The old [rax-dfw] stanza:</span>
+<span class="nv">OS_PASSWORD</span> <span class="o">=</span> <span class="nv">$RAX_APIKEY</span>
+
+<span class="c">#The new [rax-dfw] stanza:</span>
+<span class="c"># If using storage per OpenStack environment</span>
+<span class="nv">OS_PASSWORD</span> <span class="o">=</span> USE_KEYRING
+
+<span class="c"># If using global storage for multiple company environments</span>
+<span class="nv">OS_PASSWORD</span> <span class="o">=</span> USE_KEYRING<span class="o">[</span><span class="s1">&#39;MyCompanySSO&#39;</span><span class="o">]</span>
+</pre></div>

@@ -41,7 +41,14 @@ Browsing to http://127.0.0.1:4000/ should show you the site preview!
 * https://github.com/agelber/jekyll-rss/ (rss feeds)
 * https://github.com/olov/jekyll-references (global references)
 * https://github.com/recurser/jekyll-plugins (generate_categories.rb, octopress_filters.rb)
-
+* image_tag.rb (backwards compatibility: deprecated)
+* vimeo.rb
+* zoomable_image_tag.rb
+* tweet_tag.rb
+* youtube.rb
+* raw.rb
+* pygments_code.rb
+* code_block.rb
 
 ## To Do:
 

@@ -1,0 +1,20 @@
+<div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="nx">tenantId</span> <span class="o">===</span> <span class="err">‘</span><span class="nx">XXX</span><span class="err">’</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span><span class="nx">emailUtil</span><span class="p">.</span><span class="nx">sendMailgunEmail</span><span class="p">(</span><span class="nx">address</span><span class="p">,</span> <span class="nx">subject</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="nx">headers</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+<span class="err">   </span><span class="kd">var</span> <span class="nx">delta</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">startTime</span><span class="p">);</span>
+<span class="err">   </span><span class="nx">accessLog</span><span class="p">.</span><span class="nx">logAccess</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s1">&#39;mailgun&#39;</span><span class="p">,</span> <span class="nx">misc</span><span class="p">.</span><span class="nx">getUnixTimestamp</span><span class="p">(),</span> <span class="nx">delta</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+
+<span class="err">   </span><span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+<span class="err">     </span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;error performing email notification&#39;</span><span class="p">,</span> <span class="p">{</span>
+<span class="err">       </span><span class="nx">ctx</span><span class="o">:</span> <span class="nx">ctx</span><span class="p">,</span>
+<span class="err">       </span><span class="nx">err</span><span class="o">:</span> <span class="nx">err</span>
+<span class="err">     </span><span class="p">});</span>
+<span class="err">     </span><span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="err">     </span><span class="k">return</span><span class="p">;</span>
+<span class="err">   </span><span class="p">}</span>
+
+<span class="err">   </span><span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;Email successfully sent&#39;</span><span class="p">,</span> <span class="nx">body</span><span class="p">);</span>
+<span class="err"> </span><span class="p">});</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="err">…</span>
+<span class="p">}</span>
+</pre></div>

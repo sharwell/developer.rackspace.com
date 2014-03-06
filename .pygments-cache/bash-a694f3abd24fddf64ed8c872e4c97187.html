@@ -1,0 +1,9 @@
+<div class="highlight"><pre><span class="c">#Auth</span>
+curl -i -H <span class="s2">&quot;X-Auth-User: ${USER}&quot;</span> -H <span class="s2">&quot;X-Auth-Key: ${KEY}&quot;</span> https://auth.api.rackspacecloud.com/v1.0
+
+<span class="c">#Create a Cloud Files container called &quot;devops&quot;</span>
+curl -X PUT -H <span class="s2">&quot;X-Auth-Token: $TOKEN&quot;</span> https://storage101.dfw1.clouddrive.com/v1/MossoCloudFS/devops
+
+<span class="c">#Set the proper header for serving web content</span>
+curl -X POST - -H <span class="s2">&quot;X-Container-Meta-Web-Index: index.html&quot;</span> -H <span class="s2">&quot;X-Auth-Token: ${TOKEN}&quot;</span> https://storage101.dfw1.clouddrive.com/v1/MossoCloudFS/devops/
+</pre></div>

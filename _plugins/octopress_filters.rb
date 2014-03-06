@@ -1,5 +1,8 @@
 # Filters taken from the Octopress project by Brandon Mathis.
 # https://github.com/imathis/octopress/blob/master/plugins/octopress_filters.rb
+
+require './_plugins/raw'
+
 module Jekyll
 
   module Filters
