@@ -29,11 +29,6 @@ Contents
    :maxdepth: 2
 
    quickstart
-   user_manual
-   wrappers
-   api_reference
-   faqs
-   best_practices
 
 .. toctree
    :maxdepth: 1
