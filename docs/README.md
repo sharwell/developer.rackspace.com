@@ -43,4 +43,21 @@ To pop open the doc index and preview.
 Adding QuickStart guides
 =========================
 
-Look in the **quickstart** directory, you will see a **cloudfiles** directory
+Look in the **cloudfiles** directory, in there is the quickstart.rst file -
+this is the file where the quickstart content will be written; alongside that
+file is a **samples** directory where the individual code snippets shown /
+swapped between in the documents will live for that service. For example:
+
+```
+samples/
+   write_a_file.rst (includes all language examples)
+```
+
+There is an example one checked in there currently: all text in the .rst files
+is holder text (for now).
+
+Basically: start by making a directory for the service (or modify the existing
+cloud files one) to start the narrative of the walkthrough, and we will work on
+the styles & structure of it as we go.
+
+
