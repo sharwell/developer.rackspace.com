@@ -33,3 +33,4 @@
  
 ## DONE
 * Create river for ingesting developer blog.
+* Create Vagrantfile and ansible playbook for dev setup.
