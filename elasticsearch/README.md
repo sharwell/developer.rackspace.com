@@ -10,7 +10,7 @@
 4. Change to this directory on your development machine.
 
     ```bash
-    $ cd /path/to/developer.rackspace.com/elastic_search
+    $ cd /path/to/developer.rackspace.com/elasticsearch
     ```
 
 5. Run Vagrant to set up a VirtualBox VM running an ElasticSearch node.
