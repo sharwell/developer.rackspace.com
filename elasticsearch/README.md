@@ -19,7 +19,7 @@
     $ vagrant up
     ```
 
-6. That's it! The Elasticsearch REST API will be available at http://localhost:9200.
+6. That's it! The Elasticsearch REST API will be available at [`http://localhost:9200`](http://localhost:9200).
 
 ## TODO
 * Create ansible playbook(s) for prod setup. 
