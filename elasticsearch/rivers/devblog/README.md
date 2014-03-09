@@ -32,4 +32,5 @@ $ curl -XPUT "$ES_BASE_URL/_river/blogpost/_meta" -d @create_river_devblog_blogp
 ```
 
 ## TODO
-* Delta scraping (if possible and desirable)
+* Incorporate this setup into Ansible playbook.
+* Delta scraping (if possible and desirable).
