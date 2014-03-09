@@ -1,0 +1,27 @@
+---
+- hosts: all
+  vars:
+    elasticsearch_version: 1.0.1
+    elasticsearch_download_baseurl: https://download.elasticsearch.org/elasticsearch/elasticsearch/
+    elasticsearch_package_filename: elasticsearch-{{elasticsearch_version}}.deb
+  tasks:
+
+  - name: Update package index
+    apt: update_cache=yes
+    sudo: true
+
+  - name: Install java
+    apt: pkg=openjdk-7-jdk pkg=openjdk-7-jre state=present
+    sudo: true
+
+  - name: Download Elasticsearch
+    get_url: url={{elasticsearch_download_baseurl}}{{elasticsearch_package_filename}} dest=/tmp/{{elasticsearch_package_filename}}
+
+  - name: Install Elasticsearch
+    command: dpkg -i /tmp/elasticsearch-{{elasticsearch_version}}.deb
+    sudo: true
+
+  - name: Start Elasticsearch service
+    service: name=elasticsearch state=restarted
+    sudo: true
+    
