@@ -4,20 +4,20 @@
 
 2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine)
-
+3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
 4. Change to this directory on your development machine.
 
-```bash
-$ cd /path/to/developer.rackspace.com/elastic_search
+    ```bash
+    $ cd /path/to/developer.rackspace.com/elastic_search
+    ```
 
 5. Run Vagrant to set up a VirtualBox VM running an ElasticSearch node.
 
-```bash
-$ vagrant up
-```
+    ```bash
+    $ vagrant up
+    ```
 
 6. That's it! The Elasticsearch REST API will be available at http://localhost:9200.
 
