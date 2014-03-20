@@ -11,8 +11,11 @@
     sudo: true
 
   - name: Install java
-    apt: pkg=openjdk-7-jdk pkg=openjdk-7-jre state=present
+    apt: pkg={{ item }} state=present
     sudo: true
+    with_items:
+    - openjdk-7-jdk
+    - openjdk-7-jre
 
   - name: Download Elasticsearch
     get_url: url={{elasticsearch_download_baseurl}}{{elasticsearch_package_filename}} dest=/tmp/{{elasticsearch_package_filename}}
@@ -22,6 +25,6 @@
     sudo: true
 
   - name: Start Elasticsearch service
-    service: name=elasticsearch state=restarted
+    service: name=elasticsearch state=started
     sudo: true
     
