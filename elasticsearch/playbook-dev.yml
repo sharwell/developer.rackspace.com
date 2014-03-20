@@ -1,17 +1,14 @@
 ---
-- hosts: all
+- name: Setup an Elasticsearch service
+  hosts: all
   vars:
-    elasticsearch_version: 1.0.1
-    elasticsearch_download_baseurl: https://download.elasticsearch.org/elasticsearch/elasticsearch/
-    elasticsearch_package_filename: elasticsearch-{{elasticsearch_version}}.deb
+  - elasticsearch_version: 1.0.1
+  - elasticsearch_download_baseurl: https://download.elasticsearch.org/elasticsearch/elasticsearch/
+  - elasticsearch_package_filename: elasticsearch-{{elasticsearch_version}}.deb
   tasks:
 
-  - name: Update package index
-    apt: update_cache=yes
-    sudo: true
-
   - name: Install java
-    apt: pkg={{ item }} state=present
+    apt: pkg={{ item }} update_cache=yes state=present
     sudo: true
     with_items:
     - openjdk-7-jdk
