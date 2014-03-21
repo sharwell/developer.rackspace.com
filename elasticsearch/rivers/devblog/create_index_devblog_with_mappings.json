@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "blogpost": {
+      "_id": {
+        "type": "string",
+        "path": "url"
+      }
+    }
+  }
+}
