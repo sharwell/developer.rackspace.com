@@ -1,6 +1,6 @@
 ---
 - name: Setup an Elasticsearch service
-  hosts: all
+  hosts: elasticsearch
   vars:
   - elasticsearch_version: 1.0.1
   - elasticsearch_download_baseurl: https://download.elasticsearch.org/elasticsearch/elasticsearch/
