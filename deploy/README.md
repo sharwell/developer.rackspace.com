@@ -20,5 +20,17 @@
     ```
 
 6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
+   * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
 
+## Folder Layout
+
+* **Vagrantfile**: Vagrant file used to setup a development environment VM.
+* **hosts.dev**: Ansible inventory file specifying development environment machines.
+* **hosts.staging**: Ansible inventory file specifying staging environment machines.
+* **hosts.prod**: Ansible inventory file specifying production environment machines.
+* **site.yml**: Master Ansible playbook.
+* **elasticsearch.yml**: Ansible playbook to setup Elasticsearch service tier.
+* **web.yml**: Ansible playbook to setup Nginx web tier.
+* **roles/**:
+   * **bennojoy.nginx/**: See https://galaxy.ansible.com/list#/roles/2
