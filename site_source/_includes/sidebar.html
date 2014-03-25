@@ -1,0 +1,31 @@
+	<div class="sidebar">
+        <div class="block archives">
+            <h3>Archives</h3>
+
+            <ul>
+                <li><a href="#">January 2014</a></li>
+                <li><a href="#">December 2013</a></li>
+                <li><a href="#">November 2013</a></li>
+                <li><a href="#">October 2013</a></li>
+                <li><a href="#">September 2013</a></li>
+                <li><a href="#">August 2013</a></li>
+                <li><a href="#">July 2013</a></li>
+                <li><a href="#">June 2013</a></li>
+                <li><a href="#">May 2013</a></li>
+                <li><a href="#">April 2013</a></li>
+            </ul>
+        </div>
+
+        <div class="block contributors">
+            {% if site.gravatar_emails %}
+              <h3>Contributors</h3>
+		{% gravatar_images 50 %}
+						{% endif %}
+		</div>
+
+        <div class="block tagcloud">
+            <h3>Tag Cloud</h3>
+            <span id="tag-cloud">{% tag_cloud counter:true %}</span>
+        </div>
+
+</div>
