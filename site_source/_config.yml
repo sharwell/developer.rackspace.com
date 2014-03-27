@@ -10,8 +10,7 @@ excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of 
 
 root: /
 category_dir: blog/categories
-
-
+monthly_dir: blog/monthly
 
 # Gravatar Emails
 gravatar_emails:
