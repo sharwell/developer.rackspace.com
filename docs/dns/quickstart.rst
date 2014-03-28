@@ -92,3 +92,69 @@ If you wish or need to delete a DNS zone it can be accomplished as follows:
 
 WARNING: deleting a zone will also delete all the records within in. Please use with care.
 
+Create Record
+--------------
+
+Once we have a zone, we to add at least one record in order to make it do something useful. You can create a DNS zone record as follows:
+
+.. record-code:: node
+
+  var recDetails = {
+    name: 'subdomain',
+    data: '127.0.0.1',
+    type: 'A'
+  };
+
+  rackspace.createRecord(myZone, function (err, rec) {
+    if (err) {
+      console.dir(err);
+      return;
+    }
+    console.log('Record ' + rec.name + ' was successfully created.');
+  });
+
+Get Record
+-------------
+
+Once we have have created a record, we can retrieve it for inspection or manipulation as follows:
+
+.. code-block:: node
+
+  rackspace.getRecord(myZone, 'myRecord-id', function (err, rec) {
+      if (err) {
+        console.dir(err);
+        return;
+      }
+      console.log('Record ' + rec.name + ' was successfully retrieved.');
+  });
+
+Update Record
+---------------
+
+If you wish to modify a DNS record, you can do so as follows:
+
+.. code-block:: node
+
+  myRec.data = '192.168.1.1';
+  rackspace.updateRecord(myZone, myRec, function (err){
+      if (err) {
+        console.dir(err);
+        return;
+      }
+      console.log('Record ' + myRec.name + ' was sucessfully modified.');
+  });
+
+Delete Record
+----------------
+
+In that event that you need to delete a DNS record, you can do so as shown below:
+
+.. code-block:: node
+
+  rackspace.deleteRecord(myZone, myRec, function (err){
+      if (err) {
+        console.dir(err);
+        return;
+      }
+      console.log('DNS Record was successfully deleted.');
+  });
