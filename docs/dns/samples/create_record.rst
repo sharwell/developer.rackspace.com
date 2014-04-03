@@ -7,7 +7,7 @@
     type: 'A'
   };
 
-  rackspace.createRecord(myZone, function (err, rec) {
+  rackspace.createRecord(myZone, recDetails, function (err, rec) {
     if (err) {
       console.dir(err);
       return;
