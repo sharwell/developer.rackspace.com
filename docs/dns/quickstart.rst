@@ -23,12 +23,12 @@ Before we can use the API, we need to authenticate and create an instance of the
 
 .. code-block:: ruby
 
-require 'fog'
+  require 'fog'
 
-service = Fog::DNS.new :provider => :rackspace,
-  rackspace_username => RACKSPACE_USERNAME,
-  rackspace_api_key => RACKSPACE_API_KEY,
-  rackspace_region => RACKSPACE_REGION
+  service = Fog::DNS.new :provider => :rackspace,
+    rackspace_username => RACKSPACE_USERNAME,
+    rackspace_api_key => RACKSPACE_API_KEY,
+    rackspace_region => RACKSPACE_REGION
 
 Create Zone
 -----------------
