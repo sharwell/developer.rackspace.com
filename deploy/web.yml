@@ -11,5 +11,5 @@
         - server:
             file_name: developer.rackspace.com
             listen: 80
-            server_name: localhost # TODO: make variable
+            server_name: {{ server_name }}
             root: "/var/www/html/developer.rackspace.com"

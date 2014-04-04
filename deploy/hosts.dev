@@ -9,5 +9,9 @@ elasticsearch
 web
 
 [all:vars]
+deploy_env=dev
 ansible_connection=ssh
 ansible_ssh_port=2222
+
+[web:vars]
+server_name=localhost
