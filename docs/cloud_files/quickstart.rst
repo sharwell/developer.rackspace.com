@@ -6,25 +6,18 @@ Quickstart Guide
 Cloud Files
 ---------------
 
-Rackspace offers a flexible and scalable solution to object storage through its Cloud Files service.
+Rackspace offers a flexible and scalable solution to object storage through its Cloud Files service. The intent of this guide to get you up and running with Cloud Files as quick as possible. If your case is not covered in the samples below, you might want to check out SDK-specific documentation for much deeper treatment of the subjects below as well as use cases purposely left out.
 
 Authentication and client creation
 ----------------------------------
 First, we need to authenticate and create an instance of the appropriate API client.
 
-.. code-block:: node
-  
-  var rackspace = pkgcloud.storage.createClient({
-    provider: 'rackspace',
-    username: 'rackspace_id',
-    apiKey: '1234567890poiiuytrrewq',
-    region: 'IAD' // storage requires region or else assumes default
-  });
+.. include:: samples/auth_client.rst
 
 Create Container
 -----------------
 
-Before we can upload any objects to Cloud Files, we first must create a container. In its simplest form a container can be created as follows:@Sh
+Before we can upload any objects to Cloud Files, we first must create a container. In its simplest form a container can be created as follows:
 
 .. include:: samples/create_container.rst
     
@@ -48,57 +41,59 @@ If you no longer wish to have your container set as CDN, you may do as as descri
 Delete Container
 -----------------
 
-In that event that you need to delete a DNS record, you can do so as shown below:
+In that event that you need to delete a container, you can do so as shown below (please note that for data safety reasons you may not delete a container until **all** objects within it have been deleted):
 
-.. include:: samples/delete_record.rst
+.. include:: samples/delete_container.rst
 
 
 Uploading Objects to Container
 -------------------------------
 
-If you wish or need to delete a DNS zone it can be accomplished as follows:
+Once we have a container, we can then upload objects to it in the following manner:
 
-.. include:: samples/delete_zone.rst
+.. include:: samples/upload_object.rst
 
-
-**WARNING: deleting a zone will also delete all the records within in. Please use with care.**
 
 Change Object Metadata
 ------------------------
 
-Once we have a zone, we to add at least one record to it in order to make it do something useful. You can create a DNS zone record as follows:
+Once you have an object uploaded to a container it is possible to change its metadata in-place. For instance, you can change its content-type so that when delivered to requesting clients it can be treated accordingly. The code snippet below shows how:
 
-.. include:: samples/create_record.rst
+.. include:: samples/change_object_metadata.rst
 
+Getting Objects
+---------------
+
+We (and clients) can retrieve objects from Cloud Files in several ways. Below we explain the most common ways.
 
 Get Object via Temporary URL
 -----------------------------
 
-Once we have have created a record, we can retrieve it for inspection or manipulation as follows:
+To retrieve an object via temporary URL, see the example below:
 
-.. include:: samples/get_record.rst
+.. include:: samples/get_object_temp_usl.rst
 
 
 Get Object Directly (i.e. download via SDK)
 ---------------------------------------------
 
-If you wish to modify a DNS record, you can do so as follows:
+You may also download objects directly into your local storage drive via SDK download. To do so, see the following code example:
 
-.. include:: samples/modify_record.rst
+.. include:: samples/get_object_sdk.rst
 
 
 Get Object via CDN URL
 -------------------------
 
-In that event that you need to delete a DNS record, you can do so as shown below:
+Another common way of getting objects is through CDN URLs, which, unlike temporary URLs, never expire and may considered publicly-accessible "permalinks" 
 
-.. include:: samples/delete_record.rst
+.. include:: samples/get_object_cdn.rst
 
 Delete Objects
 ---------------
 
-In that event that you need to delete a DNS record, you can do so as shown below:
+To delete objects, consider the code below:
 
-.. include:: samples/delete_record.rst
+.. include:: samples/delete_object.rst
 
 
