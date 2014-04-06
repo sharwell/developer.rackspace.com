@@ -108,6 +108,3 @@
         groupname: webservers
       with_items: rax.success
       when: rax.action == 'create'
-
-# Now that we are done provisioning, lets configure the webservers
-- include: configure_web.yml server_name=developer.rackspace.com

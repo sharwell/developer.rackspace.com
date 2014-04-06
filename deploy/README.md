@@ -24,21 +24,22 @@
     $ cd /path/to/developer.rackspace.com/deploy
     ```
 
-5. Run the Ansible provisioning playbook. This will take several minutes.
+5. Run the Ansible playbook. This will take several minutes.
 
     ```bash
-    $ ansible-playbook provision.yml -i inventory/hosts.prod
+    $ ansible-playbook site.yml -i inventory/hosts.prod
     ```
 
 6. In your Rackspace cloud control panel you should see the following:
    * 2 cloud servers in IAD named `webserver_iad_1` and `webserver_iad_2`.
    * 2 cloud servers in DFW named `webserver_dfw_1` and `webserver_dfw_2`.
-   * 1 cloud load balancer in DFW named `weblb` with the 4 cloud servers from above as its nodes.
+   * 1 cloud load balancer in DFW named `weblb` with the 4 cloud servers from above as its nodes. Note the public IP address of this load balancer.
 
-7. Each cloud server has nginx installed, configured and running. Upload static site content to `/var/www/html/developer.rackspace.com`.
+7. Each cloud server has nginx installed, configured and running.
 
-TODO:
-* Create a user for deploying static content.
+8. Each cloud server has a `publisher` user, which can be used to upload static content to the site. The SSH public key for this user is already added to the user's `authorized_keys` file. The SSH private key is... well, private (ask @ycombinator for it). Static content should be uploaded over SSH (via scp/sftp/rsync) to `/var/www/html/developer.rackspace.com`.
+
+9. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
 
 ## Development Setup
 
