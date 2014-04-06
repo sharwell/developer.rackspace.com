@@ -1,6 +1,6 @@
 ---
 - name: Setup a web server running Nginx
-  hosts: web
+  hosts: webservers
   sudo: yes
   roles:
     - role: bennojoy.nginx

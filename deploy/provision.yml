@@ -37,7 +37,7 @@
         state: present
         count: 2
         exact_count: yes
-        group: webserver
+        group: webservers
         wait: yes
       register: rax
 
@@ -62,7 +62,7 @@
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
         ansible_ssh_pass: "{{ item.rax_adminpass }}"
         ansible_ssh_user: root
-        groupname: webserver
+        groupname: webservers
       with_items: rax.success
       when: rax.action == 'create'
 
@@ -80,7 +80,7 @@
         state: present
         count: 2
         exact_count: yes
-        group: webserver
+        group: webservers
         wait: yes
       register: rax      
 
@@ -105,21 +105,9 @@
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
         ansible_ssh_pass: "{{ item.rax_adminpass }}"
         ansible_ssh_user: root
-        groupname: webserver
+        groupname: webservers
       with_items: rax.success
       when: rax.action == 'create'
 
-- name: Setup a web server running Nginx
-  hosts: webserver
-  sudo: yes
-  roles:
-    - role: bennojoy.nginx
-      nginx_http_params:
-        sendfile: "on"
-        access_log: "/var/log/nginx/access.log"
-      nginx_sites:
-        - server:
-            file_name: developer.rackspace.com
-            listen: 80
-            server_name: "developer.rackspace.com"
-            root: "/var/www/html/developer.rackspace.com"
+# Now that we are done provisioning, lets configure the webservers
+- include: configure_web.yml server_name=developer.rackspace.com
