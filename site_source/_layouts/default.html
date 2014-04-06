@@ -1,43 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ page.title }}</title>
-    <title>developer.rackspace.com</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{{ page.title }}</title>
+  <title>developer.rackspace.com</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
-    <!-- compiled from the less files -->
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- syntax highlighting CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+  <!-- compiled from the less files -->
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="/css/syntax.css">
 </head>
-    <body>
-        <div class="header">
-            <div class="inner clearfix">
-                <a class="title" href="index.html">{{ site.name }}</a>
-                <ul>
-                    <li><a href="main-sdks.html">SDKs</a></li>
-                    <li><a href="main-services.html">Services</a></li>
-                    <li><a href="/docs">Docs</a></li>
-                    <li><a href="blog-list.html">Developer Blog</a></li>
-
-                    <li><a href="#">Sign Up</a></li>
-                    <li>    <form>
-                <input type="search" name="" id="" placeholder="Search our docs">
-                <input type="submit" name="" value="Search">
-            </form></li>
-                </ul>
-            </div>
-        </div>
-    <!-- not done past here with base template -->
-        <div class="site">
-            {{ content }}
-        </div>
-        <div class="footer">
-            Normal rackspace footer content goes here
-        </div>
-    </body>
+<body>
+  {% include header.html %}
+<!-- not done past here with base template -->
+    <div class="site">
+        {{ content }}
+    </div>
+    <div class="footer">
+        Normal rackspace footer content goes here
+    </div>
+</body>
 </html>

@@ -49,7 +49,7 @@ TODO:
 3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
-4. Change to this directory on your development machine.
+4. Change to this folder on your development machine.
 
     ```bash
     $ cd /path/to/developer.rackspace.com/deploy
@@ -63,7 +63,9 @@ TODO:
 
 6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
+      * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
+
 
 ## Folder Layout
 
