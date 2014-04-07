@@ -1,4 +1,3 @@
-
 .. code-block:: nodejs
     
   var recDetails = {
@@ -26,3 +25,15 @@
   rescue Fog::Rackspace::Errors::ServiceError => e
     puts e.message
   end
+
+.. code-block:: php
+
+    // Add a CNAME record
+    $record = $domain->record(array(
+        'type' => 'CNAME',
+        'name' => 'www.domain.com',
+        'ttl'  => 3600,
+        'data' => 'domain.com'
+    ));
+
+    $record->create();
