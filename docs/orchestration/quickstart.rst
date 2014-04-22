@@ -33,7 +33,7 @@ If you want to see the stacks you have already deployed in a given region, you m
 Get Stack Data
 ---------------
 
-If you wish to inspect a single stack's detail data, you can do so as shown below:
+If you want to inspect a single stack's detail data, you can do so as shown below:
 
 .. include:: samples/get_stack_data.rst
 
