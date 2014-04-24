@@ -1,3 +1,7 @@
 .. code-block:: php
 
-    $instance->resize();
+    $instance->restart();
+
+.. code-block:: python
+
+    inst.restart()

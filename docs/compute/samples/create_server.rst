@@ -1,3 +1,22 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
+    client.createServer({
+      name: 'My new server',
+      image: imageId,
+      flavor: flavorId
+    }, function(err, server) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO use your server here
+    });
+
 .. code-block:: php
 
     use Guzzle\Http\Exception\BadResponseException;
@@ -35,3 +54,11 @@
   print("ID:", server.id)
   print("Admin Password:", server.adminPass)
   print("Networks:", server.networks)
+
+.. code-block:: ruby
+
+    server = @client.servers.create(
+      :name => 'My new server',
+      :image_id => image.id,
+      :flavor_id => flavor.id
+    )

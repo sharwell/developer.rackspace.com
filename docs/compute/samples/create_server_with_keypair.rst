@@ -1,3 +1,23 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
+    client.createServer({
+      name: 'My new server',
+      image: imageId,
+      flavor: flavorId,
+      keyname: 'my_keypair'
+    }, function(err, server) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO use your server here
+    });
+
 .. code-block:: php
 
     use Guzzle\Http\Exception\BadResponseException;
@@ -15,3 +35,14 @@
         // No! Something failed. Let's find out:
         printf("Request: %s\n\nResponse: %s", (string) $e->getRequest(), (string) $e->getResponse());
     }
+
+.. code-block:: python
+
+.. code-block:: ruby
+
+    server = @client.servers.create(
+      :name => 'My new server',
+      :image_id => image.id,
+      :flavor_id => flavor.id,
+      :key_name => 'my_keypair'
+    )

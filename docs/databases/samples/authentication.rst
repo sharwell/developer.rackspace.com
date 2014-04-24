@@ -1,4 +1,10 @@
-.. code-block:: node
+.. code-block:: csharp
+
+
+.. code-block:: java
+
+
+.. code-block:: javascript
 
   pkgcloud = require('pkgcloud');
   var rackspace = pkgcloud.dns.createClient({
@@ -17,6 +23,12 @@
         'username' => '{username}',
         'apiKey'   => '{apiKey}'
     ));
+
+.. code-block:: python
+
+  import pyrax
+  pyrax.set_credentials({username}, {api_key}, region={REGION})
+  cdb = pyrax.cloud_databases
 
 .. code-block:: ruby
 

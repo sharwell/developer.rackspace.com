@@ -1,4 +1,8 @@
-.. code-block:: nodejs
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
   
   myRec.data = '192.168.1.1';
   rackspace.updateRecord(myZone, myRec, function (err){
@@ -8,6 +12,18 @@
     }
     console.log('Record ' + myRec.name + ' was successfully modified.');
   });
+
+.. code-block:: python
+
+.. code-block:: php
+
+	// Let's decrease its TTL by an hour:
+	$record->ttl -= 60;
+
+	// And change its data value:
+	$record->data = '192.168.1.1';
+
+	$record->update();
 
 .. code-block:: ruby
 
@@ -19,13 +35,3 @@
   rescue Fog::Rackspace::Errors::ServiceError => e
     puts e.message
   end
-
-.. code-block:: php
-
-	// Let's decrease its TTL by an hour:
-	$record->ttl -= 60;
-
-	// And change its data value:
-	$record->data = '192.168.1.1';
-
-	$record->update();

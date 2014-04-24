@@ -91,18 +91,6 @@ Some SDKs allow you to check on the status of the build:
 
 .. include:: samples/query_server_build.rst
 
-Managing your existing servers
-==============================
-
-After you create your server, you use various operations to control its behaviour or state.
-
-Upgrade the RAM
----------------
-
-In order to upgrade the hardware of your server, you need to find a more powerful flavor. Once you know your new flavor's ID, you can resize your server like so:
-
-.. include:: samples/resize_server.rst
-
 Deleting your server
 --------------------
 

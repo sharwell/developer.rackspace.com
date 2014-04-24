@@ -1,10 +1,15 @@
-.. code-block:: nodejs
+.. code-block:: javascript
+
+  client.destroyContainer(container, function(err) {
+    if (err) {
+      // TODO handle as appropriate
+    }
+  });
 
 .. code-block:: python
 
-  # Delete an empty container
-  container_deleted = pyrax.cloudfiles.delete_container("gallery")
+  container.delete()
 
-  # Delete all the objects in the container and delete the container
-  container_deleted = pyrax.cloudfiles.delete_container("gallery",
-                                                        del_objects=True)
+.. code-block:: ruby
+
+  directory.destroy

@@ -1,4 +1,8 @@
-.. code-block:: nodejs
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
  
   rackspace.deleteRecord(myZone, myRec, function (err){
     if (err) {
@@ -7,6 +11,10 @@
     }
     console.log('DNS Record was successfully deleted.');
   });
+
+.. code-block:: php
+
+    $record->delete();
 
 
 .. code-block:: ruby
@@ -18,7 +26,3 @@
  rescue Fog::Rackspace::Errors::ServiceError => e
    puts e.message
  end
-
-.. code-block:: php
-
-    $record->delete();

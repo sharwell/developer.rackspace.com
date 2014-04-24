@@ -1,5 +1,15 @@
-.. code-block:: nodejs
+.. code-block:: javascript
+
+  client.removeFile('sample-container-test', 'somefile.txt', function(err) {
+    if (err) {
+      // TODO handle as appropriate
+    }
+  });
 
 .. code-block:: python
 
-   pyrax.cloudfiles.delete_object("gallery", "thumbnail")
+   obj.delete()
+
+.. code-block:: ruby
+
+  file.destroy

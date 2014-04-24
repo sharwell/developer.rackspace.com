@@ -20,7 +20,7 @@ Create Container
 Before we can upload any objects to Cloud Files, we first must create a container. In its simplest form a container can be created as follows:
 
 .. include:: samples/create_container.rst
-    
+
 
 Set Container as CDN
 ----------------------
@@ -28,14 +28,14 @@ Set Container as CDN
 Once we have created a container, we can set it as CDN (Content Delivery Network). That implies that any objects within the container will be publicly readable. To set a container as CDN can be accomplished as follows:
 
 .. include:: samples/set_container_as_cdn.rst
-  
+
 
 Unset Container as CDN
 -----------------------
 
 If you no longer wish to have your container set as CDN, you may do as as described in the code below:
 
-  .. include:: samples/unset_container_as_cdn.rst
+.. include:: samples/unset_container_as_cdn.rst
 
 
 Delete Container
@@ -85,7 +85,7 @@ You may also download objects directly into your local storage drive via SDK dow
 Get Object via CDN URL
 -------------------------
 
-Another common way of getting objects is through CDN URLs, which, unlike temporary URLs, never expire and may considered publicly-accessible "permalinks" 
+Another common way of getting objects is through CDN URLs, which, unlike temporary URLs, never expire and may considered publicly-accessible "permalinks"
 
 .. include:: samples/get_object_cdn.rst
 
@@ -95,5 +95,3 @@ Delete Objects
 To delete objects, consider the code below:
 
 .. include:: samples/delete_object.rst
-
-

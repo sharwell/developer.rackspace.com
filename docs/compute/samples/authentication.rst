@@ -1,11 +1,18 @@
-.. code-block:: node
+.. code-block:: csharp
 
-  pkgcloud = require('pkgcloud');
-  var rackspace = pkgcloud.dns.createClient({
-    provider: 'rackspace',
-    username: '{username}',
-    apiKey: '{apiKey}'
-  });
+.. code-block:: java
+
+.. code-block:: javascript
+
+    pkgcloud = require('pkgcloud');
+
+    // each client is bound to a specific service and provider
+    var client = pkgcloud.compute.createClient({
+      provider: 'rackspace',
+      username: '{username}',
+      apiKey: '{apiKey}',
+      region: '{region}'
+    });
 
 .. code-block:: php
 
@@ -17,3 +24,16 @@
         'username' => '{username}',
         'apiKey'   => '{apiKey}'
     ));
+
+.. code-block:: python
+
+.. code-block:: ruby
+
+    require 'fog'
+
+    @client = Fog::Compute.new(
+      :provider => 'rackspace',
+      :rackspace_username => '{username}',
+      :rackspace_api_key => '{apiKey}',
+      :rackspace_region => '{region}'
+    )

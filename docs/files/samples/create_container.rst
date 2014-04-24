@@ -1,20 +1,22 @@
-.. code-block:: nodejs
-  
-  rackspace.createContainer({
-    name: 'sample-container-test',
-    metadata: {
-      callme: 'maybe'
-    }
+.. code-block:: javascript
+
+  client.createContainer({
+    name: 'sample-container-test'
   }, function (err, container) {
     if (err) {
-      console.dir(err);
+      // TODO handle as appropriate
       return;
     }
 
-    console.log(container.name);
-    console.log(container.metadata);
+    // TODO use your container
   });
 
 .. code-block:: python
 
   container = pyrax.cloudfiles.create_container("gallery")
+
+.. code-block:: ruby
+
+  # Fog calls containers "directories."
+
+  directory = @client.directories.create(:key => 'sample-container-test')

@@ -1,4 +1,8 @@
-.. code-block:: nodejs
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
   
   rackspace.deleteZone(myZone, function (err) {
     if (err) {
@@ -7,6 +11,10 @@
     }
     console.log('Zone successfully deleted.');
   });
+
+.. code-block:: php
+
+	$domain->delete();
 
 .. code-block:: ruby
 
@@ -17,7 +25,3 @@
   rescue Fog::Rackspace::Errors::ServiceError => e
     puts e.message
   end
-
-.. code-block:: php
-
-	$domain->delete();
