@@ -14,45 +14,14 @@ Before you jump in, it helps to understand these core Images service concepts:
 
 * Server
 * Flavor
-* Image
 * Network
+* Image
 
 Server
 ------
 
 A virtual machine, hosted on a physical device in one of our top-notch data centers. Your application, web server, and file system runs on a server.
 
-Image
------
-
-A collection of files for a specific operating system (OS) 
-that you use to create or rebuild a server. Rackspace offers pre-built Linux and Windows images: Ubuntu 12.04, Red Hat 6, Windows, and so on. 
-You can also create custom images, or snapshots, from servers that you have launched. 
-You can use custom images for data backups or as *gold* images to launch additional servers. 
-
-Image entity
-------------
-
-An image entity is represented by a JSON-encoded data structure and its raw binary data.
-
-An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image.
-
-An image is always guaranteed to have the following attributes: id, status, visibility, protected, tags, created_at, file and self. The other attributes defined in the image schema below are guaranteed to be defined, but will only be returned with an image entity if they have been explicitly set.
-
-A client may set arbitrarily-named attributes on their images if the image json-schema allows it. These user-defined attributes will appear like any other image attributes.
-
-Image identifiers
------------------
-
-Images are uniquely identified by a URI that matches this signature:
-
-''{image server location}/v2/images/{image_ID}''
-
-Where:
-
-* ''{image server location}'' is the resource location of the Cloud Images service that knows about an image.
-* ''{image_ID}'' is the image identifier, which is a UUID, making it globally unique.
-    
 Flavor
 ------
 
@@ -73,7 +42,47 @@ Rackspace provides these default networks:
 
 Although you can create as many isolated networks as you like, servers are connected by default to PublicNet and ServiceNet.
 
+Image
+-----
 
+A collection of files for a specific operating system (OS) 
+that you use to create or rebuild a server. Rackspace offers pre-built Linux and Windows images: Ubuntu 14.04, Red Hat 6, Windows, and so on. 
+You can also create custom images, or snapshots, from servers that you have launched. 
+You can use custom images for data backups or as *gold* images to launch additional servers. 
+
+Image entity
+------------
+
+An image entity is represented by a JSON-encoded data structure and its raw binary data.
+
+An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image.
+
+An image is always guaranteed to have the following attributes: 
+* id
+* status
+* visibility
+* protected
+* tags
+* created_at
+* file 
+* self 
+
+The other attributes defined in the image schema are guaranteed, but are only returned with an image entity if you set them explicitly.
+
+A client can set arbitrarily-named attributes on their images if the image json-schema allows it. 
+These user-defined attributes appear like any other image attributes.
+
+Image identifiers
+-----------------
+
+Images are uniquely identified by a URI that matches this signature:
+
+''{image server location}/v2/images/{image_ID}''
+
+Where:
+
+* ''{image server location}'' is the resource location of the Cloud Images service that knows about an image.
+* ''{image_ID}'' is the image identifier, which is a UUID, making it globally unique.
 
 Common image properties
 =======================
@@ -153,105 +162,58 @@ The available properties and their expected values include:
 
     The operating system version as specified by the distributor
 
-Authenticating
-==============
+Authenticate
+============
 
-Okay, we've covered the concepts, so now we need to deal with authentication. Authentication is a required step for all API interactions.
+You must authenticate before you can complete any Rackspace API interaction.
 
-In order to authenticate, you need a username and API key which you can find in the control panel by visiting the "Account Settings" page.
+To authenticate, you need a user name and API key. Find your API key in the control panel on the "Account Settings" page.
 
 Once you've retrieved your details, you pass them into the client:
 
 .. include:: samples/authentication.rst
 
-Setting up your first server
-============================
+Use images
+==========
 
-Once you've finished your initial setup, you can begin the process of creating your first server.
+To see which images are available, you can list all images or get details for a specified image.
+Then, you can update an image and use image tasks to import and export images.
 
-In order to do this, you need to decide which **Image** and **Flavor** you want to use.
+Task 1: List images and get image details
+-----------------------------------------
 
-Task 1: Finding an Operating System
------------------------------------
+An image, or operating system, forms the basis of your server. 
+Each image has a unique ID, which you can use to get more details about the image.
 
-An Image, or operating system, will form the basis of your server. Each one has a unique ID, which is used to retrieve more details from the API. If you already know the ID, you can retrieve more details about the image like this:
-
-.. include:: samples/get_image.rst
-
-Alternatively, you can traverse through the list:
+To list images:
 
 .. include:: samples/list_images.rst
 
+Once you know the image ID, you can get more details about the image like this:
+
+.. include:: samples/get_image.rst
+
 Once you've found the perfect operating system, and its ID, you can move on to picking your hardware.
 
-Task 2: Finding the right hardware
-----------------------------------
+Task 2: Update an image
+-----------------------
 
-Flavors, or hardware configurations, will dictate how powerful your servers are. Like images, each flavor has its own UUID. If you already know which flavor to use, you can retrieve its details like this:
+.. include:: samples/update_image.rst
 
-.. include:: samples/get_flavor.rst
+Task 3: Import and export images
+--------------------------------
 
-Alternatively, you can traverse through the standard list Rackspace provides:
+An image task is a request to perform an asynchronous image-related operation, such as importing or exporting an image. The request results in the creation of a disposable task resource that can be polled for information about the status of the operation.
 
-.. include:: samples/list_flavors.rst
+After you initiate an image import or export, poll the status of the created task by using the instructions in Section 2.1.6, “Get details for a task”. When the task resource reaches a final status of success or failure, the poll response includes an expiration date and time stamp. After that expiration date and time, the disposable task resource itself expires and is subject to deletion. 
+However, the result of the task, such as an imported or exported image, does not expire.
 
-Task 3: Putting the pieces together
------------------------------------
+.. include:: samples/import_image.rst
 
-Now that we have our image ID and flavor ID, you can create your server:
+.. include:: samples/export_image.rst
 
-.. include:: samples/create_server.rst
+Share images
+============
 
-This is an asyncronous operation, meaning that it will _not_ block your request until the process is complete. It will provision your VM behind the scenes, allowing you to optionally query its status. Once the build reaches a ``COMPLETE`` state, it will be available for you to use.
+.. include:: samples/share_images.rst
 
-Some SDKs allow you to check on the status of the build:
-
-.. include:: samples/query_server_build.rst
-
-Managing your existing servers
-==============================
-
-After you create your server, you use various operations to control its behaviour or state.
-
-Upgrade the RAM
----------------
-
-In order to upgrade the hardware of your server, you need to find a more powerful flavor. Once you know your new flavor's ID, you can resize your server like so:
-
-.. include:: samples/resize_server.rst
-
-Deleting your server
---------------------
-
-If you've finished working with your server, you can permanently delete it like so:
-
-.. include:: samples/delete_server.rst
-
-Managing key pairs
-==================
-
-By default, servers will use password-based authentication. When a server is created, the HTTP response will contain a root password that is required for all subsequent SSH connections. You do have the option, however, of using keypairs instead.
-
-Registering your keypair
-------------------------
-
-In order to use keypair-based authentication, the API needs to know about it. You have two options: upload your existing key, or have the API create a new one for you. We'll cover both.
-
-In order to upload an existing keypair:
-
-.. include:: samples/upload_existing_keypair.rst
-
-In order to have the API create on for you:
-
-.. include:: samples/create_new_keypair.rst
-
-Using keypairs
---------------
-
-If you want an existing server to use keypair-based auth, you will need to configure this yourself.
-
-However, getting new servers to acknowledge keypairs is easy. You just need to supply the name of the pre-existing keypair when you do the create server operation, like this:
-
-.. include:: samples/create_server_with_keypair.rst
-
-This server, after being spun up, will respond to that keypair.
