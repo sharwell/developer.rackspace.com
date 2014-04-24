@@ -4,3 +4,8 @@
 
   obj.change_content_type("application/json")
   obj.set_metadata({"some-key": "some-value"})
+
+.. code-block:: ruby
+
+  file.content_type = 'application/json'
+  file.save

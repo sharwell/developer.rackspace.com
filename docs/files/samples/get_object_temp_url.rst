@@ -1,6 +1,5 @@
 .. code-block:: javascript
 
-
 .. code-block:: python
 
   # First, you'll need to set the "temp url key" on your Account. This is an
@@ -15,3 +14,30 @@
 
   # Get a temporary URL that will expire in 1800 seconds
   temp_url = obj.get_temp_url(1800)
+
+.. code-block:: ruby
+
+  # First, you'll need to set the "temp url key" on your Account. This is an
+  # arbitrary secret shared between Cloud Files and your application that's
+  # used to validate temp url requests.
+
+  account = client.account
+  account.meta_temp_url_key = 'super secret squirrels'
+  account.save
+
+  # You only need to do that once! Then, when you want to generate temp urls,
+  # pass it to the Fog::Storage constructor as ":rackspace_temp_url_key":
+
+  @client = Fog::Storage.new(
+    :provider => 'rackspace',
+    :rackspace_username => '{username}',
+    :rackspace_api_key => '{apikey}',
+    :rackspace_region => :ord,
+    :rackspace_temp_url_key => 'super secret squirrels'
+  )
+
+  # Now, you can create a temporary url for any file!
+  # The first argument is the expiration timestamp for the generated URL,
+  # expressed as seconds since the epoch (1970-01-01 00:00).
+
+  temp_url = file.url(Time.now.to_i + 600)
