@@ -1,7 +1,7 @@
 .. code-block:: java
 
     // List your flavors and get the first.
-    flavorApi = troveApi.getFlavorApiForZone("{REGION}");
+    FlovorApi flavorApi = troveApi.getFlavorApiForZone("{REGION}");
     Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
 
 .. code-block:: python

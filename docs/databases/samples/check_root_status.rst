@@ -20,9 +20,8 @@
 .. code-block:: ruby
 
 .. code-block:: java
-
-    // Get the instanceApi
-    InstanceApi instanceApi = troveApi.getInstanceApiForZone("IAD");
+    
+    InstanceApi instanceApi = troveApi.getInstanceApiForZone("{REGION}");
 
     // Gets the rooted status for an instance ID.
     boolean rootedStatus = instanceApi.isRooted(myInstanceId);
