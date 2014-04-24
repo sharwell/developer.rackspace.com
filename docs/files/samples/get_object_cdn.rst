@@ -9,6 +9,4 @@
 
 .. code-block:: ruby
 
-  require 'open-uri'
-
-  open(file.public_url) { |f| f.read }
+  file.public_url
