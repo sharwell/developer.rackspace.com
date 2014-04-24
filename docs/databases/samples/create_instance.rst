@@ -38,7 +38,7 @@
 .. code-block:: java
 
     // We need to get a Flavor (hardware type) to run the Instance on.
-    flavorApi = troveApi.getFlavorApiForZone("{region}");
+    FlavorApi flavorApi = troveApi.getFlavorApiForZone("{region}");
     Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
 
     // Makes it easier to create database Instances
