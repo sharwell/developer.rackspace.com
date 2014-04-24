@@ -8,4 +8,6 @@
 
 .. code-block:: python
 
+   vols = cbs.list()
+
 .. code-block:: ruby

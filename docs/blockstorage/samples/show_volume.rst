@@ -8,4 +8,6 @@
 
 .. code-block:: python
 
+    vol = cbs.get({volume_id})
+
 .. code-block:: ruby

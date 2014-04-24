@@ -8,4 +8,6 @@
 
 .. code-block:: python
 
+    snaps = vol.list_snapshots()
+
 .. code-block:: ruby

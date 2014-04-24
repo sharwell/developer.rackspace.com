@@ -8,4 +8,6 @@
 
 .. code-block:: python
 
+    snap = cbs.get_snapshot({snap_id})
+
 .. code-block:: ruby
