@@ -3,7 +3,7 @@
 .. code-block:: java
 
 .. code-block:: javascript
-  
+
   pkgcloud = require('pkgcloud');
   var rackspace = pkgcloud.dns.createClient({
     provider: 'rackspace',
@@ -25,3 +25,11 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    require 'fog'
+
+    @client = Fog::DNS.new(
+      :provider => 'rackspace',
+      :rackspace_username => '{username}',
+      :rackspace_api_key => '{apiKey}'
+    )
