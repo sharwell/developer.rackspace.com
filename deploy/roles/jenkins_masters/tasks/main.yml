@@ -1,0 +1,4 @@
+---
+- name: Install jenkins
+  user: name=publisher comment="Site Publisher" state=present
+  sudo: true
