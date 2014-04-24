@@ -1,6 +1,5 @@
 .. code-block:: javascript
 
-
 .. code-block:: python
 
   # Get the data as a string
@@ -8,3 +7,7 @@
 
   # Download the object locally to a file
   obj.download("/tmp")
+
+.. code-block:: ruby
+
+  file.body
