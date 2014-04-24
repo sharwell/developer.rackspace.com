@@ -3,4 +3,6 @@
 .. code-block:: python
 
   import urllib
-  cdn_url = container.cdn_uri + "/" + urllib.quote(object.name)
+  import urlparse
+  encoded_name = urllib.quote(obj.name)
+  cdn_url = urlparse.urljoin(container.cdn_uri, encoded_name)

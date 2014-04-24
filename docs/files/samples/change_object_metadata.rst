@@ -2,5 +2,5 @@
 
 .. code-block:: python
 
-  object.change_content_type("application/json")
-  object.set_metadata({"Test-Value": "Likely"})
+  obj.change_content_type("application/json")
+  obj.set_metadata({"some-key": "some-value"})

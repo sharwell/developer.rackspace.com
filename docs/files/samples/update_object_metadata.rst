@@ -2,4 +2,4 @@
 
 .. code-block:: python
 
-  object.set_metadata({"Test-Value": "Certainly"})
+  obj.set_metadata({"some-key": "another-value"})

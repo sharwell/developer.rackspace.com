@@ -3,4 +3,4 @@
 
 .. code-block:: python
 
-  data = object.get()
+  data = obj.get()

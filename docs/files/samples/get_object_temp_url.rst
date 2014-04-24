@@ -4,4 +4,4 @@
 .. code-block:: python
 
   # Get a temporary URL that will expire in 1800 seconds
-  temp_url = object.get_temp_url(1800)
+  temp_url = obj.get_temp_url(1800)

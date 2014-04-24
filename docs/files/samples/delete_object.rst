@@ -2,4 +2,4 @@
 
 .. code-block:: python
 
-   object.delete()
+   obj.delete()
