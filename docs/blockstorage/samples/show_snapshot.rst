@@ -11,3 +11,5 @@
     snap = cbs.get_snapshot({snap_id})
 
 .. code-block:: ruby
+
+  @client.snapshots.get('{snapshotId}')

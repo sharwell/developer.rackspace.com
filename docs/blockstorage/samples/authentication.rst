@@ -13,3 +13,11 @@
   cbs = pyrax.cloud_blockstorage
 
 .. code-block:: ruby
+
+  require 'fog'
+
+  @client = Fog::Rackspace::BlockStorage.new(
+    :rackspace_username => '{username}',
+    :rackspace_api_key => '{apiKey}',
+    :rackspace_region => '{region}'
+  )

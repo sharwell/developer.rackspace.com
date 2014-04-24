@@ -11,3 +11,5 @@
     vol = cbs.get({volume_id})
 
 .. code-block:: ruby
+
+  volume = @client.volumes.get('{volumeId}')

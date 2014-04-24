@@ -13,3 +13,5 @@
     cbs.delete_snapshot({snap_id})
 
 .. code-block:: ruby
+
+  snapshot.destroy

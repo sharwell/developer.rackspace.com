@@ -13,3 +13,5 @@
     vol.delete()
 
 .. code-block:: ruby
+
+  volume.destroy
