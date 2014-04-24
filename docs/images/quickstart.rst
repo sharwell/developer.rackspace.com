@@ -58,6 +58,7 @@ An image entity is represented by a JSON-encoded data structure and its raw bina
 An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image.
 
 An image is always guaranteed to have the following attributes: 
+
 * id
 * status
 * visibility
@@ -193,7 +194,7 @@ Once you know the image ID, you can get more details about the image like this:
 
 .. include:: samples/get_image.rst
 
-Once you've found the perfect operating system, and its ID, you can move on to picking your hardware.
+Once you've found the desired operating system, and its ID, you can move on to picking your hardware.
 
 Update an image
 ---------------

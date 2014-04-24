@@ -1,4 +1,3 @@
 .. code-block:: php
 
-    $flavorId = '{flavorId}';
-    $flavor = $service->flavor($flavorId);
+    // TODO To export an image
