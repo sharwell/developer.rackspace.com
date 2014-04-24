@@ -41,9 +41,9 @@
 
 .. code-block:: java
 
-TroveApi troveApi;
+    TroveApi troveApi;
 
-// The TroveApi will provide access to all database features, such as Instances or Users.
-troveApi = ContextBuilder.newBuilder("rackspace-clouddatabases-us")
+    // The TroveApi will provide access to all database features, such as Instances or Users.
+    troveApi = ContextBuilder.newBuilder("rackspace-clouddatabases-us")
             .credentials(username, apiKey) // Your username and api key are provided here.
             .buildApi(TroveApi.class);

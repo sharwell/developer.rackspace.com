@@ -20,5 +20,5 @@
 
 .. code-block:: java
 
-// Get the flavor by flavor ID:
-Flavor flavor = flavorApi.get(someFlavorId);
+    // Get the flavor by flavor ID:
+    Flavor flavor = flavorApi.get(someFlavorId);
