@@ -11,3 +11,5 @@
   pyrax.queues.list()
 
 .. code-block:: ruby
+
+  @client.queues.all

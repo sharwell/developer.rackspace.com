@@ -12,3 +12,5 @@
   queue.release_claim(claim_id)
 
 .. code-block:: ruby
+
+  claim.destroy
