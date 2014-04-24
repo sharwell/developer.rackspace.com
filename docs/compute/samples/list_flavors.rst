@@ -36,3 +36,5 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    @client.flavors.all
