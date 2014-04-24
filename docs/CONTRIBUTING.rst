@@ -9,3 +9,4 @@ Use comments in code samples when each sample comprises multiple steps.
 
 Use TODO in code samples instead of printing out strings.
 
+Limit lines to 120 characters.
