@@ -11,9 +11,10 @@
 
   require 'fog'
 
-  # ":rackspace_region" determines which region your data will be stored in.
-  # Valid choices include :dfw (Dallas), :ord (Chicago), :iad (Virginia),
-  # :syd (Sydney), :hkg (Hong Kong), and :lon (London, only for UK accounts).
+  # ":rackspace_region" determines which geographic region your data will be
+  # stored in. Valid choices include :dfw (Dallas), :ord (Chicago),
+  # :iad (Virginia), :syd (Sydney), :hkg (Hong Kong), and :lon (London, only
+  # for UK accounts).
 
   @client = Fog::Storage.new(
     :provider => 'rackspace',
