@@ -1,3 +1,12 @@
+.. code-block:: csharp
+
+
+.. code-block:: java
+
+
+.. code-block:: javascript
+
+
 .. code-block:: php
 
     $dbService = $client->databaseService();
@@ -23,3 +32,5 @@
     flavors.sort(key=lambda flav: flav.ram)
     flavor = flavors[0]
     inst = cdb.create("sample_instance", volume=20, flavor=flavor)
+
+.. code-block:: ruby

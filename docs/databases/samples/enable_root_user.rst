@@ -1,3 +1,12 @@
+.. code-block:: csharp
+
+
+.. code-block:: java
+
+
+.. code-block:: javascript
+
+
 .. code-block:: php
 
     /** @param $user OpenCloud\Database\Resource\User */
@@ -9,3 +18,5 @@
 .. code-block:: python
 
     inst.enable_root_user()
+
+.. code-block:: ruby
