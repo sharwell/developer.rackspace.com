@@ -3,61 +3,36 @@ Getting Started with Cloud Images
 ==================================
 
 This guide helps you get started with the Rackspace Cloud Images service.
-In a nutshell, this service offers retrieval, storage, and metadata
-assignment for Rackspace Cloud Server images through a simple Representational 
-State Transfer (REST) web service interface.
+Use this service to get, store, share, and assign metadata for Rackspace Cloud Server 
+images through a simple Representational State Transfer (REST) web service interface.
 
 Concepts
 ========
 
 Before you jump in, it helps to understand these core Images service concepts:
 
-* Server
-* Flavor
-* Network
-* Image
+* A **server** is a virtual machine, hosted on a physical device in one of our top-notch data centers. 
+  Your application, web server, and file system runs on a server.
+    
+* A **flavor** is a type of hardware configuration that describes the parameters of the available virtual 
+  machine images. Includes parameters such as CPU, storage, and memory. 
+  Rackspace offers a set of standard hardware configurations for you to choose from. 
+    
+* A **network** is the virtual space where your servers live. By default, Rackspace provides the PublicNet network
+  that enables public Internet connectivity and the internal ServiceNet network that enables internal connectivity with your other servers.
 
-Server
-------
+* An **image** is a collection of specific operating system (OS) files that you use to 
+  create or rebuild a server. Rackspace offers pre-built Linux and Windows images: 
+  Ubuntu 14.04, Red Hat 6, Windows, and so on. You can also create custom images, or snapshots, 
+  from servers that you have launched. You can use custom images for data backups and 
+  as *gold* images to launch additional servers. 
 
-A virtual machine, hosted on a physical device in one of our top-notch data centers. Your application, web server, and file system runs on a server.
-
-Flavor
-------
-
-A type of hardware configuration that describes the parameters of the various virtual machine images that are available to users.
-Includes parameters such as CPU, storage, and memory. Alternative term for *instance type*.
-Rackspace offers a set of standard hardware configurations for you to choose from. 
-You might want a 2 GB RAM flavor for a smaller project, or a 32 GB RAM performance 
-flavor for heavy computational needs.
-
-Network
--------
-
-The virtual space where your servers live. 
-Rackspace provides these default networks: 
-
-* PublicNet. The Internet. Enables public Internet connectivity.
-* ServiceNet. The Rackspace internal network. Enables internal connectivity with your other servers.
-
-Although you can create as many isolated networks as you like, servers are connected by default to PublicNet and ServiceNet.
-
-Image
------
-
-A collection of files for a specific operating system (OS) 
-that you use to create or rebuild a server. Rackspace offers pre-built Linux and Windows images: Ubuntu 14.04, Red Hat 6, Windows, and so on. 
-You can also create custom images, or snapshots, from servers that you have launched. 
-You can use custom images for data backups or as *gold* images to launch additional servers. 
+The following sections gives you more information about images.
 
 Image entity
 ------------
 
-An image entity is represented by a JSON-encoded data structure and its raw binary data.
-
-An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image.
-
-An image is always guaranteed to have the following attributes: 
+An image entity is represented by a JSON-encoded data structure and its raw binary data. An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image. An image is always guaranteed to have the following attributes: 
 
 * id
 * status
@@ -70,23 +45,23 @@ An image is always guaranteed to have the following attributes:
 
 The other attributes defined in the image schema are guaranteed, but are only returned with an image entity if you set them explicitly.
 
-A client can set arbitrarily-named attributes on their images if the image json-schema allows it. 
+A client can set arbitrarily-named attributes on their images if the image JSON-schema allows it. 
 These user-defined attributes appear like any other image attributes.
 
 Image identifiers
 -----------------
 
-Images are uniquely identified by a URI that matches this signature:
+Images are uniquely identified by a URI that matches this signature::
 
-''{image server location}/v2/images/{image_ID}''
+  {image server location}/v2/images/{image_ID}
 
 Where:
 
-* ''{image server location}'' is the resource location of the Cloud Images service that knows about an image.
-* ''{image_ID}'' is the image identifier, which is a UUID, making it globally unique.
+* :literal: `{image server location}` is the resource location of the Cloud Images service that knows about an image.
+* :literal: `{image_ID}` is the image identifier, which is a UUID, making it globally unique.
 
 Common image properties
-=======================
+-----------------------
 
 To help end users use your images, you can put additional common properties, or metadata, on your images.
 
@@ -94,12 +69,7 @@ The available properties and their expected values include:
 
 **os_distro**
 
-    The common name of the operating system distribution
-    [Important]	Important
-
-    The common name must be all lowercase and entered exactly as shown here.
-
-    The allowed values are:
+    The common name of the operating system distribution. The common name must be all lowercase and entered exactly as shown here. The allowed values are:
 
     **arch**
 
@@ -161,14 +131,14 @@ The available properties and their expected values include:
 
 **os_version**
 
-    The operating system version as specified by the distributor
+    The distributor-specified operating system version.
 
 Authenticate
 ============
 
 You must authenticate before you can complete any Rackspace API interaction.
 
-To authenticate, you need a user name and API key. Find your API key in the control panel on the "Account Settings" page.
+To authenticate, you need a user name and API key. Find your API key in the control panel on the **Account Settings** page.
 
 Once you've retrieved your details, you pass them into the client:
 
