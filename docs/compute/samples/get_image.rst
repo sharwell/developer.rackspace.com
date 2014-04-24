@@ -4,6 +4,15 @@
 
 .. code-block:: javascript
 
+    client.getImage(imageId, function(err, image) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO use your image here
+    });
+
 .. code-block:: php
 
     $imageId = '{imageId}';

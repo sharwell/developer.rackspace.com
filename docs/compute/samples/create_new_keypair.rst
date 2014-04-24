@@ -4,6 +4,15 @@
 
 .. code-block:: javascript
 
+    client.addKey({ name: 'my_keypair' }, function (err, key) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO use your key
+    });
+
 .. code-block:: php
 
     // Get the API to generate a new keypair
@@ -20,3 +29,4 @@
 .. code-block:: python
 
 .. code-block:: ruby
+

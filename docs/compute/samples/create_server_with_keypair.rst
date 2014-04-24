@@ -4,6 +4,20 @@
 
 .. code-block:: javascript
 
+    client.createServer({
+      name: 'My new server',
+      image: imageId,
+      flavor: flavorId,
+      keyname: 'my_keypair'
+    }, function(err, server) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO use your server here
+    });
+
 .. code-block:: php
 
     use Guzzle\Http\Exception\BadResponseException;

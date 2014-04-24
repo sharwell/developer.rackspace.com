@@ -4,6 +4,10 @@
 
 .. code-block:: javascript
 
+    client.destroyServer(server, function(err) {
+      // TODO handle err as appropriate
+    });
+
 .. code-block:: php
 
     $server->delete();
