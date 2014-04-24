@@ -33,7 +33,7 @@ Here are some that should be consistent in the different language examples:
 
 Authentication - all services
 
-``{username}``
+``{userName}``
 ``{apiKey}``
 ``{region}``
 
