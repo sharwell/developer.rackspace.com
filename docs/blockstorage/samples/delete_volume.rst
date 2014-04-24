@@ -8,4 +8,8 @@
 
 .. code-block:: python
 
+    cbs.delete(vol)
+    # - or -
+    vol.delete()
+
 .. code-block:: ruby

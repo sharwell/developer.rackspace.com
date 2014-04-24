@@ -47,14 +47,14 @@ In order to see a list of all the block storage volumes you have created in any 
 Show Volume
 -------------
 
-The code below shows how to inspect a specific volume's metadata:
+The code below shows how to inspect a specific volume's state:
 
 .. include:: samples/show_volume.rst
 
 Update Volume
---------------
+-----------------
 
-To modify a volume's metadata, its name and description to be precise, follow the code shown below:
+To modify a volume's display name and/or description, follow the code shown below:
 
 .. include:: samples/update_volume.rst
 
@@ -94,7 +94,7 @@ To inspect detailed metadata of a specific snapshot, do so as shown below:
 Update Snapshot
 -----------------
 
-To modify a snapshot's metadata, its name and description to be precise, follow the code shown below:
+To modify a snapshot's display name and/or description, follow the code shown below:
 
 .. include:: samples/update_snapshot.rst
 
