@@ -2,6 +2,13 @@
 
 .. code-block:: java
 
+    File keyPairFile = new File("{/home/my-user/.ssh/id_rsa.pub}");
+    String publicKey = Files.toString(keyPairFile, UTF_8);
+
+    KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone("{region}").get();
+    KeyPair keyPair = keyPairApi.createWithPublicKey("my-keypair", publicKey);
+
+
 .. code-block:: javascript
 
     // we need the fs module to access the local disk

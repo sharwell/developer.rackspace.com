@@ -2,6 +2,9 @@
 
 .. code-block:: java
 
+    ServerApi serverApi = novaApi.getServerApiForZone("{region}");
+    serverApi.resize("{serverId}", "{flavorId}");
+
 .. code-block:: javascript
 
 .. code-block:: php

@@ -2,6 +2,12 @@
 
 .. code-block:: java
 
+    KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone("{region}").get();
+    KeyPair keyPair = keyPairApi.create("my-keypair");
+
+    File keyPairFile = new File("my-keypair.pem");
+    Files.write(keyPair.getPrivateKey(), keyPairFile, UTF_8);
+
 .. code-block:: javascript
 
     client.addKey({ name: 'my_keypair' }, function (err, key) {

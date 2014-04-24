@@ -2,6 +2,10 @@
 
 .. code-block:: java
 
+    CreateServerOptions options = CreateServerOptions.Builder.keyPairName("my-keypair");
+    ServerApi serverApi = novaApi.getServerApiForZone("{region}");
+    ServerCreated serverCreated = serverApi.create("My new server", "{imageId}", "{flavorId}", options);
+
 .. code-block:: javascript
 
     client.createServer({
