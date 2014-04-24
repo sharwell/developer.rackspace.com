@@ -179,8 +179,8 @@ Use images
 To see which images are available, you can list all images or get details for a specified image.
 Then, you can update an image and use image tasks to import and export images.
 
-Task 1: List images and get image details
------------------------------------------
+List images and get image details
+---------------------------------
 
 An image, or operating system, forms the basis of your server. 
 Each image has a unique ID, which you can use to get more details about the image.
@@ -195,13 +195,13 @@ Once you know the image ID, you can get more details about the image like this:
 
 Once you've found the perfect operating system, and its ID, you can move on to picking your hardware.
 
-Task 2: Update an image
------------------------
+Update an image
+---------------
 
 .. include:: samples/update_image.rst
 
-Task 3: Import and export images
---------------------------------
+Import and export images
+------------------------
 
 An image task is a request to perform an asynchronous image-related operation, such as importing or exporting an image. The request results in the creation of a disposable task resource that can be polled for information about the status of the operation.
 
@@ -215,5 +215,31 @@ However, the result of the task, such as an imported or exported image, does not
 Share images
 ============
 
-.. include:: samples/share_images.rst
+The Cloud Images API enables you and others to share your custom images. 
+The following examples show some basic image sharing operations. 
+
+Create an image member
+----------------------
+
+.. include:: samples/create_image_member.rst
+
+List image members
+------------------
+
+.. include:: samples/list_image_members.rst
+
+Get image member details
+------------------------
+
+.. include:: samples/get_image_member.rst
+
+Update an image member
+----------------------
+
+.. include:: samples/update_image_member.rst
+
+Delete an image member
+----------------------
+
+.. include:: samples/delete_image_member.rst
 
