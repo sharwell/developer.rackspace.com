@@ -9,3 +9,7 @@
 
   file.content_type = 'application/json'
   file.save
+
+  # Generic metadata can be set with:
+  file.metadata['some-key'] = 'some-value'
+  file.save
