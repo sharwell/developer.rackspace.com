@@ -1,5 +1,11 @@
 .. code-block:: javascript
 
+  client.destroyContainer(container, function(err) {
+    if (err) {
+      // TODO handle as appropriate
+    }
+  });
+
 .. code-block:: php
 
   // Delete an empty container.

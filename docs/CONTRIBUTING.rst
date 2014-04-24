@@ -1,14 +1,21 @@
 Documentation Coventions
 ========================
 
-Code blocks go in this order:
+Code blocks go in this order::
 
-1. ``.. code-block:: csharp``
-2. ``.. code-block:: java``
-3. ``.. code-block:: javascript``
-4. ``.. code-block:: php``
-5. ``.. code-block:: python``
-6. ``.. code-block:: ruby``
+  .. code-block:: csharp
+
+  .. code-block:: java
+
+  .. code-block:: javascript
+
+  .. code-block:: php
+
+  .. code-block:: python
+
+  .. code-block:: ruby
+
+If starting a new narrative/code section, be sure to add all the code block sections to each `.rst` you create for PR sanity.
 
 Use neutral language instead of gerunds:
 
@@ -21,4 +28,21 @@ Use TODO in code samples instead of printing out strings.
 
 Limit lines to 120 characters.
 
-When using a value the developer needs to input, surround the value in curly brackets. e.g. ``{username}``, ``{apiKey}``, ``{region}``.
+When using a value the developer needs to input, surround the value in curly brackets. The convention is to name them as lowercased with camelCasing.
+Here are some that should be consistent in the different language examples:
+
+Authentication - all services
+
+``{username}``
+``{apiKey}``
+``{region}``
+
+Databases
+
+``{dbUsername}``
+``{dbPassword}``
+``{dbName}``
+``{instanceId}``
+``{instanceName}``
+``{flavorId}``
+

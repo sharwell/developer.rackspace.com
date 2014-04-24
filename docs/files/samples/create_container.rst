@@ -1,18 +1,14 @@
 .. code-block:: javascript
 
-  rackspace.createContainer({
-    name: 'sample-container-test',
-    metadata: {
-      callme: 'maybe'
-    }
+  client.createContainer({
+    name: 'sample-container-test'
   }, function (err, container) {
     if (err) {
-      console.dir(err);
+      // TODO handle as appropriate
       return;
     }
 
-    console.log(container.name);
-    console.log(container.metadata);
+    // TODO use your container
   });
 
 .. code-block:: php

@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
 	myZone.emailAddress = 'changed@domain.com';
@@ -9,19 +13,8 @@
     console.log('Zone was successfully modified');
   });
 
-.. code-block:: ruby
-
-  begin
-    my_zone.email = 'changed@domain.com'
-    my_zone.save
-
-    puts 'Zone was successfully modified.'
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
-
 .. code-block:: php
-	
+
     // Specify your changes
     $changes = array(
         'email' => 'new_dev@domain.com',
@@ -29,3 +22,13 @@
     );
 
     $domain->update($changes);
+
+.. code-block:: python
+
+	domain.update(emailAddress="new_dev@domain.com")
+
+.. code-block:: ruby
+
+    zone.email = 'changed@domain.com'
+    zone.ttl = 3600
+    zone.save

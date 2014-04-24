@@ -1,3 +1,20 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
+    client.getImages(function(err, images) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO figure out which image to use
+      // just grab the first image id
+      var imageId = images[0].id;
+    });
+
 .. code-block:: php
 
     // To retrieve all images:
@@ -8,3 +25,20 @@
         $imageId = $image->id;
         break;
     }
+
+.. code-block:: python
+
+    import pyrax
+
+    img = pyrax.images
+    # Get a list of the images available to your account
+    image_list = img.list()
+    # Shows the number of images in the list
+    print("There are %s images:" % len(image_list))
+    # Shows the visibility, names, and IDs of your images
+    for img in image_list:
+        print("  (%s) %s (ID=%s)" % (img.visibility, img.name, img.id))
+
+.. code-block:: ruby
+
+    @client.images.all

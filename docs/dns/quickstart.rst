@@ -14,23 +14,12 @@ Before we can use the API, we need to authenticate and create an instance of the
 
 .. include:: samples/authentication.rst
 
-
-.. code-block:: ruby
-
-  require 'fog'
-
-  service = Fog::DNS.new :provider => :rackspace,
-    rackspace_username => RACKSPACE_USERNAME,
-    rackspace_api_key => RACKSPACE_API_KEY,
-    rackspace_region => RACKSPACE_REGION
-
 Create Zone
 -----------------
 
 The first step to manage your domains and subdomains is to create a DNS zone, which you can think of as being the "root" level. So, say, you have a domain called domain.com, you want to create a zone called domain.com as follows:
 
 .. include:: samples/create_zone.rst
-    
 
 Get Zone
 ------------------
@@ -38,7 +27,6 @@ Get Zone
 Once we have created a zone, we can retrieve it and inspect its details as follows:
 
 .. include:: samples/get_zone.rst
-  
 
 Modify Zone
 -------------------
@@ -47,14 +35,12 @@ We can also modify our DNS zone if any of the details change, with the provision
 
 .. include:: samples/modify_zone.rst
 
-
 Delete Zone
 ---------------
 
 If you wish or need to delete a DNS zone it can be accomplished as follows:
 
 .. include:: samples/delete_zone.rst
-
 
 **WARNING: deleting a zone will also delete all the records within in. Please use with care.**
 
@@ -65,7 +51,6 @@ Once we have a zone, we to add at least one record to it in order to make it do 
 
 .. include:: samples/create_record.rst
 
-
 Get Record
 -------------
 
@@ -73,14 +58,12 @@ Once we have have created a record, we can retrieve it for inspection or manipul
 
 .. include:: samples/get_record.rst
 
-
 Update Record
 ---------------
 
 If you wish to modify a DNS record, you can do so as follows:
 
 .. include:: samples/modify_record.rst
-
 
 Delete Record
 ----------------

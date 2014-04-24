@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   var details = {
@@ -15,19 +19,6 @@
     console.log(zone.id + ' ' + zone.name + ' ' + zone.ttl);
   });
 
-.. code-block:: ruby
-
-  begin
-    my_zone = service.zones.create :domain => 'domain.com',
-              :email => 'admin@domain.com',
-              :ttl => 300,
-              :comment => 'root level for domain.com'
-
-    puts "Zone ID #{my_zone.id} for #{my_zone.name} was successfully created."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
-
 .. code-block:: php
 
     $dnsService = $client->dnsService();
@@ -39,3 +30,18 @@
         'ttl'          => 300,
         'comment'      => 'Root level for domain.com'
     ));
+
+.. code-block:: python
+
+  domain = pyrax.cloud_dns.create(name="domain.com",
+                                  emailAddress="admin@domain.com",
+                                  ttl=300)
+
+.. code-block:: ruby
+
+    zone = @client.zones.create(
+      :domain => 'domain.com',
+      :email => 'admin@domain.com',
+      :ttl => 300,
+      :comment => 'root level for domain.com'
+    )
