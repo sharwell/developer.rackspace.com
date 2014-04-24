@@ -4,8 +4,8 @@
 
   import pyrax
   pyrax.set_setting("identity_type", "rackspace")
-  pyrax.set_default_region("ORD")
-  pyrax.set_credentials(os.environ["OS_USERNAME"], os.environ["OS_PASSWORD"])
+  pyrax.set_default_region({region})
+  pyrax.set_credentials({username}, {apiKey})
 
 .. code-block:: ruby
 
@@ -28,7 +28,7 @@
   @client = Fog::Storage.new(
     :provider => 'rackspace',
     :rackspace_username => '{username}',
-    :rackspace_api_key => '{apikey}',
+    :rackspace_api_key => '{apiKey}',
     :rackspace_region => :lon,
     :rackspace_auth_url => Fog::Rackspace::UK_AUTH_ENDPOINT
   )
