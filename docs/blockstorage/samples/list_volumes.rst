@@ -11,3 +11,5 @@
    vols = cbs.list()
 
 .. code-block:: ruby
+
+  @client.volumes.all

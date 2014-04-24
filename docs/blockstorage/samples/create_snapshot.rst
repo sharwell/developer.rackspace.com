@@ -14,3 +14,5 @@
     snap = vol.create_snapshot({name}, {description})
 
 .. code-block:: ruby
+
+  snapshot = volume.create_snapshot

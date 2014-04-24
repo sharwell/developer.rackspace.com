@@ -12,3 +12,5 @@
         display_description={new_display_description})
 
 .. code-block:: ruby
+
+  # N/A
