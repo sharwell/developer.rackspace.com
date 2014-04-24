@@ -37,3 +37,9 @@ Authentication - all services
 ``{apiKey}``
 ``{region}``
 
+Databases
+
+``{dbUsername}``
+``{dbPassword}``
+``{dbName}``
+
