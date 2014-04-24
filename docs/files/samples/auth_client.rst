@@ -19,7 +19,7 @@
     :provider => 'rackspace',
     :rackspace_username => '{username}',
     :rackspace_api_key => '{apikey}',
-    :rackspace_region => :ord
+    :rackspace_region => :'{region}'
   )
 
   # If you're a UK customer, specify a :rackspace_auth_url as well, and use the
