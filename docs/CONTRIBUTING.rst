@@ -15,6 +15,7 @@ Code blocks go in this order::
 
   .. code-block:: ruby
 
+If starting a new narrative/code section, be sure to add all the code block sections to each `.rst` you create for PR sanity.
 
 Use neutral language instead of gerunds:
 
