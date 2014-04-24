@@ -2,6 +2,7 @@ Documentation Coventions
 ========================
 
 Use neutral language instead of gerunds:
+
 * **GOOD**: Set up your xxxx.
 * **BAD**: Setting up your xxxx.
 
