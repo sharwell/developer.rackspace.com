@@ -1,3 +1,9 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
 .. code-block:: php
 
     // Get the API to generate a new keypair
@@ -10,3 +16,7 @@
     $localPath = '~/.ssh/my_server';
     file_put_contents($localPath, $keypair->getPrivateKey());
     chmod($localPath, 0600);
+
+.. code-block:: python
+
+.. code-block:: ruby

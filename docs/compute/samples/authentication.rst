@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   pkgcloud = require('pkgcloud');
@@ -17,3 +21,7 @@
         'username' => '{username}',
         'apiKey'   => '{apiKey}'
     ));
+
+.. code-block:: python
+
+.. code-block:: ruby
