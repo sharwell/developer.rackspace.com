@@ -1,0 +1,14 @@
+---
+- name: Configure jenkins master server(s)
+  hosts: jenkins_masters
+  sudo: true
+  vars:
+  - plugins:
+    - 'github'
+  - startup_delay_s: 20
+  roles:
+    - ICTO.ansible-jenkins
+
+- name: Configure jenkins slave server(s)
+  hosts: jenkins_slaves
+  sudo: true

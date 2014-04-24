@@ -3,11 +3,15 @@
 # is no hardcoded inventory here! Instead, we "talk" to localhost since
 # pyrax is installed there and use it to talk to the Rackspace Cloud. Comprende?
 #
+[jenkins]
+localhost ansible_python_interpreter=/usr/local/bin/python 
+
 [webservers]
 localhost ansible_python_interpreter=/usr/local/bin/python 
 
 [all:children]
 webservers
+jenkins
 
 [webservers:vars]
 server_name=developer.rackspace.com
