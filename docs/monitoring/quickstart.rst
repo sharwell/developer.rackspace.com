@@ -2,7 +2,7 @@
 Getting Started with Cloud Monitoring
 =======================================
 
-Cloud Monitoring helps you keep a keen eye on all of your resources; from web sites to web servers, routers, load balancers, and more
+Cloud Monitoring helps you keep a keen eye on all of your resources; from web sites to web servers, routers, load balancers, and more.
 
 Workflow
 ===========
