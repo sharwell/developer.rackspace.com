@@ -25,5 +25,4 @@
 
     InstanceApi instanceApi = troveApi.getInstanceApiForZone("{region}");
 
-    // Enable the root user on a specific instance. Returns the root password.
-    String password = instanceApi.enableRoot(myInstanceId);
+    String password = instanceApi.enableRoot("{instanceId}");

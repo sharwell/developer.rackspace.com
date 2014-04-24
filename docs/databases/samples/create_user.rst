@@ -28,9 +28,6 @@
 
 .. code-block:: java
 
-    // Use the instance API to get the user API for a specific instance by providing the instance ID.
-    UserApi userApi = troveApi.getUserApiForZoneAndInstance("{region}", myInstanceId);
+    UserApi userApi = troveApi.getUserApiForZoneAndInstance("{region}", "{instanceId}");
 
-    // Create the user by providing the user name, 
-    // user password, and the database the user is allowed to access.
-    boolean result = userApi.create("myusername", "mypasswordwhichcouldbebetter", "myDatabase");
+    boolean result = userApi.create("{dbUsername}", "{dbPassword}", "{dbName}");

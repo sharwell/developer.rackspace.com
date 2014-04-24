@@ -20,4 +20,4 @@
 
 .. code-block:: java
 
-    Flavor flavor = flavorApi.get(someFlavorId);
+    Flavor flavor = flavorApi.get({flavorId});

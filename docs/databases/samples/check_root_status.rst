@@ -23,5 +23,4 @@
     
     InstanceApi instanceApi = troveApi.getInstanceApiForZone("{region}");
 
-    // Gets the rooted status for an instance ID.
-    boolean rootedStatus = instanceApi.isRooted(myInstanceId);
+    boolean rootedStatus = instanceApi.isRooted("{instanceId}");
