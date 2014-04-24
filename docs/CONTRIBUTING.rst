@@ -43,4 +43,5 @@ Databases
 ``{dbPassword}``
 ``{dbName}``
 ``{instanceId}``
+``{instanceName}``
 
