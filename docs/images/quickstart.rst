@@ -32,16 +32,14 @@ The following sections gives you more information about images.
 Image entity
 ------------
 
-An image entity is represented by a JSON-encoded data structure and its raw binary data. An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image. An image is always guaranteed to have the following attributes: 
-
-* id
-* status
-* visibility
-* protected
-* tags
-* created_at
-* file 
-* self 
+An image entity is represented by a JSON-encoded data structure and its raw binary data. An image entity has an identifier (ID) that is guaranteed to be unique within its endpoint. The ID is used as a token in request URIs to interact with that specific image. An image is always guaranteed to have the following attributes: ``id``,
+``status``,
+``visibility``,
+``protected``,
+``tags``,
+``created_at``,
+``file``, and
+``self``.
 
 The other attributes defined in the image schema are guaranteed, but are only returned with an image entity if you set them explicitly.
 
@@ -57,8 +55,8 @@ Images are uniquely identified by a URI that matches this signature::
 
 Where:
 
-* :literal: `{image server location}` is the resource location of the Cloud Images service that knows about an image.
-* :literal: `{image_ID}` is the image identifier, which is a UUID, making it globally unique.
+* ``{image server location}`` is the resource location of the Cloud Images service that knows about an image.
+* ``{image_ID}`` is the image identifier, which is a UUID, making it globally unique.
 
 Common image properties
 -----------------------
