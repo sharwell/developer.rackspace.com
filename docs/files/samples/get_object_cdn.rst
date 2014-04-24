@@ -2,6 +2,10 @@
 
   var cdnUrl = container.cdnUri + '/' + encodeURIComponent(file.name);
 
+.. code-block:: php
+
+  $cdnUrl = $object->getPublicUrl();
+
 .. code-block:: python
 
   import urllib
