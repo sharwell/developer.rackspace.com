@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
   
   myRec.data = '192.168.1.1';
@@ -9,16 +13,7 @@
     console.log('Record ' + myRec.name + ' was successfully modified.');
   });
 
-.. code-block:: ruby
-
-  begin
-    my_record.value = '192.168.1.1'
-    my_record.save
-
-    puts "Record #{my_record.name} was successfully modified."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+.. code-block:: python
 
 .. code-block:: php
 
@@ -29,3 +24,14 @@
 	$record->data = '192.168.1.1';
 
 	$record->update();
+
+.. code-block:: ruby
+
+  begin
+    my_record.value = '192.168.1.1'
+    my_record.save
+
+    puts "Record #{my_record.name} was successfully modified."
+  rescue Fog::Rackspace::Errors::ServiceError => e
+    puts e.message
+  end

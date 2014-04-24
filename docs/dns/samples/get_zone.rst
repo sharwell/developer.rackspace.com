@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   rackspace.getZones({ name: 'domain.com' }, function (err, zones) {
@@ -9,16 +13,7 @@
     console.log('Zone admin email: ' + zones[0] + '\n');
   });
 
-.. code-block:: ruby
-
-  begin
-    my_zone = service.zones.all.find {|z| z.name == 'domain.com' }
-
-    puts "Zone ID: #{my_zone.id}"
-    puts "Zone admin email: #{my_zone.email}"
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+.. code-block:: python
 
 .. code-block:: php
 	
@@ -39,3 +34,14 @@
 
     // Now, to get the full domain object:
     $domain = $dnsService->domain($domainId);
+
+.. code-block:: ruby
+
+  begin
+    my_zone = service.zones.all.find {|z| z.name == 'domain.com' }
+
+    puts "Zone ID: #{my_zone.id}"
+    puts "Zone admin email: #{my_zone.email}"
+  rescue Fog::Rackspace::Errors::ServiceError => e
+    puts e.message
+  end
