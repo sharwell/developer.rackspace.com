@@ -27,7 +27,7 @@ Set Container as CDN
 
 Once we have created a container, we can set it as CDN (Content Delivery Network). That implies that any objects within the container will be publicly readable. To set a container as CDN can be accomplished as follows:
 
-.. include:: samples/set_container_as_cnd.rst
+.. include:: samples/set_container_as_cdn.rst
   
 
 Unset Container as CDN
@@ -35,7 +35,7 @@ Unset Container as CDN
 
 If you no longer wish to have your container set as CDN, you may do as as described in the code below:
 
-  .. include:: samples/unset_container_as_cnd.rst
+  .. include:: samples/unset_container_as_cdn.rst
 
 
 Delete Container
@@ -71,7 +71,7 @@ Get Object via Temporary URL
 
 To retrieve an object via temporary URL, see the example below:
 
-.. include:: samples/get_object_temp_usl.rst
+.. include:: samples/get_object_temp_url.rst
 
 
 Get Object Directly (i.e. download via SDK)
