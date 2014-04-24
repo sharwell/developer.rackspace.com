@@ -3,12 +3,12 @@ Documentation Coventions
 
 Code blocks go in this order:
 
-1. `.. code-block:: csharp`
-2. `.. code-block:: java`
-3. `.. code-block:: javascript`
-4. `.. code-block:: php`
-5. `.. code-block:: python`
-6. `.. code-block:: ruby`
+1. ``.. code-block:: csharp``
+2. ``.. code-block:: java``
+3. ``.. code-block:: javascript``
+4. ``.. code-block:: php``
+5. ``.. code-block:: python``
+6. ``.. code-block:: ruby``
 
 Use neutral language instead of gerunds:
 
