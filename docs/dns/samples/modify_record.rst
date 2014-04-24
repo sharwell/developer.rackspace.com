@@ -3,7 +3,7 @@
 .. code-block:: java
 
 .. code-block:: javascript
-  
+
   myRec.data = '192.168.1.1';
   rackspace.updateRecord(myZone, myRec, function (err){
     if (err) {
@@ -12,8 +12,6 @@
     }
     console.log('Record ' + myRec.name + ' was successfully modified.');
   });
-
-.. code-block:: python
 
 .. code-block:: php
 
@@ -25,13 +23,14 @@
 
 	$record->update();
 
+.. code-block:: python
+
 .. code-block:: ruby
 
-  begin
-    my_record.value = '192.168.1.1'
-    my_record.save
+  # Let's decrease its TTL by an hour:
+  record.ttl -= 60
 
-    puts "Record #{my_record.name} was successfully modified."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+  # And change its data value:
+  record.value = '192.168.1.1'
+
+  record.save

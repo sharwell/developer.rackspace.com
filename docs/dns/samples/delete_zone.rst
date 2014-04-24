@@ -3,7 +3,7 @@
 .. code-block:: java
 
 .. code-block:: javascript
-  
+
   rackspace.deleteZone(myZone, function (err) {
     if (err) {
       console.dir(err);
@@ -16,12 +16,8 @@
 
 	$domain->delete();
 
+.. code-block:: python
+
 .. code-block:: ruby
 
-  begin
-    my_zone.destroy
-
-    puts 'Zone successfully deleted.'
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+  zone.destroy

@@ -3,7 +3,7 @@
 .. code-block:: java
 
 .. code-block:: javascript
-    
+
   var recDetails = {
     name: 'subdomain',
     data: '127.0.0.1',
@@ -34,12 +34,8 @@
 
 .. code-block:: ruby
 
-  begin
-    my_record = my_zone.records.create :name => "subdomain.#{my_zone.domain}",
-              :value => '127.0.0.1',
-              :type => 'A'
-
-    puts "Record #{my_record.name} was successfully created."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+    record = zone.records.create(
+      :name => 'subdomain',
+      :value => '127.0.0.1',
+      :type => 'A'
+    )

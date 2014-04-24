@@ -12,8 +12,6 @@
     console.log('Record ' + rec.name + ' was successfully retrieved.');
   });
 
-.. code-block:: python
-
 .. code-block:: php
 
     // First define your record's ID
@@ -35,10 +33,4 @@
 
 .. code-block:: ruby
 
-  begin
-    my_record = my_zone.records.get RECORD_ID
-
-    puts "Record #{my_record.name} was successfully retrieved."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+    record = my_zone.records.get('{recordId}')

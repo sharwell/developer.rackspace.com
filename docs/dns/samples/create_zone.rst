@@ -35,13 +35,9 @@
 
 .. code-block:: ruby
 
-  begin
-    my_zone = service.zones.create :domain => 'domain.com',
-              :email => 'admin@domain.com',
-              :ttl => 300,
-              :comment => 'root level for domain.com'
-
-    puts "Zone ID #{my_zone.id} for #{my_zone.name} was successfully created."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+    zone = @client.zones.create(
+      :domain => 'domain.com',
+      :email => 'admin@domain.com',
+      :ttl => 300,
+      :comment => 'root level for domain.com'
+    )
