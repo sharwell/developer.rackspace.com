@@ -36,3 +36,8 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    @client.key_pairs.create(
+      :name => 'my_keypair',
+      :public_key => File.read('~/.ssh/my_server.pub')
+    )

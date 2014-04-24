@@ -39,3 +39,10 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    server = @client.servers.create(
+      :name => 'My new server',
+      :image_id => image.id,
+      :flavor_id => flavor.id,
+      :key_name => 'my_keypair'
+    )

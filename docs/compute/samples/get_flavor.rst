@@ -21,3 +21,5 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    flavor = @client.flavor.get('{flavorId}')

@@ -21,3 +21,5 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    image = @client.images.get('{imageId}')

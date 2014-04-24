@@ -29,3 +29,5 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+    @client.images.all
