@@ -4,12 +4,15 @@
 
 .. code-block:: javascript
 
-  pkgcloud = require('pkgcloud');
-  var rackspace = pkgcloud.dns.createClient({
-    provider: 'rackspace',
-    username: '{username}',
-    apiKey: '{apiKey}'
-  });
+    pkgcloud = require('pkgcloud');
+
+    // each client is bound to a specific service and provider
+    var client = pkgcloud.compute.createClient({
+      provider: 'rackspace',
+      username: '{username}',
+      apiKey: '{apiKey}',
+      region: '{region}'
+    });
 
 .. code-block:: php
 

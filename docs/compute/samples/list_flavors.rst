@@ -4,6 +4,17 @@
 
 .. code-block:: javascript
 
+    client.getFlavors(function(err, flavors) {
+      if (err) {
+        // TODO handle as appropriate
+        return;
+      }
+
+      // TODO figure out which flavors to use
+      // just grab the first flavor id
+      var flavorId = flavors[0].id;
+    });
+
 .. code-block:: php
 
     // To retrieve all flavors:
