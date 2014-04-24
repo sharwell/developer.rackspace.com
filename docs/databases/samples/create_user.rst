@@ -8,3 +8,9 @@
         'password'  => '6hUH!$Hu-77Ca=reVacH',
         'databases' => array('wordpress', 'other_db')
     ));
+
+.. code-block:: python
+
+    # Create a user by specifying the username and password, and give them
+    # access to two databases.
+    inst.create_user("username", "password", ["db1, db3"])

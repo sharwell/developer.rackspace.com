@@ -26,3 +26,10 @@
     rackspace_username => RACKSPACE_USERNAME,
     rackspace_api_key => RACKSPACE_API_KEY,
     rackspace_region => RACKSPACE_REGION
+
+.. code-block:: python
+
+  import pyrax
+  pyrax.set_default_region("ORD")
+  pyrax.set_credentials(os.environ["OS_USERNAME"], os.environ["OS_PASSWORD"])
+  cdb = pyrax.cloud_databases
