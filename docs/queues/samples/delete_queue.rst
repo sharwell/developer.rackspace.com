@@ -11,3 +11,5 @@
   pyrax.queues.delete("sample_queue")
 
 .. code-block:: ruby
+
+  queue.destroy

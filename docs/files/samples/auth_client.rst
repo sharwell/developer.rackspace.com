@@ -10,6 +10,18 @@
       region: '{region}'
     });
 
+.. code-block:: php
+
+    require 'vendor/autoload.php';
+
+    use OpenCloud\Rackspace;
+
+    // Instantiate a Rackspace client.
+    $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+        'username' => '{username}',
+        'apiKey'   => '{apiKey}'
+    ));
+
 .. code-block:: python
 
   import pyrax
@@ -42,3 +54,4 @@
     :rackspace_region => :lon,
     :rackspace_auth_url => Fog::Rackspace::UK_AUTH_ENDPOINT
   )
+

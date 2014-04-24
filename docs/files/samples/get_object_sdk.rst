@@ -22,6 +22,17 @@
   // pipe the source to the destination
   source.pipe(dest);
 
+.. code-block:: php
+
+  // Get the object content (data) as a stream.
+  $objectContent = $object->getContent();
+
+  // Write object content to file on local filesystem.
+  $objectContent->rewind();
+  $stream = $objectContent->getStream();
+  $localFilename = tempnam("/tmp", 'php-opencloud-');
+  file_put_contents($localFilename, $stream);
+
 .. code-block:: python
 
   # Get the data as a string

@@ -35,6 +35,7 @@
 
   record = domain.get_record('{domain_id}', '{record_id}'')
 
+
 .. code-block:: ruby
 
     record = my_zone.records.get('{recordId}')

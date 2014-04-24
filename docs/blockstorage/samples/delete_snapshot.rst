@@ -8,4 +8,8 @@
 
 .. code-block:: python
 
+    snap.delete()
+    # - or -
+    cbs.delete_snapshot({snap_id})
+
 .. code-block:: ruby

@@ -8,4 +8,8 @@
 
 .. code-block:: python
 
+  import pyrax
+  pyrax.set_credentials({username}, {api_key}, region={REGION})
+  cbs = pyrax.cloud_blockstorage
+
 .. code-block:: ruby

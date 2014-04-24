@@ -11,3 +11,5 @@
   queue = pyrax.queues.create("sample_queue")
 
 .. code-block:: ruby
+
+  queue = @client.queues.create(:name => 'sample_queue')
