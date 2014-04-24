@@ -7,7 +7,8 @@
 
 .. code-block:: ruby
 
-  # :body can also be an open IO object like a File, to stream up
+  # :body can also be an open IO object like a File, to stream content instead
+  # of providing it all at once.
 
   file = directory.files.create(
     :key => 'somefile.txt',
