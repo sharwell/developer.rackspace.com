@@ -28,6 +28,17 @@
 
 .. code-block:: python
 
+    import pyrax
+
+    img = pyrax.images
+    # Get a list of the images available to your account
+    image_list = img.list()
+    # Shows the number of images in the list
+    print("There are %s images:" % len(image_list))
+    # Shows the visibility, names, and IDs of your images
+    for img in image_list:
+        print("  (%s) %s (ID=%s)" % (img.visibility, img.name, img.id))
+
 .. code-block:: ruby
 
     @client.images.all
