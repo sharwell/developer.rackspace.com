@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   var details = {
@@ -15,6 +19,20 @@
     console.log(zone.id + ' ' + zone.name + ' ' + zone.ttl);
   });
 
+.. code-block:: php
+
+    $dnsService = $client->dnsService();
+
+    $domain = $dnsService->domain();
+    $domain->create(array(
+        'name'         => 'domain.com',
+        'emailAddress' => 'admin@domain.com',
+        'ttl'          => 300,
+        'comment'      => 'Root level for domain.com'
+    ));
+
+.. code-block:: python
+
 .. code-block:: ruby
 
   begin
@@ -27,15 +45,3 @@
   rescue Fog::Rackspace::Errors::ServiceError => e
     puts e.message
   end
-
-.. code-block:: php
-
-    $dnsService = $client->dnsService();
-
-    $domain = $dnsService->domain();
-    $domain->create(array(
-        'name'         => 'domain.com',
-        'emailAddress' => 'admin@domain.com',
-        'ttl'          => 300,
-        'comment'      => 'Root level for domain.com'
-    ));

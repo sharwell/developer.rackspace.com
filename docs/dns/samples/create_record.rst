@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
     
   var recDetails = {
@@ -14,18 +18,6 @@
     console.log('Record ' + rec.name + ' was successfully created.');
   });
 
-.. code-block:: ruby
-
-  begin
-    my_record = my_zone.records.create :name => "subdomain.#{my_zone.domain}",
-              :value => '127.0.0.1',
-              :type => 'A'
-
-    puts "Record #{my_record.name} was successfully created."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
-
 .. code-block:: php
 
     // Add a CNAME record
@@ -37,3 +29,17 @@
     ));
 
     $record->create();
+
+.. code-block:: python
+
+.. code-block:: ruby
+
+  begin
+    my_record = my_zone.records.create :name => "subdomain.#{my_zone.domain}",
+              :value => '127.0.0.1',
+              :type => 'A'
+
+    puts "Record #{my_record.name} was successfully created."
+  rescue Fog::Rackspace::Errors::ServiceError => e
+    puts e.message
+  end

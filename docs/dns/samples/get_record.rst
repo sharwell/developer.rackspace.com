@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   rackspace.getRecord(myZone, 'myRecord-id', function (err, rec) {
@@ -8,15 +12,7 @@
     console.log('Record ' + rec.name + ' was successfully retrieved.');
   });
 
-.. code-block:: ruby
-
-  begin
-    my_record = my_zone.records.get RECORD_ID
-
-    puts "Record #{my_record.name} was successfully retrieved."
-  rescue Fog::Rackspace::Errors::ServiceError => e
-    puts e.message
-  end
+.. code-block:: python
 
 .. code-block:: php
 
@@ -36,3 +32,13 @@
 
     // Now, to get the full record object:
     $record = $domain->record($recordId);
+
+.. code-block:: ruby
+
+  begin
+    my_record = my_zone.records.get RECORD_ID
+
+    puts "Record #{my_record.name} was successfully retrieved."
+  rescue Fog::Rackspace::Errors::ServiceError => e
+    puts e.message
+  end
