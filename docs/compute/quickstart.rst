@@ -2,7 +2,7 @@
 Getting Started with Cloud Servers
 ==================================
 
-This guide will provide an introduction to Rackspace "Cloud Servers", describing what it is and what it can do. In a nutshell, it is a service that allows you to allocate and deallocate compute resources. Based on OpenStack Nova (a community-led open-source platform), it is similar to Amazon's EC2 or Google's Compute Engine.
+This guide will provide an introduction to Rackspace Cloud Servers, describing what it is and what it can do. In a nutshell, it is a service that allows you to allocate and deallocate compute resources. It is based on OpenStack Compute (Nova), a community-led open-source platform.
 
 The compute service has a few core concepts which need to be understand before plunging in. These are:
 
@@ -17,7 +17,7 @@ The concepts
 Server
 ------
 
-A Server is a virtual machine, hosted on a physical device in one of our top-notch data centers. This is where your application, web server, and filesystem sits. Think of it like an EC2 Instance or Digital Ocean Droplet.
+A Server is a virtual machine, hosted on a physical device in one of our top-notch data centers. This is where your application, web server, and filesystem sits.
 
 Image
 -----
