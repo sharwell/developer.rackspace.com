@@ -25,7 +25,7 @@
 
     // Using the instance API, get the database API for that instance 
     // by using the instance ID and instance Zone (or location)
-    DatabaseApi databaseApi = troveApi.getDatabaseApiForZoneAndInstance("{REGION}", myInstanceId);
+    DatabaseApi databaseApi = troveApi.getDatabaseApiForZoneAndInstance("{region}", myInstanceId);
 
     // Create a new database by name.
     boolean result = databaseApi.create("helloIaMaDatabase");

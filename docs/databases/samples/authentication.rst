@@ -27,7 +27,7 @@
 .. code-block:: python
 
   import pyrax
-  pyrax.set_credentials({username}, {api_key}, region={REGION})
+  pyrax.set_credentials({username}, {api_key}, region={region})
   cdb = pyrax.cloud_databases
 
 .. code-block:: ruby

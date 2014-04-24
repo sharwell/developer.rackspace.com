@@ -38,11 +38,11 @@
 .. code-block:: java
 
     // We need to get a Flavor (hardware type) to run the Instance on.
-    flavorApi = troveApi.getFlavorApiForZone("{REGION}");
+    flavorApi = troveApi.getFlavorApiForZone("{region}");
     Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
 
     // Makes it easier to create database Instances
     TroveUtils utils = new TroveUtils(troveApi);
 
     // This call will take a while - it ensures a working instance is created.
-    Instance instance = utils.getWorkingInstance("{REGION}", "myFirstCloudDb", "" + flavor.getId(), 1);
+    Instance instance = utils.getWorkingInstance("{region}", "myFirstCloudDb", "" + flavor.getId(), 1);
