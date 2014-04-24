@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
 
   rackspace.getZones({ name: 'domain.com' }, function (err, zones) {
     if (err) {

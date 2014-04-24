@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
  
   rackspace.deleteRecord(myZone, myRec, function (err){
     if (err) {

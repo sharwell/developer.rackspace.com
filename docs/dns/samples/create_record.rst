@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
     
   var recDetails = {
     name: 'subdomain',

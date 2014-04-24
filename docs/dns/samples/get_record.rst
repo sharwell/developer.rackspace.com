@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
 
   rackspace.getRecord(myZone, 'myRecord-id', function (err, rec) {
     if (err) {

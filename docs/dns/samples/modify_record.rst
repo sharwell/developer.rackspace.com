@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
   
   myRec.data = '192.168.1.1';
   rackspace.updateRecord(myZone, myRec, function (err){
