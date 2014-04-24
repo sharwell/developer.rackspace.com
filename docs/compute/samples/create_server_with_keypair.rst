@@ -1,3 +1,9 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
 .. code-block:: php
 
     use Guzzle\Http\Exception\BadResponseException;
@@ -15,3 +21,7 @@
         // No! Something failed. Let's find out:
         printf("Request: %s\n\nResponse: %s", (string) $e->getRequest(), (string) $e->getResponse());
     }
+
+.. code-block:: python
+
+.. code-block:: ruby

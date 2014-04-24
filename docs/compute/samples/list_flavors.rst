@@ -1,3 +1,9 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
 .. code-block:: php
 
     // To retrieve all flavors:
@@ -15,3 +21,7 @@
         $flavorId = $flavor->id;
         break;
     }
+
+.. code-block:: python
+
+.. code-block:: ruby
