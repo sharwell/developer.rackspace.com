@@ -1,5 +1,7 @@
 .. code-block:: javascript
 
+  // this is not supported with pkgcloud at this time
+
 .. code-block:: python
 
   # First, you'll need to set the "temp url key" on your Account. This is an
