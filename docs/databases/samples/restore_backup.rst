@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    // Currently not supported
 
 .. code-block:: javascript
 
@@ -20,6 +21,4 @@
 
 .. code-block:: ruby
 
-.. code-block:: java
-
-    // Currently not supported
+    # N/A

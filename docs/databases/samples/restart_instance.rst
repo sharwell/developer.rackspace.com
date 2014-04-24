@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    // Currently not supported.
 
 .. code-block:: javascript
 
@@ -17,8 +18,5 @@
 
 .. code-block:: ruby
 
-    $instance->resize();
-
-.. code-block:: java
-
-    // Currently not supported.
+    instance.restart
+    instance.wait_for { ready? }

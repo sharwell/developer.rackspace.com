@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    // This operation is currently not supported through the jclouds SDK.
 
 .. code-block:: javascript
 
@@ -16,6 +17,4 @@
 
 .. code-block:: ruby
 
-.. code-block:: java
-
-    // This operation is currently not supported through the jclouds SDK.
+    # N/A

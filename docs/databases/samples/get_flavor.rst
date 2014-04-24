@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    Flavor flavor = flavorApi.get({flavorId});
 
 .. code-block:: javascript
 
@@ -18,6 +19,4 @@
 
 .. code-block:: ruby
 
-.. code-block:: java
-
-    Flavor flavor = flavorApi.get({flavorId});
+    flavor = @client.flavors.get('{flavorId}')
