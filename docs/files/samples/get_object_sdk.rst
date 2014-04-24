@@ -1,5 +1,27 @@
 .. code-block:: javascript
 
+  // we need to use the fs module to access the local disk
+  var fs = require('fs');
+
+  // TODO use a real file here
+  var filePath = '/tmp/somefile.txt';
+
+  // create a writeable stream for our source file
+  var dest = fs.createWriteStream(filePath);
+
+  // create a writeable stream for our destination
+  var source = client.download({
+    container: 'sample-container-test',
+    remote: 'somefile.txt'
+  }, function(err) {
+    if (err) {
+      // TODO handle as appropriate
+    }
+  });
+
+  // pipe the source to the destination
+  source.pipe(dest);
+
 .. code-block:: python
 
   # Get the data as a string

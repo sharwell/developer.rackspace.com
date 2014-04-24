@@ -1,5 +1,7 @@
 .. code-block:: javascript
 
+  var cdnUrl = container.cdnUri + '/' + encodeURIComponent(file.name);
+
 .. code-block:: python
 
   import urllib

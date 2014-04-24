@@ -1,5 +1,15 @@
 .. code-block:: javascript
 
+   pkgcloud = require('pkgcloud');
+
+    // each client is bound to a specific service and provider
+    var client = pkgcloud.storage.createClient({
+      provider: 'rackspace',
+      username: '{username}',
+      apiKey: '{apiKey}',
+      region: '{region}'
+    });
+
 .. code-block:: python
 
   import pyrax
