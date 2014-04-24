@@ -1,3 +1,11 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
+.. code-block:: php
+
 .. code-block:: python
 
   # Claims require the following parameters:
@@ -8,3 +16,5 @@
              Default = 10.
   queue = pyrax.queues.get("sample_queue")
   claim = queue.claim_messages(ttl=900, grace=120, count=4)
+
+.. code-block:: ruby
