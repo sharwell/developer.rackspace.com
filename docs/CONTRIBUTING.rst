@@ -28,4 +28,4 @@ Use TODO in code samples instead of printing out strings.
 
 Limit lines to 120 characters.
 
-When using a value the developer needs to input, surround the value in curly brackets. e.g. ``{username}``, ``{apiKey}``, ``{region}``.
+When using a value the developer needs to input, surround the value in curly brackets. e.g. ``{username}``, ``{apiKey}``, ``{region}``. The convention is to name them as lowercased with camelCasing.
