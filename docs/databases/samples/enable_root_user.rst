@@ -20,3 +20,11 @@
     inst.enable_root_user()
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+// Get the instance API.
+InstanceApi instanceApi = troveApi.getInstanceApiForZone("IAD");
+
+// Enable the root user on a specific instance. Returns the root password.
+String password = instanceApi.enableRoot(myInstanceId);
