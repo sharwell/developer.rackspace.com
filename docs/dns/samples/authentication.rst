@@ -31,6 +31,5 @@
     @client = Fog::DNS.new(
       :provider => 'rackspace',
       :rackspace_username => '{username}',
-      :rackspace_api_key => '{apiKey}',
-      :rackspace_region => '{region}'
+      :rackspace_api_key => '{apiKey}'
     )
