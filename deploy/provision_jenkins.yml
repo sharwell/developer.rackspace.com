@@ -1,0 +1,54 @@
+# Provision 1 Jenkins master server in DFW
+# Provision 2 Jenkins slave servers in DFW
+---
+- name: Provision Jenkins setup
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+
+    - name: Provision jenkins master server in DFW
+      local_action:
+        module: rax
+        credentials: ~/.rackspace_cloud_credentials
+        name: jenkins_master_dfw_%01d
+        flavor: performance1-4
+        image: ubuntu-1204-lts-precise-pangolin
+        networks:
+          - public
+          - private
+        region: DFW
+        state: present
+        count: 1
+        exact_count: yes
+        group: jenkins_masters
+        wait: yes
+      register: rax
+
+    - name: Add DFW master servers to jenkins_masters host group
+      local_action:
+        module: add_host
+        hostname: "{{ item.name }}"
+        ansible_ssh_host: "{{ item.rax_accessipv4 }}"
+        ansible_ssh_pass: "{{ item.rax_adminpass }}"
+        ansible_ssh_user: root
+        groupname: jenkins_masters
+      with_items: rax.success
+      when: rax.action == 'create'
+
+    - name: Provision jenkins slave server in DFW
+      local_action:
+        module: rax
+        credentials: ~/.rackspace_cloud_credentials
+        name: jenkins_slave_dfw_%01d
+        flavor: performance1-2
+        image: ubuntu-1204-lts-precise-pangolin
+        networks:
+          - public
+          - private
+        region: DFW
+        state: present
+        count: 2
+        exact_count: yes
+        group: jenkins_slaves
+        wait: yes

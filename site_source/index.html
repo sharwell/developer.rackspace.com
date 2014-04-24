@@ -2,7 +2,6 @@
 layout: default
 title: Rackspace Developer Center
 ---
-
     <div class="hero-slider">
         <ul class="slides">
             <li class="hero-devtrial">
@@ -11,7 +10,7 @@ title: Rackspace Developer Center
                         <span class="topline">Developers! Developers! Developers!</span>
                         <span class="headline">Go make something awesome, on us.</span>
                         <span class="descriptive">We&rsquo;re dedicated to making all developers&rsquo; lives better, and we&rsquo;re passionate about supporting open source projects, communities, and developers.</span>
-                        <a href="main-discount.html" class="ctabtn">Sign up for the developer discount</a>
+                        <a href="/main-discount.html" class="ctabtn">Sign up for the developer discount</a>
                     </div>
                 </div>
             </li>
@@ -24,7 +23,7 @@ title: Rackspace Developer Center
     <div class="bodyitem shieldboxes">
         <ul class="clearfix">
             <li class="shield1 community">
-                <img src="img/community-icon.svg" />
+                <img src="/img/community-icon.svg" />
                 <span class="title">Help &amp; Support</span>
                 <span class="description">Tweet <a href="#">@rackspace</a></span>
                 <span class="description">Chat on #rackspace<br />
@@ -33,13 +32,13 @@ title: Rackspace Developer Center
                 <a href="#" class="cta">Or, Email us Directly</a>
             </li>
             <li class="shield2">
-                <img src="img/sdks-icon.svg" />
+                <img src="/img/sdks-icon.svg" />
                 <span class="title">SDKs &amp; Tools</span>
                 <span class="description">Our open source and fully supported developer tools help you get started using any OpenStack cloud in minutes.</span>
                 <a href="main-sdks.html" class="cta">Get Our SDKs</a>
             </li>
             <li class="shield3">
-                <img src="img/fpo-icon.svg" />
+                <img src="/img/fpo-icon.svg" />
                 <span class="title">Services</span>
                 <span class="description">Check out our powerful services for developers, built on OpenStack - get going instantly or build your own.</span>
                 <a href="main-services.html" class="cta">Our Services</a>
@@ -52,25 +51,25 @@ title: Rackspace Developer Center
     <div class="bodyitem secondaryboxes clearfix">
         <ul>
             <li>
-                <img src="img/discount-icon.svg" />
+                <img src="/img/discount-icon.svg" />
                 <span class="title">Developer <br/>Discount</span>
                 <span class="description">Let us hook you up with a free trial so you experiment with on cloud. Go make something cool, on us.</span>
-                <a href="main-discount.html" class="cta">Learn More</a>
+                <a href="/main-discount.html" class="cta">Learn More</a>
             </li>
             <li>
-                <img src="img/conference-icon.svg" />
+                <img src="/img/conference-icon.svg" />
                 <span class="title">Conference <br/>Sponsorship</span>
                 <span class="description">We love sponsoring conferences about open source software and web development.</span>
-                <a href="main-sponsorship.html" class="cta">Learn More</a>
+                <a href="/main-sponsorship.html" class="cta">Learn More</a>
             </li>
             <li>
-                <img src="img/hosting-icon.svg" />
+                <img src="/img/hosting-icon.svg" />
                 <span class="title">Open Source <br/>Hosting</span>
                 <span class="description">We offer free hosting for open source projects. We are already home to 125 with more joining daily.</span>
-                <a href="main-osshosting.html" class="cta">Learn More</a>
+                <a href="/main-osshosting.html" class="cta">Learn More</a>
             </li>
             <li>
-                <img src="img/privatecloud-icon.svg" />
+                <img src="/img/privatecloud-icon.svg" />
                 <span class="title">Your Own <br />Private Cloud</span>
                 <span class="description">Let us show you how to build a private cloud that you control, without lock-in - all powered by OpenStack&reg;.</span>
                 <a href="#" class="cta">Learn More</a>
@@ -78,17 +77,4 @@ title: Rackspace Developer Center
         </ul>
     </div>
 
-
-
-    <div class="bodyitem fromtheblog">
-        <h2>Looking for more? <a href="#">Read on at the Developer blog.</a></h2>
-        <ul class="clearfix">
-            {% for post in site.posts %}
-                <li>
-                    <span class="title"><a href="{{ post.url }}">{{ post.title }}</a></span>
-                    <span class="byline">by {{ post.author }}<br />
-                        {{ post.date | date_to_string }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+	{% include looking_for_more.html %}

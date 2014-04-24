@@ -28,7 +28,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   cloudfiles
+   mailgun
 
 .. toctree
    :maxdepth: 1
