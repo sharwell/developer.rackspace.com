@@ -44,4 +44,5 @@ Databases
 ``{dbName}``
 ``{instanceId}``
 ``{instanceName}``
+``{flavorId}``
 
