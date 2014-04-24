@@ -1,21 +1,20 @@
 Documentation Coventions
 ========================
 
-Code blocks go in this order:
+Code blocks go in this order::
 
-```
-.. code-block:: csharp
+  .. code-block:: csharp
 
-.. code-block:: java
+  .. code-block:: java
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-.. code-block:: php
+  .. code-block:: php
 
-.. code-block:: python
+  .. code-block:: python
 
-.. code-block:: ruby
-```
+  .. code-block:: ruby
+
 
 Use neutral language instead of gerunds:
 
