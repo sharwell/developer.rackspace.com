@@ -11,6 +11,4 @@
 
 .. code-block:: python
 
-    flavor = cdb.get_flavor(flavor_id)
-
 .. code-block:: ruby
