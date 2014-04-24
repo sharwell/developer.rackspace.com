@@ -1,5 +1,9 @@
 .. code-block:: javascript
 
+.. code-block:: php
+
+  $object->delete();
+
 .. code-block:: python
 
    obj.delete()

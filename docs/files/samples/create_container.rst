@@ -15,6 +15,15 @@
     console.log(container.metadata);
   });
 
+.. code-block:: php
+
+  // Obtain an Object Store service object from the client.
+  $region = 'DFW';
+  $objectStoreService = $client->objectStoreService(null, $region);
+
+  // Create a container for your objects (also referred to as files).
+  $container = $objectStoreService->createContainer('gallery');
+
 .. code-block:: python
 
   container = pyrax.cloudfiles.create_container("gallery")

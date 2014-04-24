@@ -1,5 +1,9 @@
 .. code-block:: javascript
 
+.. code-block:: php
+
+  $cdnUrl = $object->getPublicUrl();
+
 .. code-block:: python
 
   import urllib
