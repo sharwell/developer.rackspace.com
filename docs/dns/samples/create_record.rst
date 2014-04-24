@@ -32,6 +32,11 @@
 
 .. code-block:: python
 
+  domain.add_record({'type': 'A',
+                     'name': 'app.domain.com',
+                     'ttl': 3600,
+                     'data': '192.168.1.1'})
+
 .. code-block:: ruby
 
     record = zone.records.create(

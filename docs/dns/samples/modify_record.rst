@@ -25,6 +25,8 @@
 
 .. code-block:: python
 
+  record.update(data="192.168.5.6")
+
 .. code-block:: ruby
 
   # Let's decrease its TTL by an hour:

@@ -25,6 +25,8 @@
 
 .. code-block:: python
 
+	domain.update(emailAddress="new_dev@domain.com")
+
 .. code-block:: ruby
 
     zone.email = 'changed@domain.com'
