@@ -5,6 +5,13 @@ Getting Started with Load Balancers
 The Rackspace Load Balancers service provides a means to protect your infrastructure
 by distributing traffic efficiently.
 
+Authenticating
+==============
+
+In order to work with the Load Balancer service, you must authenticate:
+
+.. include:: samples/authentication.rst
+
 Setting up your Load Balancer
 =============================
 
