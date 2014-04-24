@@ -31,6 +31,10 @@
     // Now, to get the full record object:
     $record = $domain->record($recordId);
 
+.. code-block:: python
+
+  record = domain.find_record(name='app.domain.com', record_type='A')
+
 .. code-block:: ruby
 
     record = my_zone.records.get('{recordId}')

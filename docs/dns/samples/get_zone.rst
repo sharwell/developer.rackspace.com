@@ -35,6 +35,8 @@
 
 .. code-block:: python
 
+  domain = pyrax.cloud_dns.find(name="domain.com")
+
 .. code-block:: ruby
 
     zone = service.zones.all.find { |z| z.name == 'domain.com' }

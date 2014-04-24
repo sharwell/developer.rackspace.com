@@ -33,6 +33,10 @@
 
 .. code-block:: python
 
+  domain = pyrax.cloud_dns.create(name="domain.com",
+                                  emailAddress="admin@domain.com",
+                                  ttl=300)
+
 .. code-block:: ruby
 
     zone = @client.zones.create(

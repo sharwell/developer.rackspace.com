@@ -18,6 +18,8 @@
 
 .. code-block:: python
 
+   record.delete()
+
 .. code-block:: ruby
 
    record.destroy

@@ -24,6 +24,10 @@
 
 .. code-block:: python
 
+  import pyrax
+  pyrax.set_setting("identity_type", "rackspace")
+  pyrax.set_credentials({username}, {apiKey})
+
 .. code-block:: ruby
 
     require 'fog'

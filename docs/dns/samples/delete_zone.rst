@@ -18,6 +18,8 @@
 
 .. code-block:: python
 
+  domain.delete()
+
 .. code-block:: ruby
 
   zone.destroy
