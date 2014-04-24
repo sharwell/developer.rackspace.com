@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
 
 	myZone.emailAddress = 'changed@domain.com';
   rackspace.updateZone(myZone, function (err) {

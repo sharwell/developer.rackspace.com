@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
   
   rackspace.deleteZone(myZone, function (err) {
     if (err) {

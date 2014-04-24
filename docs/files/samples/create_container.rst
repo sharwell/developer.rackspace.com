@@ -1,4 +1,4 @@
-.. code-block:: nodejs
+.. code-block:: javascript
   
   rackspace.createContainer({
     name: 'sample-container-test',

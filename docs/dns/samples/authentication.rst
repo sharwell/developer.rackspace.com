@@ -1,4 +1,4 @@
-.. code-block:: node
+.. code-block:: javascript
   
   pkgcloud = require('pkgcloud');
   var rackspace = pkgcloud.dns.createClient({
