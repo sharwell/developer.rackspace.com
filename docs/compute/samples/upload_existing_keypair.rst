@@ -3,6 +3,7 @@
 .. code-block:: java
 
     File keyPairFile = new File("{/home/my-user/.ssh/id_rsa.pub}");
+    // Using com.google.common.io.Files
     String publicKey = Files.toString(keyPairFile, UTF_8);
 
     KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone("{region}").get();
