@@ -3,6 +3,9 @@
 
 .. code-block:: java
 
+    InstanceApi instanceApi = troveApi.getInstanceApiForZone("{region}");
+
+    boolean rootedStatus = instanceApi.isRooted("{instanceId}");
 
 .. code-block:: javascript
 
@@ -19,8 +22,4 @@
 
 .. code-block:: ruby
 
-.. code-block:: java
-    
-    InstanceApi instanceApi = troveApi.getInstanceApiForZone("{region}");
-
-    boolean rootedStatus = instanceApi.isRooted("{instanceId}");
+    instance.root_user_enabled?

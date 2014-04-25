@@ -3,6 +3,13 @@
 
 .. code-block:: java
 
+    // We need to get a Flavor (hardware type) to run the Instance on.
+    FlavorApi flavorApi = troveApi.getFlavorApiForZone("{region}");
+    Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
+
+    TroveUtils utils = new TroveUtils(troveApi);
+
+    Instance instance = utils.getWorkingInstance("{region}", "{instanceName}", "" + flavor.getId(), 1);
 
 .. code-block:: javascript
 
@@ -26,7 +33,7 @@
 
 .. code-block:: python
 
-    # For this example we'll create a 20GB instance using the flavor with the
+    # For this example, we'll create a 20GB instance using the flavor with the
     # least RAM.
     flavors = cdb.list_flavors()
     flavors.sort(key=lambda flav: flav.ram)
@@ -35,12 +42,13 @@
 
 .. code-block:: ruby
 
-.. code-block:: java
+    # For this example, we'll create a 20GB instance using the flavor with the
+    # least RAM.
 
-    // We need to get a Flavor (hardware type) to run the Instance on.
-    FlavorApi flavorApi = troveApi.getFlavorApiForZone("{region}");
-    Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
-
-    TroveUtils utils = new TroveUtils(troveApi);
-
-    Instance instance = utils.getWorkingInstance("{region}", "{instanceName}", "" + flavor.getId(), 1);
+    flavor = @client.flavors.sort_by(&:ram)[0]
+    instance = @client.instances.create(
+      :name => 'sample_instance',
+      :volume_size => 20,
+      :flavor_id => flavor.id
+    )
+    instance.wait_for { ready? }
