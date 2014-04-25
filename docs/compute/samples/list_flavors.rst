@@ -2,6 +2,9 @@
 
 .. code-block:: java
 
+    FlavorApi flavorApi = novaApi.getFlavorApiForZone("{region}");
+    ImmutableList<? extends Flavor> flavors = flavorApi.listInDetail().concat().toList();
+
 .. code-block:: javascript
 
     client.getFlavors(function(err, flavors) {
