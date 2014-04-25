@@ -3,7 +3,7 @@ Documentation Conventions
 
 These docs are written in a narrative format with the same use cases across all the SDKs. For an example of documentation that follows this literate flow, check out `examples from Mailgun's documention`_ .
 
-.. _Mailgun's documention: http://documentation.mailgun.com/quickstart.html#sending-messages
+.. _examples from Mailgun's documention: http://documentation.mailgun.com/quickstart.html#sending-messages
 
 Code blocks go in this order::
 
