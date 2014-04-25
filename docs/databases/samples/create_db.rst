@@ -20,3 +20,9 @@
     inst.create_database("sample_db")
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    DatabaseApi databaseApi = troveApi.getDatabaseApiForZoneAndInstance("{region}", "{instanceId}";
+
+    boolean result = databaseApi.create("{dbName}");

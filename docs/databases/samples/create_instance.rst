@@ -34,3 +34,13 @@
     inst = cdb.create("sample_instance", volume=20, flavor=flavor)
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    // We need to get a Flavor (hardware type) to run the Instance on.
+    FlavorApi flavorApi = troveApi.getFlavorApiForZone("{region}");
+    Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
+
+    TroveUtils utils = new TroveUtils(troveApi);
+
+    Instance instance = utils.getWorkingInstance("{region}", "{instanceName}", "" + flavor.getId(), 1);

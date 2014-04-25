@@ -16,3 +16,7 @@
     inst.resize(new_flavor)
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    // Currently not supported.

@@ -25,3 +25,9 @@
     inst.create_user("username", "password", ["db1, db3"])
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    UserApi userApi = troveApi.getUserApiForZoneAndInstance("{region}", "{instanceId}");
+
+    boolean result = userApi.create("{dbUsername}", "{dbPassword}", "{dbName}");

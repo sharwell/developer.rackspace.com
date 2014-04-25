@@ -16,3 +16,9 @@
     inst.restart()
 
 .. code-block:: ruby
+
+    $instance->resize();
+
+.. code-block:: java
+
+    // Currently not supported.

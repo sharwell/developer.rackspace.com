@@ -20,3 +20,9 @@
     inst.enable_root_user()
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    InstanceApi instanceApi = troveApi.getInstanceApiForZone("{region}");
+
+    String password = instanceApi.enableRoot("{instanceId}");

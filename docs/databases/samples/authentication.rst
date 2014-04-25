@@ -27,7 +27,7 @@
 .. code-block:: python
 
   import pyrax
-  pyrax.set_credentials({username}, {api_key}, region={REGION})
+  pyrax.set_credentials({username}, {api_key}, region={region})
   cdb = pyrax.cloud_databases
 
 .. code-block:: ruby
@@ -38,3 +38,10 @@
     rackspace_username => RACKSPACE_USERNAME,
     rackspace_api_key => RACKSPACE_API_KEY,
     rackspace_region => RACKSPACE_REGION
+
+.. code-block:: java
+
+    // The TroveApi will provide access to all database features, such as Instances or Users.
+    TroveApi troveApi = ContextBuilder.newBuilder("rackspace-clouddatabases-us")
+            .credentials("{username}", "{apiKey}"")
+            .buildApi(TroveApi.class);

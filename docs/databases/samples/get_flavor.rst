@@ -17,3 +17,7 @@
     flavor = cdb.get_flavor(flavor_id)
 
 .. code-block:: ruby
+
+.. code-block:: java
+
+    Flavor flavor = flavorApi.get({flavorId});
