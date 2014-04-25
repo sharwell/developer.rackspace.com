@@ -9,3 +9,5 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+  entity = @client.entities.create(:label => 'somehost.domain.com')
