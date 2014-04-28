@@ -41,7 +41,7 @@
   # arbitrary secret shared between Cloud Files and your application that's
   # used to validate temp url requests. You only need to do this once.
 
-  account = client.account
+  account = @client.account
   account.meta_temp_url_key = 'super secret squirrels'
   account.save
 
@@ -60,4 +60,6 @@
   # @client with the #url method. Its argument is the expiration time for
   # the generated URL, expressed as seconds since the epoch (1970-01-01 00:00).
 
+  directory = @client.directories.get('sample-container-test')
+  file = directory.files.get('somefile.txt')
   temp_url = file.url(Time.now.to_i + 600)
