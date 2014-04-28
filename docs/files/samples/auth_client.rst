@@ -45,17 +45,8 @@
     :provider => 'rackspace',
     :rackspace_username => '{username}',
     :rackspace_api_key => '{apikey}',
-    :rackspace_region => :'{region}'
+    :rackspace_region => '{region}'
   )
 
-  # If you're a UK customer, specify a :rackspace_auth_url as well, and use the
+  # If you're a UK customer, specify a :rackspace_auth_url of "Fog::Rackspace::UK_AUTH_ENDPOINT" as well, and use the
   # :lon (London) region.
-
-  @client = Fog::Storage.new(
-    :provider => 'rackspace',
-    :rackspace_username => '{username}',
-    :rackspace_api_key => '{apiKey}',
-    :rackspace_region => :lon,
-    :rackspace_auth_url => Fog::Rackspace::UK_AUTH_ENDPOINT
-  )
-
