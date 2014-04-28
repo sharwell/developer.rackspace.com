@@ -16,7 +16,7 @@
 
 .. code-block:: python
 
-   obj.delete()
+  obj.delete()
 
 .. code-block:: ruby
 
