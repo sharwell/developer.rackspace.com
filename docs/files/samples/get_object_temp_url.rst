@@ -51,8 +51,8 @@
   @client = Fog::Storage.new(
     :provider => 'rackspace',
     :rackspace_username => '{username}',
-    :rackspace_api_key => '{apikey}',
-    :rackspace_region => :ord,
+    :rackspace_api_key => '{apiKey}',
+    :rackspace_region => '{region}',
     :rackspace_temp_url_key => 'super secret squirrels'
   )
 
