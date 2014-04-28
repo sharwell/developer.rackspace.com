@@ -8,4 +8,6 @@
 
 .. code-block:: python
 
-.. code-block:: rubys
+.. code-block:: ruby
+
+  # N/A
