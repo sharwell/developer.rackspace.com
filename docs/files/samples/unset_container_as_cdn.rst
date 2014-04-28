@@ -14,3 +14,8 @@
 .. code-block:: python
 
   container.make_private()
+
+.. code-block:: ruby
+
+  directory.public = false
+  directory.save

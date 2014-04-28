@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
     file.metadata = {
@@ -9,6 +13,8 @@
         // TODO handle as appropriate
       }
     });
+
+.. code-block:: php
 
 .. code-block:: python
 

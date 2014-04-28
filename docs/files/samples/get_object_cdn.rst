@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   var cdnUrl = container.cdnUri + '/' + encodeURIComponent(file.name);
