@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   // we need to use the fs module to access the local disk
@@ -27,10 +31,10 @@
   // Upload an object to the container.
   $localFileName  = __DIR__ . '/php-elephant.jpg';
   $remoteFileName = 'php-elephant.jpg';
-  
+
   $fileData = fopen($localFileName, 'r');
   $object = $container->uploadObject($remoteFileName, $fileData);
-  
+
   // Note that while we call fopen to open the file resource, we do not call fclose at the end.
   // The file resource is automatically closed inside the uploadObject call.
 
@@ -48,4 +52,3 @@
     :key => 'somefile.txt',
     :body => 'Rackspace is awesome!'
   )
-

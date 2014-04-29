@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   container.enableCdn(function(err) {
@@ -14,3 +18,8 @@
 .. code-block:: python
 
   container.make_public()
+
+.. code-block:: ruby
+
+  directory.public = true
+  directory.save

@@ -1,3 +1,7 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
 .. code-block:: javascript
 
   client.removeFile('sample-container-test', 'somefile.txt', function(err) {
@@ -12,7 +16,7 @@
 
 .. code-block:: python
 
-   obj.delete()
+  obj.delete()
 
 .. code-block:: ruby
 
