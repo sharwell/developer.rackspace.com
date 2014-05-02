@@ -2,6 +2,9 @@
 
 .. code-block:: java
 
+    ServerApi serverApi = novaApi.getServerApiForZone("{region}");
+    ServerCreated serverCreated = serverApi.create("My new server", "{imageId}", "{flavorId}");
+
 .. code-block:: javascript
 
     client.createServer({

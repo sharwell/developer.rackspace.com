@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    Flavor flavor = flavorApi.get({flavorId});
 
 .. code-block:: javascript
 
@@ -17,3 +18,5 @@
     flavor = cdb.get_flavor(flavor_id)
 
 .. code-block:: ruby
+
+    flavor = @client.flavors.get('{flavorId}')

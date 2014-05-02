@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    // Currently not supported.
 
 .. code-block:: javascript
 
@@ -16,3 +17,6 @@
     inst.resize(new_flavor)
 
 .. code-block:: ruby
+
+    instance.resize(new_flavor.id)
+    instance.wait_for { ready? }

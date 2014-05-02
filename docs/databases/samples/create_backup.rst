@@ -3,6 +3,7 @@
 
 .. code-block:: java
 
+    // This operation is currently not supported through the jclouds SDK.
 
 .. code-block:: javascript
 
@@ -15,3 +16,5 @@
     backup = inst.create_backup("backup_name")
 
 .. code-block:: ruby
+
+    # N/A

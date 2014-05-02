@@ -9,3 +9,11 @@
 .. code-block:: python
 
 .. code-block:: ruby
+
+  require 'fog'
+
+  @client = Fog::Rackspace::Monitoring.new(
+    :rackspace_username => '{username}',
+    :rackspace_api_key => '{apikey}',
+    :rackspace_region => '{region}'
+  )

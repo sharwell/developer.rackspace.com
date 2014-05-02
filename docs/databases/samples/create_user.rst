@@ -3,6 +3,9 @@
 
 .. code-block:: java
 
+    UserApi userApi = troveApi.getUserApiForZoneAndInstance("{region}", "{instanceId}");
+
+    boolean result = userApi.create("{dbUsername}", "{dbPassword}", "{dbName}");
 
 .. code-block:: javascript
 
@@ -13,15 +16,24 @@
 
     // Create user and assign them to some DBs
     $user->create(array(
-        'name'      => 'jane_doe',
-        'password'  => '6hUH!$Hu-77Ca=reVacH',
-        'databases' => array('wordpress', 'other_db')
+        'name'      => '{dbUsername}',
+        'password'  => '{dbPassword}',
+        'databases' => array('{dbName1}', '{dbName2}')
     ));
 
 .. code-block:: python
 
     # Create a user by specifying the username and password, and give them
     # access to two databases.
-    inst.create_user("username", "password", ["db1, db3"])
+    inst.create_user("{dbUsername}", "{dbPassword}", ["{dbName1}", "{dbName2}"])
 
 .. code-block:: ruby
+
+    # Create a user by specifying the username and password, and give them
+    # access to two databases.
+
+    instance.users.create(
+      :name => '{dbUsername}',
+      :password => '{dbPassword}',
+      :databases => %w{{dbName1} {dbName2}}
+    )

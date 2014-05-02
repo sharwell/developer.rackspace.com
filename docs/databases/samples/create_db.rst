@@ -3,6 +3,9 @@
 
 .. code-block:: java
 
+    DatabaseApi databaseApi = troveApi.getDatabaseApiForZoneAndInstance("{region}", "{instanceId}";
+
+    boolean result = databaseApi.create("{dbName}");
 
 .. code-block:: javascript
 
@@ -20,3 +23,5 @@
     inst.create_database("sample_db")
 
 .. code-block:: ruby
+
+    database = instance.databases.create(:name => 'sample_db')
