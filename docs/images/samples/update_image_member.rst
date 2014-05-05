@@ -1,3 +1,13 @@
+.. code-block:: csharp
+
+.. code-block:: java
+
+.. code-block:: javascript
+
 .. code-block:: php
 
-    // TODO To update an image member
+    // To update an image member:
+    
+.. code-block:: python
+
+.. code-block:: ruby

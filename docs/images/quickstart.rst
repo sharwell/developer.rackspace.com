@@ -187,8 +187,8 @@ Share images
 The Cloud Images API enables you and others to share your custom images. 
 The following examples show some basic image sharing operations. 
 
-Create an image member
-----------------------
+Add an image member
+-------------------
 
 .. include:: samples/create_image_member.rst
 
