@@ -3,5 +3,5 @@
 # Connect load balancer to 4 web server nodes
 # Provision 1 master + 1 slave Jenkins setup
 ---
-#- include: provision_web.yml
+- include: provision_web.yml
 - include: provision_jenkins.yml

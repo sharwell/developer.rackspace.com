@@ -15,3 +15,7 @@ jenkins
 
 [webservers:vars]
 server_name=developer.rackspace.com
+
+[all:vars]
+ansible_ssh_user=root
+ansible_ssh_private_key_file=~/.ssh/drg.pem
