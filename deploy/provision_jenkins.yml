@@ -23,6 +23,7 @@
         exact_count: yes
         group: jenkins_masters
         wait: yes
+        key_name: drg
       register: rax
 
     - name: Add DFW master servers to jenkins_masters host group
@@ -30,8 +31,6 @@
         module: add_host
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
-        ansible_ssh_pass: "{{ item.rax_adminpass }}"
-        ansible_ssh_user: root
         groupname: jenkins_masters
       with_items: rax.success
       when: rax.action == 'create'
@@ -52,3 +51,4 @@
         exact_count: yes
         group: jenkins_slaves
         wait: yes
+        key_name: drg

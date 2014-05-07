@@ -39,6 +39,7 @@
         exact_count: yes
         group: webservers
         wait: yes
+        key_name: drg
       register: rax
 
     - name: Add IAD servers to load balancer
@@ -60,8 +61,6 @@
         module: add_host
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
-        ansible_ssh_pass: "{{ item.rax_adminpass }}"
-        ansible_ssh_user: root
         groupname: webservers
       with_items: rax.success
       when: rax.action == 'create'
@@ -82,6 +81,7 @@
         exact_count: yes
         group: webservers
         wait: yes
+        key_name: drg
       register: rax      
 
     - name: Add DFW servers to load balancer
@@ -103,8 +103,6 @@
         module: add_host
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
-        ansible_ssh_pass: "{{ item.rax_adminpass }}"
-        ansible_ssh_user: root
         groupname: webservers
       with_items: rax.success
       when: rax.action == 'create'

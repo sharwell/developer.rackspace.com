@@ -18,28 +18,30 @@
     api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
     ```
 
-4. Change to this directory on your development machine.
+4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the IAD and DFW regions in your Rackspace Cloud account.
+
+5. Change to this directory on your development machine.
 
     ```bash
     $ cd /path/to/developer.rackspace.com/deploy
     ```
 
-5. Run the Ansible playbook. This will take several minutes.
+6. Run the Ansible playbook. This will take several minutes.
 
     ```bash
-    $ ansible-playbook site.yml -i inventory/hosts.prod
+    $ ansible-playbook site.yml -i inventory/prod
     ```
 
-6. In your Rackspace cloud control panel you should see the following:
+7. In your Rackspace cloud control panel you should see the following:
    * 2 cloud servers in IAD named `webserver_iad_1` and `webserver_iad_2`.
    * 2 cloud servers in DFW named `webserver_dfw_1` and `webserver_dfw_2`.
    * 1 cloud load balancer in DFW named `weblb` with the 4 cloud servers from above as its nodes. Note the public IP address of this load balancer.
 
-7. Each cloud server has nginx installed, configured and running.
+8. Each cloud server has nginx installed, configured and running.
 
-8. Each cloud server has a `publisher` user, which can be used to upload static content to the site. The SSH public key for this user is already added to the user's `authorized_keys` file. The SSH private key is... well, private (ask @ycombinator for it). Static content should be uploaded over SSH (via scp/sftp/rsync) to `/var/www/html/developer.rackspace.com`.
+9. Each cloud server has a `publisher` user, which can be used to upload static content to the site. The SSH public key for this user is already added to the user's `authorized_keys` file. The SSH private key is... well, private (ask @ycombinator for it). Static content should be uploaded over SSH (via scp/sftp/rsync) to `/var/www/html/developer.rackspace.com`.
 
-9. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
+10. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
 
 ## Development Setup
 
@@ -78,4 +80,10 @@
 * **elasticsearch.yml**: Ansible playbook to setup Elasticsearch service tier.
 * **web.yml**: Ansible playbook to setup Nginx web tier.
 * **roles/**:
-   * **bennojoy.nginx/**: See https://galaxy.ansible.com/list#/roles/2
+   * **bennojoy.nginx/**: See https://github.com/bennojoy/nginx
+   * **ICTO.ansible-jenkins/**: See https://github.com/ICTO/ansible-jenkins
+
+## TOOD
+* Move adding of webserver nodes to load balancer out of provision_web.yml and into configure_lb.yml (new file).
+* Complete configuration of Jenkins slaves.
+* Complete configuration of Jenkins master - need to setup job conf files (see `roles/jenkins_masters/files` directory).
