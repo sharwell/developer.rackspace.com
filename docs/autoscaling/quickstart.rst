@@ -117,11 +117,11 @@ The next step is to inspect autoscaling Webhook details:
 
 Alternatively, you could list all available autoscaling Webhooks in a particular region as follows:
 
-.. include:: samples/list_autoscaling_webhooks.rst
+.. include:: samples/list_scaling_webhooks.rst
 
 If you want to alter details about an existing Webhook, see code samples below:
 
-.. include:: samples/update_autoscaling_webhook.rst
+.. include:: samples/update_scaling_webhook.rst
 
 Finally, to delete an autoscaling Webhook, you can do as suggested in the code samples below:
 
