@@ -23,6 +23,14 @@
 
 .. code-block:: python
 
+    import pyrax
+
+    img = pyrax.images
+    # Get a list of the images available to your account
+    image_list = img.list()
+    image_name = [img in cs.images.list()
+        if "Fedora 20" in img.name][0]
+
 .. code-block:: ruby
 
     image = @client.images.get('{imageId}')
