@@ -1,7 +1,7 @@
 ---
 - name: Configure web server(s)
   hosts: webservers
-  sudo: true
+  sudo: yes
   vars:
   - docroot: "/var/www/html/developer.rackspace.com"
   roles:

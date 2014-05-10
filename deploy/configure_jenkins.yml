@@ -1,7 +1,7 @@
 ---
 - name: Configure jenkins master server(s)
   hosts: jenkins_masters
-  sudo: true
+  sudo: yes
   vars:
   - plugins:
     - 'github'
@@ -11,4 +11,4 @@
 
 - name: Configure jenkins slave server(s)
   hosts: jenkins_slaves
-  sudo: true
+  sudo: yes

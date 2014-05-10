@@ -1,7 +1,7 @@
 ---
 - name: Install java
   apt: pkg={{ item }} update_cache=yes state=present
-  sudo: true
+  sudo: yes
   with_items:
   - openjdk-7-jdk
   - openjdk-7-jre
@@ -11,8 +11,8 @@
 
 - name: Install Elasticsearch
   command: dpkg -i /tmp/elasticsearch-{{elasticsearch_version}}.deb
-  sudo: true
+  sudo: yes
 
 - name: Start Elasticsearch service
   service: name=elasticsearch state=started
-  sudo: true
+  sudo: yes
