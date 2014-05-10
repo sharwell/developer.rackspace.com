@@ -1,4 +1,0 @@
----
-- include: configure_web.yml
-- include: configure_jenkins.yml
-- include: configure_elasticsearch.yml

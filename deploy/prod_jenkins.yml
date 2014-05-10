@@ -1,5 +1,3 @@
-# Provision 1 Jenkins master server in DFW
-# Provision 2 Jenkins slave servers in DFW
 ---
 - name: Provision Jenkins setup
   hosts: localhost
@@ -52,3 +50,17 @@
         group: jenkins_slaves
         wait: yes
         key_name: drg
+
+- name: Configure jenkins master server(s)
+  hosts: jenkins_masters
+  sudo: yes
+  vars:
+  - plugins:
+    - 'github'
+  - startup_delay_s: 20
+  roles:
+    - ICTO.ansible-jenkins
+
+- name: Configure jenkins slave server(s)
+  hosts: jenkins_slaves
+  sudo: yes
