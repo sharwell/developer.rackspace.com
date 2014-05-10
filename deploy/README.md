@@ -45,7 +45,7 @@
 
 ## Development Setup
 
-1. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
+1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
 
 2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
@@ -64,7 +64,13 @@
     $ vagrant up
     ```
 
-6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
+6. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
+
+   ```bash
+   $ vagrant rsync-auto
+   ```
+
+7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
       * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
