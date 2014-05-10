@@ -4,10 +4,10 @@
 # pyrax is installed there and use it to talk to the Rackspace Cloud. Comprende?
 #
 [jenkins]
-localhost ansible_python_interpreter=/usr/local/bin/python 
+localhost 
 
 [webservers]
-localhost ansible_python_interpreter=/usr/local/bin/python 
+localhost
 
 [all:children]
 webservers
