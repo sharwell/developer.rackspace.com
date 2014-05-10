@@ -17,6 +17,11 @@
 
 .. code-block:: python
 
+    # Deletes server named "sacrifice"
+    print("Deleting 'sacrifice' server...", end=' ')
+    sacrifice.delete()
+    print("  Done!")
+
 .. code-block:: ruby
 
     server.destroy

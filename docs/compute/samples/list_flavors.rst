@@ -38,6 +38,22 @@
 
 .. code-block:: python
 
+    import pyrax
+
+    cs = pyrax.cloudservers
+    # Get a list of the flavors available to your account
+    flavor_list = cs.list_flavors()
+    # Shows the number of flavors in the list
+    print("There are %s flavors:" % len(flavor_list))
+    # Shows flavor names, IDs, RAM, disk space, and number of vCPUs
+    for flv in flavor_list:
+        print("Name:", flv.name)
+        print("  ID:", flv.id)
+        print("  RAM:", flv.ram)
+        print("  Disk:", flv.disk)
+        print("  VCPUs:", flv.vcpus)
+        print()
+
 .. code-block:: ruby
 
     @client.flavors.all

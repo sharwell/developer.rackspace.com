@@ -33,7 +33,8 @@
 
 .. code-block:: python
 
-  record = domain.get_record('{domain_id}', '{record_id}')
+  record = domain.get_record('{domain_id}', '{record_id}'')
+
 
 .. code-block:: ruby
 
