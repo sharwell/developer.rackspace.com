@@ -1,0 +1,10 @@
+---
+- name: Stop Jekyll watcher
+  command: killall -q screen
+  sudo: yes
+  ignore_errors: yes
+
+- name: Start Jekyll watcher
+  command: screen -dmS watcher jekyll build --watch --source . --destination /var/www/html/developer.rackspace.com/ chdir=/vagrant_data/site_source
+  sudo: yes
+  sudo_user: publisher

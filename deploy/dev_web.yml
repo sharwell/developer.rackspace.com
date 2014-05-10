@@ -22,4 +22,5 @@
           }
         ]
       }
-    - webservers_dev
+    - jekyll
+    - jekyll_watcher
