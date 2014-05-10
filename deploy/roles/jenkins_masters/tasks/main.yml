@@ -1,4 +1,24 @@
 ---
-- name: Install jenkins
-  user: name=publisher comment="Site Publisher" state=present
+- name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
+  copy:
+    src: ../files/var/lib/jenkins/
+    dest: /var/lib/jenkins/
+
+- name: Setup correct ownerships and permissions
+  sudo: yes
+  file:
+    path: /var/lib/jenkins/
+    state: directory
+    recurse: yes
+    owner: jenkins
+    group: jenkins
+
+- name: Install system packages necessary for jobs
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+  - gcc
+  - python-setuptools
+
+- name: Install Sphinx for 'Build Sphinx Docs' job
+  easy_install: name=sphinx
