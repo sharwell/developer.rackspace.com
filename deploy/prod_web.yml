@@ -19,8 +19,7 @@
       register: clb
 
     - name: Provision 2 web servers
-      local_action:
-        module: rax
+      rax:
         credentials: ~/.rackspace_cloud_credentials
         name: webserver_%01d
         flavor: performance1-1
@@ -38,8 +37,7 @@
       register: rax
 
     - name: Add web servers to load balancer
-      local_action:
-        module: rax_clb_nodes
+      rax_clb_nodes:
         credentials: ~/.rackspace_cloud_credentials
         load_balancer_id: "{{ clb.balancer.id }}"
         address: "{{ item.rax_networks.private|first }}"
@@ -52,8 +50,7 @@
       when: rax.action == 'create'
 
     - name: Add web servers to webservers host group
-      local_action:
-        module: add_host
+      add_host:
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
         groupname: webservers
