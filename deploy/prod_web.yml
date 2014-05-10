@@ -1,13 +1,11 @@
 ---
 - name: Provision web setup
-  hosts: localhost
+  hosts: webservers
   connection: local
-  gather_facts: False
   tasks:
 
     - name: Provision web load balancer
-      local_action:
-        module: rax_clb
+      rax_clb:
         credentials: ~/.rackspace_cloud_credentials
         name: "{{ server_name }}"
         port: 80
@@ -15,7 +13,7 @@
         algorithm: ROUND_ROBIN
         type: PUBLIC
         timeout: 30
-        region: {{ ansible_env.RAX_REGION }}
+        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
         wait: yes
         state: present
       register: clb
@@ -24,13 +22,13 @@
       local_action:
         module: rax
         credentials: ~/.rackspace_cloud_credentials
-        name: webserver_{{ ansible_env.RAX_REGION }}_%01d
+        name: webserver_%01d
         flavor: performance1-1
         image: ubuntu-1204-lts-precise-pangolin
         networks:
           - public
           - private
-        region: {{ ansible_env.RAX_REGION }}
+        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
         state: present
         count: 2
         exact_count: yes
@@ -49,7 +47,7 @@
         condition: enabled
         type: primary
         wait: yes
-        region: {{ region }}"
+        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
       with_items: rax.success
       when: rax.action == 'create'
 

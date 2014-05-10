@@ -18,7 +18,7 @@
     api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
     ```
 
-4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the IAD and DFW regions in your Rackspace Cloud account.
+4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure.
 
 5. Change to this directory on your development machine.
 
@@ -26,16 +26,24 @@
     $ cd /path/to/developer.rackspace.com/deploy
     ```
 
-6. Run the Ansible playbook. This will take several minutes.
+6. There are 3 Ansible playbooks for the production environment, one each for the web site, the elastic search service and the Jenkins setup. These three playbooks are named `prod_web.yml`, `prod_elasticsearch.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook. The example below shows how to setup the production web site in DFW:
 
     ```bash
-    $ ansible-playbook site.yml -i inventory/prod
+    $ RAX_REGION=dfw ansible-playbook prod_web.yml -i inventory/prod
     ```
 
-7. In your Rackspace cloud control panel you should see the following:
-   * 2 cloud servers in IAD named `webserver_iad_1` and `webserver_iad_2`.
-   * 2 cloud servers in DFW named `webserver_dfw_1` and `webserver_dfw_2`.
-   * 1 cloud load balancer in DFW named `weblb` with the 4 cloud servers from above as its nodes. Note the public IP address of this load balancer.
+7. Depending on the playbook you ran, here is what you should see in your Rackspace Cloud control panel:
+
+   a. If you successfully ran the production web site playbook, you should see the following:
+      * 2 cloud servers in named `webserver_1` and `webserver_2`, and
+      * 1 cloud load balancer named `developer.rackspace.com` with the 2 cloud servers from above as its nodes. Note the public IP address of this load balancer.
+      * If you visit the public IP address of the load balancer in your browser (port 80), you should see the developer.rackspace.com web site.
+
+   b. If you successfully ran the Jenkins setup playbook, you should see the following:
+      * 1 Jenkins master server named `jenkins_master`,
+      * 2 Jenkins slave servers named `jenkins_slave_1` and `jenkins_slave_2`.
+      * If you visit the public IP address of the Jenkins master server in your browser (on port 80), you should see the Jenkins login screen.
+      * Once you log in, you should see various jobs that build and publish content to the web servers in the same region.
 
 8. Each cloud server has nginx installed, configured and running.
 
