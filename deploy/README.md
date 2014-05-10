@@ -41,8 +41,7 @@
 
    b. If you successfully ran the Jenkins setup playbook, you should see the following:
       * 1 Jenkins master server named `jenkins_master`,
-      * 2 Jenkins slave servers named `jenkins_slave_1` and `jenkins_slave_2`.
-      * If you visit the public IP address of the Jenkins master server in your browser (on port 80), you should see the Jenkins login screen.
+      * If you visit the public IP address of the Jenkins master server in your browser (on port 8080), you should see the Jenkins login screen.
       * Once you log in, you should see various jobs that build and publish content to the web servers in the same region.
 
 8. Each cloud server has nginx installed, configured and running.
