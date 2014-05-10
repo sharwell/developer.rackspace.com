@@ -1,0 +1,5 @@
+---
+- name: Install jekyll on web servers in dev
+  hosts: webservers
+  roles:
+    - webservers_dev

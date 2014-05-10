@@ -1,0 +1,28 @@
+---
+- name: Install system packages necessary for Jekyll
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+  - build-essential 
+  - ruby1.9.3
+  - ruby-odbc
+  - nodejs
+  - screen
+  sudo: yes
+
+- name: Install gems necessary for Jekyll
+  gem: name={{ item }} state=latest executable=/usr/bin/gem1.9.3 user_install=no 
+  with_items:
+  - jekyll
+  - execjs
+  - stringex
+  sudo: yes
+
+- name: Stop Jekyll watcher
+  command: killall -q screen
+  sudo: yes
+  ignore_errors: yes
+
+- name: Start Jekyll watcher
+  command: screen -dmS watcher jekyll build --watch --source . --destination /var/www/html/developer.rackspace.com/ chdir=/vagrant_data/site_source
+  sudo: yes
+  sudo_user: publisher
