@@ -1,7 +1,7 @@
 name: Rackspace Developer Portal
 url: http://developer.rackspace.com
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 
 paginate: 10          # Posts per page on the blog index
 paginate_path: /blog/page:num
