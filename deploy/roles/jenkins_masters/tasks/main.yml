@@ -5,6 +5,14 @@
     src: ../files/var/lib/jenkins/
     dest: /var/lib/jenkins/
 
+- name: Override 'Build Site' job config with developer.rackspace.com web server IP list
+  sudo: yes
+  template:
+    src: "../files/var/lib/jenkins/jobs/Build Site/config.xml.j2"
+    dest: "/var/lib/jenkins/jobs/Build Site/config.xml"
+  notify:
+    - 'Restart Jenkins'
+
 - name: Setup correct ownerships and permissions
   sudo: yes
   file:
@@ -13,6 +21,8 @@
     recurse: yes
     owner: jenkins
     group: jenkins
+  notify:
+    - 'Restart Jenkins'
 
 - name: Install system packages necessary for jobs
   apt: name={{ item }} state=latest update_cache=yes
