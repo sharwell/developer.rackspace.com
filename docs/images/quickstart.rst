@@ -3,8 +3,16 @@ Getting Started with Cloud Images
 ==================================
 
 This guide helps you get started with the Rackspace Cloud Images service.
-Use this service to get, store, share, and assign metadata for Rackspace Cloud Server 
-images through a simple Representational State Transfer (REST) web service interface.
+
+This service enables you to create and
+manipulate images, image members, and associated metadata through
+a simple Representational State Transfer (REST) web service interface.
+
+This service is closely aligned with the Rackspace Cloud Servers
+and Cloud Files services. 
+
+Images are captured from, and applied to, cloud servers
+and are stored on, and retrieved from, Cloud Files storage.
 
 Concepts
 ========
@@ -15,19 +23,37 @@ Before you jump in, it helps to understand these core Images service concepts:
   Your application, web server, and file system runs on a server.
     
 * A **flavor** is a type of hardware configuration that describes the parameters of the available virtual 
-  machine images. Includes parameters such as CPU, storage, and memory. 
+  machine images. 
+  
+  Includes parameters such as CPU, storage, and memory. 
+  
   Rackspace offers a set of standard hardware configurations for you to choose from. 
     
-* A **network** is the virtual space where your servers live. By default, Rackspace provides the PublicNet network
-  that enables public Internet connectivity and the internal ServiceNet network that enables internal connectivity with your other servers.
+* A **network** is the virtual space where your servers live. 
+
+  By default, Rackspace provides the PublicNet network
+  that enables public Internet connectivity and the internal ServiceNet 
+  network that enables internal connectivity with your other servers.
 
 * An **image** is a collection of specific operating system (OS) files that you use to 
-  create or rebuild a server. Rackspace offers pre-built Linux and Windows images: 
-  Ubuntu 14.04, Red Hat 6, Windows, and so on. You can also create custom images, or snapshots, 
-  from servers that you have launched. You can use custom images for data backups and 
+  create or rebuild a server. 
+  
+  Rackspace offers pre-built Linux and Windows images: 
+  Ubuntu 14.04, Red Hat 6, Windows, and so on. 
+  
+  You can also create custom images, or snapshots, 
+  from servers that you have launched. 
+  
+  You can use custom images for data backups and 
   as *gold* images to launch additional servers. 
-
-The following sections gives you more information about images.
+  
+* A **standard image** is one that has not reached its end of life 
+  and that Rackspace supplies for your service 
+  level or that is provided specifically for RackConnect customers. 
+  
+* A **nonstandard image** is one that is imported or exported, end-of-life, shared, 
+  not standard for your account service level and not included
+  in the subset of images provided for RackConnect customers.
 
 Image entity
 ------------
@@ -65,72 +91,37 @@ To help end users use your images, you can put additional common properties, or 
 
 The available properties and their expected values include:
 
+
 **os_distro**
+  The common name of the operating system          
+  distribution. 
+  
+  Must be all lowercase and          
+  entered exactly as shown here:                                      
 
-    The common name of the operating system distribution. The common name must be all lowercase and entered exactly as shown here. The allowed values are:
+  - arch. Arch Linux                               
+  - centos. Community Enterprise Operating System  
+  - debian. Debian                                 
+  - fedora. Fedora                                 
+  - freebsd. FreeBSD                               
+  - gentoo. Gentoo Linux                           
+  - mandrake. Mandrakelinux (MandrakeSoft)         
+  - mandriva. Mandriva Linux                       
+  - mes. Mandriva Enterprise Server                
+  - msdos. Microsoft Disk Operating System         
+  - netbsd. NetBSD                                 
+  - netware. Novell NetWare                        
+  - openbsd. OpenBSD                               
+  - opensolaris. OpenSolaris                       
+  - opensuse. openSUSE                             
+  - rhel. Red Hat Enterprise Linux                 
+  - sled. SUSE Linux Enterprise Desktop            
+  - ubuntu. Ubuntu                                 
+  - windows. Microsoft Windows                     
 
-    **arch**
-
-        Arch Linux
-    **centos**
-
-        Community Enterprise Operating System
-    **debian**
-
-        Debian
-    **fedora**
-
-        Fedora
-    **freebsd**
-
-        FreeBSD
-    **gentoo**
-
-        Gentoo Linux
-    **mandrake**
-
-        Mandrakelinux (MandrakeSoft)
-    **mandriva**
-
-        Mandriva Linux
-    **mes**
-
-        Mandriva Enterprise Server
-    **msdos**
-
-        Microsoft Disk Operating System
-    **netbsd**
-
-        NetBSD
-    **netware**
-
-        Novell NetWare
-    **openbsd**
-
-        OpenBSD
-    **opensolaris**
-
-        OpenSolaris
-    **opensuse**
-
-        openSUSE
-    **rhel**
-
-        Red Hat Enterprise Linux
-    **sled**
-
-        SUSE Linux Enterprise Desktop
-    **ubuntu**
-
-        Ubuntu
-    **windows**
-
-        Microsoft Windows
-
-**os_version**
-
-    The distributor-specified operating system version.
-
+**os_version**   
+  The distributor-specified OS version.
+    
 Authenticate
 ============
 
@@ -174,7 +165,7 @@ Import and export images
 
 An image task is a request to perform an asynchronous image-related operation, such as importing or exporting an image. The request results in the creation of a disposable task resource that can be polled for information about the status of the operation.
 
-After you initiate an image import or export, poll the status of the created task by using the instructions in Section 2.1.6, “Get details for a task”. When the task resource reaches a final status of success or failure, the poll response includes an expiration date and time stamp. After that expiration date and time, the disposable task resource itself expires and is subject to deletion. 
+After you initiate an image import or export, poll the status of the created task by using the instructions in Section 2.1.6, Get details for a task. When the task resource reaches a final status of success or failure, the poll response includes an expiration date and time stamp. After that expiration date and time, the disposable task resource itself expires and is subject to deletion. 
 However, the result of the task, such as an imported or exported image, does not expire.
 
 .. include:: samples/import_image.rst
