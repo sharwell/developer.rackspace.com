@@ -26,13 +26,25 @@
     $ cd /path/to/developer.rackspace.com/deploy
     ```
 
-6. There are 3 Ansible playbooks for the production environment, one each for the web site, the elastic search service and the Jenkins setup. These three playbooks are named `prod_web.yml`, `prod_elasticsearch.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook. The example below shows how to setup the production web site in DFW:
+6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com.
 
-    ```bash
-    $ RAX_REGION=dfw ansible-playbook prod_web.yml -i inventory/prod
-    ```
+7. There are 3 Ansible playbooks for the production environment, one each for the web site, the elastic search service and the Jenkins setup. These three playbooks are named `prod_web.yml`, `prod_elasticsearch.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook.
 
-7. Depending on the playbook you ran, here is what you should see in your Rackspace Cloud control panel:
+   a. The example below shows how to setup the production web site in DFW:
+
+      ```bash
+      $ RAX_REGION=dfw ansible-playbook prod_web.yml -i inventory/prod
+      ```
+
+   b. The example below shows how to setup a Jenkins setup in DFW:
+
+      ```bash
+      $ RAX_REGION=dfw ansible-playbook prod_jenkins.yml -i inventory/prod
+      ```
+
+      **IMPORTANT!** The `prod_jenkins.yml` playbook MUST be run after the `prod_web.yml` playbook has run for the same `RAX_REGION`. Here's why: The `prod_jenkins.yml` playbook creates a 'Build Site' Jenkins job. This job generates the content for the developer.rackspace.com web site. The `prod_jenkins.yml` playbook will automatically lookup the private (ServiceNet) IP addresses of the developer.rackspace.com web servers in the specified region (via the `RAX_REGION` environment variable) and use them to configure the 'Build Site' job. This lets the 'Build Site' job publish the generated content to the developer.rackspace.com web servers in its region.
+
+8. Depending on the playbook you ran, here is what you should see in your Rackspace Cloud control panel:
 
    a. If you successfully ran the production web site playbook, you should see the following:
       * 2 cloud servers in named `webserver_1` and `webserver_2`, and
@@ -44,11 +56,11 @@
       * If you visit the public IP address of the Jenkins master server in your browser (on port 8080), you should see the Jenkins login screen.
       * Once you log in, you should see various jobs that build and publish content to the web servers in the same region.
 
-8. Each cloud server has nginx installed, configured and running.
+9. Each cloud server has nginx installed, configured and running.
 
-9. Each cloud server has a `publisher` user, which can be used to upload static content to the site. The SSH public key for this user is already added to the user's `authorized_keys` file. The SSH private key is... well, private (ask @ycombinator for it). Static content should be uploaded over SSH (via scp/sftp/rsync) to `/var/www/html/developer.rackspace.com`.
+10. Each cloud server has a `publisher` user, which can be used to upload static content to the site. The SSH public key for this user is already added to the user's `authorized_keys` file. The SSH private key is... well, private (ask @ycombinator for it). Static content should be uploaded over SSH (via scp/sftp/rsync) to `/var/www/html/developer.rackspace.com`.
 
-10. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
+11. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
 
 ## Development Setup
 

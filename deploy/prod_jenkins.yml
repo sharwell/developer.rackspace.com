@@ -1,14 +1,12 @@
 #
 # TODO:
-# - Configure login on Jenkins master
-# - Configure jobs
-#   - Configure publish job to use correct key, dynamically lookup web heads and add to job template
 # - Configure master to talk to slaves (on private network)
 #
 ---
 - name: Provision Jenkins setup
   hosts: jenkins
   connection: local
+  gather_facts: False
   tasks:
 
     - name: Provision jenkins master server
@@ -36,6 +34,12 @@
         groupname: jenkins_masters
       with_items: rax.success
       when: rax.action == 'create'
+
+# We do this so the 'Build Site' Jenkins job can be configured to
+# publish content to the right web server hosts in the same region.
+- name: Gather info about developer.rackspace.com web servers in same region
+  hosts: webservers
+  gather_facts: True
 
 - name: Configure jenkins master server(s)
   hosts: jenkins_masters

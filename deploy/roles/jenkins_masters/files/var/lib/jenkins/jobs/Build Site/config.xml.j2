@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.0.4">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.1">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -20,8 +20,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>master</assignedNode>
-  <canRoam>false</canRoam>
+  <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
@@ -38,7 +37,16 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd site_source
-LANG=&quot;en_US.UTF-8&quot; LC_ALL=&quot;en_US.UTF-8&quot; /usr/local/bin/jekyll build</command>
+LANG=&quot;en_US.UTF-8&quot; LC_ALL=&quot;en_US.UTF-8&quot; /usr/local/bin/jekyll build --source . --destination ./_site</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd site_source/_site
+{% for host in groups['webservers'] %}
+{% if host != 'localhost' %}
+rsync -e &quot;ssh -i $JENKINS_HOME/publisher.id_rsa -o StrictHostKeyChecking=no&quot; -ac . publisher@{{ hostvars[host]['rax_networks']['private'][0] }}:/var/www/html/developer.rackspace.com/
+{% endif %}
+{% endfor %}
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
