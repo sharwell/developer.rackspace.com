@@ -14,15 +14,14 @@ We are migrating to this repo by June-ish 2014. The areas now building are:
 In progress:
 - /api/: maven, content maintained in /dian4554/rax-api-ref (to move to rackerlabs/rax-api-ref)
 - elastic search
-- automation of staging/prod
 
 To do:
 - assets to CDN
 - feeds
-- automated push to prod
-=======
+
+========
 Workflow
-================
+========
 
 Needed:
 * Stage 1: build jekyll site; if no errors; put into directory pending push to nginx
@@ -32,7 +31,7 @@ Needed:
 * Stage 5: Push stage 1 static dir to nginx
 
 Continuous Integration
-================
+======================
 * staging-jenkins (+1 slave node. note: slave nodes need the exact same software stack as master node. Unlike Travis, Jenkins needs the environment to be setup ahead of time.)
 * 2-stage build process following workflow above
   * Job "Build Site" performs Stage 1 related tasks
