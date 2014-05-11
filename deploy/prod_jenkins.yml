@@ -1,5 +1,6 @@
 #
 # TODO:
+# - Configure slaves (keeping in mind that they will need some of the same files as master)
 # - Configure master to talk to slaves (on private network)
 #
 ---
