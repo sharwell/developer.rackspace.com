@@ -1,3 +1,36 @@
+## Development Setup
+
+1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
+
+2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+
+3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
+   * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
+
+4. Change to this folder on your development machine.
+
+    ```bash
+    $ cd /path/to/developer.rackspace.com/deploy
+    ```
+
+5. Run Vagrant to set up a VirtualBox VM running a development environment.
+
+    ```bash
+    $ vagrant up
+    ```
+
+6. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
+
+   ```bash
+   $ vagrant rsync-auto
+   ```
+
+7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
+   * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
+      * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
+   * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
+
+
 ## Production Setup
 
 1. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
@@ -62,53 +95,15 @@
 
 11. The web site can be accessed via the public IP address of the cloud load balancer, as noted in step 6, over HTTP on port 80.
 
-## Development Setup
-
-1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
-
-2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-
-3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
-   * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
-
-4. Change to this folder on your development machine.
-
-    ```bash
-    $ cd /path/to/developer.rackspace.com/deploy
-    ```
-
-5. Run Vagrant to set up a VirtualBox VM running a development environment.
-
-    ```bash
-    $ vagrant up
-    ```
-
-6. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
-
-   ```bash
-   $ vagrant rsync-auto
-   ```
-
-7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
-   * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
-      * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
-   * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
-
-
 ## Folder Layout
 
 * **Vagrantfile**: Vagrant file used to setup a development environment VM.
-* **hosts.dev**: Ansible inventory file specifying development environment machines.
-* **hosts.staging**: Ansible inventory file specifying staging environment machines.
-* **hosts.prod**: Ansible inventory file specifying production environment machines.
-* **site.yml**: Master Ansible playbook.
-* **elasticsearch.yml**: Ansible playbook to setup Elasticsearch service tier.
-* **web.yml**: Ansible playbook to setup Nginx web tier.
-* **roles/**:
-   * **bennojoy.nginx/**: See https://github.com/bennojoy/nginx
-   * **ICTO.ansible-jenkins/**: See https://github.com/ICTO/ansible-jenkins
-
-## TOOD
-* Move adding of webserver nodes to load balancer out of provision_web.yml and into configure_lb.yml (new file).
-* Complete configuration of Jenkins slaves.
-* Complete configuration of Jenkins master - need to setup job conf files (see `roles/jenkins_masters/files` directory).
+* **inventory**:
+  * **dev**:
+   * **hosts**: Ansible inventory file for development environment.
+  * **prod**:
+   * **hosts**: Ansible inventory file for production environment.
+   * **rax.py**: Ansible dynamic inventory file (since we are working with the Rackspace cloud). See http://docs.ansible.com/guide_rax.html#host-inventory.
+* **prod_web.yml**: Ansible playbook to setup and configure developer.rackspace.com infrastructure in a given region.
+* **prod_jenkins.yml**: Ansible playbook to setup and configure Jenkins infrastructure in a given region.
+* **roles/**: Various Ansible roles referenced in the playbooks.
