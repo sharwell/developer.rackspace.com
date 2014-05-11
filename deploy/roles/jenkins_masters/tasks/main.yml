@@ -4,8 +4,18 @@
   copy:
     src: ../files/var/lib/jenkins/
     dest: /var/lib/jenkins/
+  notify:
+    - 'Restart Jenkins'
 
-- name: Override 'Build Site' job config with developer.rackspace.com web server IP list
+- name: Dynamically set Jenkins IP address in Jenkins config file
+  sudo: yes
+  template:
+    src: ../files/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.j2
+    dest: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+  notify:
+    - 'Restart Jenkins'
+
+- name: Dynamically create 'Build Site' job config with developer.rackspace.com web server IP list
   sudo: yes
   template:
     src: "../files/var/lib/jenkins/jobs/Build Site/config.xml.j2"
