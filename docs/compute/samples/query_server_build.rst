@@ -2,6 +2,8 @@
 
 .. code-block:: java
 
+    ServerPredicates.awaitActive(serverApi).apply(serverCreated.getId())
+
 .. code-block:: javascript
 
 .. code-block:: php
