@@ -25,7 +25,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./", "/vagrant_data", type: "rsync",
     owner: "vagrant",
     group: "www-data",
-    mount_options: ["dmode=775,fmode=664"]
+    rsync__args: [
+      "--verbose", "--archive", "--delete", "-z",
+      "--chmod=Dug+rwx,Fug+rw"
+    ]
 
   ## Ansible Config
 
