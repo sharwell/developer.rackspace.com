@@ -30,25 +30,19 @@ To do:
 3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
-4. Change to this folder on your development machine.
-
-    ```bash
-    $ cd /path/to/developer.rackspace.com/deploy
-    ```
-
-5. Run Vagrant to set up a VirtualBox VM running a development environment.
+4. Run Vagrant to set up a VirtualBox VM running a development environment.
 
     ```bash
     $ vagrant up
     ```
 
-6. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
+5. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
 
    ```bash
    $ vagrant rsync-auto
    ```
 
-7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
+6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
       * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
