@@ -15,9 +15,6 @@
       </roles>
       <timestamp>1399723000414</timestamp>
     </jenkins.security.LastGrantedAuthoritiesProperty>
-    <jenkins.security.ApiTokenProperty>
-      <apiToken>6hYfT8UGGpECTlpw1RenG7pUjNuR+4gUiDreP6abD9TAC16GATkgmHO2nNUqc/mJ</apiToken>
-    </jenkins.security.ApiTokenProperty>
     <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1.10">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
         <entry>
