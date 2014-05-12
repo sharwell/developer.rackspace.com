@@ -1,6 +1,7 @@
 ---
 - name: Create user for pushing static site
   user: name=publisher comment="Site Publisher" state=present
+        groups=www-data
   sudo: yes
 
 - name: Add SSH public key to authorized_keys for publisher user
