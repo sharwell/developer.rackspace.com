@@ -2,3 +2,4 @@ _site
 .pygments-cache
 .tweet-cache
 .idea/
+.vagrant
