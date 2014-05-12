@@ -23,26 +23,32 @@ To do:
 
 ### Development Setup
 
-1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
+1. Fetch the git submodules if you haven't already.
 
-2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+   ```bash
+   $ git submodule update --init
+   ```
 
-3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
+2. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
+
+3. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+
+4. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
-4. Run Vagrant to set up a VirtualBox VM running a development environment.
+5. Run Vagrant to set up a VirtualBox VM running a development environment.
 
     ```bash
     $ vagrant up
     ```
 
-5. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
+6. Run Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
 
    ```bash
    $ vagrant rsync-auto
    ```
 
-6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
+7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
       * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
