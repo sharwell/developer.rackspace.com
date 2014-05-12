@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "www-data",
     rsync__args: [
-      "--verbose", "--archive", "--delete", "-z",
+      "--verbose", "--archive", "-z",
       "--chmod=Dug+rwx,Fug+rw"
     ]
 
