@@ -22,7 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   ## Shared folder for build
 
-  config.vm.synced_folder "./", "/vagrant_data", type: "rsync"
+  config.vm.synced_folder "./", "/vagrant_data", type: "rsync",
+    owner: "vagrant",
+    group: "www-data",
+    mount_options: ["dmode=775,fmode=664"]
 
   ## Ansible Config
 
