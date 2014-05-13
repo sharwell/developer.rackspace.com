@@ -2,15 +2,12 @@
 - name: Install sphinx-autobuild
   easy_install: name=sphinx-autobuild
 
-- name: Stop any old docs watchers
-  command: pkill -f 'SCREEN.*docs_watcher'
+- name: Install the docs watcher's init script
+  template: src=docs_watcher.conf.j2 dest=/etc/init/docs_watcher.conf
   sudo: yes
-  ignore_errors: yes
 
-- name: Start docs watcher
-  shell: screen -dmS docs_watcher sphinx-autobuild . /var/www/html/developer.rackspace.com/docs/ chdir=/vagrant_data/docs
-  sudo: yes
-  sudo_user: publisher
+- name: Ensure that the docs watcher is started
+  service: name=docs_watcher state=started
 
 - name: Do an initial build
   shell: sphinx-build . /var/www/html/developer.rackspace.com/docs/ chdir=/vagrant_data/docs
