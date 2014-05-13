@@ -2,10 +2,6 @@
 #
 # {{ ansible_managed }}
 
-pre-start script
-  mkdir -p /var/log/jekyll/
-end script
-
 respawn
 
 start on runlevel [2345]
@@ -14,12 +10,12 @@ stop on runlevel [06]
 script
   export LANG=en_US.UTF-8
   export LC_ALL=en_US.UTF-8
+
+  ARGS="build --watch --verbose"
+  ARGS="${ARGS} --source ."
+  ARGS="${ARGS} --destination /var/www/html/developer.rackspace.com/"
+
   exec start-stop-daemon --start --chuid publisher \
     --chdir /vagrant_data/site_source \
-    --exec /usr/local/bin/jekyll \
-    'build --watch --verbose \
-    --source . \
-    --destination /var/www/html/developer.rackspace.com/ \
-    2>/var/log/jekyll/site_source.err \
-    >/var/log/jekyll/site_source.out'
+    --exec /usr/local/bin/jekyll -- ${ARGS}
 end script
