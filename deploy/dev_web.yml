@@ -23,4 +23,6 @@
         ]
       }
     - jekyll
-    - jekyll_watcher
+    - site_source_watcher
+    - sphinx
+    - docs_watcher

@@ -53,3 +53,4 @@
     - ICTO.ansible-jenkins
     - jenkins_masters
     - jekyll
+    - sphinx

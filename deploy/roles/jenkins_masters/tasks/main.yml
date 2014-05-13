@@ -33,12 +33,3 @@
     group: jenkins
   notify:
     - 'Restart Jenkins'
-
-- name: Install system packages necessary for jobs
-  apt: name={{ item }} state=latest update_cache=yes
-  with_items:
-  - gcc
-  - python-setuptools
-
-- name: Install Sphinx for 'Build Sphinx Docs' job
-  easy_install: name=sphinx
