@@ -1,10 +1,7 @@
 ---
-- name: Stop any old site_source watchers
-  command: pkill -f 'SCREEN.*site_source_watcher'
+- name: Install the watcher's init script
+  template: src=site_source_watcher.conf.j2 dest=/etc/init/site_source_watcher.conf
   sudo: yes
-  ignore_errors: yes
 
-- name: Start site_source watcher
-  shell: export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && screen -dmS site_source_watcher jekyll build --watch --source . --destination /var/www/html/developer.rackspace.com/ chdir=/vagrant_data/site_source
-  sudo: yes
-  sudo_user: publisher
+- name: Ensure that the watcher is started
+  service: name=site_source_watcher state=started
