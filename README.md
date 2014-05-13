@@ -3,7 +3,7 @@ developer.rackspace.com
 
 Third gen of the developer.rackspace.com Portal
 
-This repo represents a refactor of the developer.rackspace.com site. 
+This repo represents a refactor of the developer.rackspace.com site.
 
 The dev site currently builds from rackerlabs/devsite but only accepts new blog posts as of March 1 2014.
 
@@ -52,6 +52,14 @@ To do:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
       * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
    * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
+   * If you have problems with the jekyll watcher process, view the logs with:
+     ```bash
+     sudo less -R /var/log/upstart/site_source_watcher.log
+     ```
+   * If you have problems with the sphinx watcher process, view its logs with:
+     ```bash
+     sudo less -R /var/log/upstart/docs_watcher.log
+     ```
 
 
 ### Production Setup
