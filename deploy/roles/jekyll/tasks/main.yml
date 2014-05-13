@@ -1,4 +1,8 @@
 ---
+- name: Install python-apt for apt_repository.
+  apt: name=python-apt state=latest
+  sudo: yes
+
 - name: Add the Brightbox PPA
   apt_repository: repo=ppa:brightbox/ruby-ng state=present
   sudo: yes
