@@ -1,6 +1,9 @@
 ---
 - name: Install python-apt for apt_repository.
-  apt: name=python-apt state=latest
+  apt: name={{ item }} state=latest
+  with_items:
+  - python-apt
+  - python-pycurl
   sudo: yes
 
 - name: Add the Brightbox PPA
