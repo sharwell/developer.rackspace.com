@@ -51,7 +51,6 @@ To do:
 7. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
       * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
-   * An elasticsearch service, accessible via a REST API at [http://localhost:9200](http://localhost:9200).
    * If you have problems with the jekyll watcher process, view the logs with:
      ```bash
      sudo less -R /var/log/upstart/site_source_watcher.log
@@ -92,7 +91,7 @@ To do:
 
 6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com.
 
-7. There are 3 Ansible playbooks for the production environment, one each for the web site, the elastic search service and the Jenkins setup. These three playbooks are named `prod_web.yml`, `prod_elasticsearch.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook.
+7. There are 2 Ansible playbooks for the production environment, one each for the web site and the Jenkins setup. These three playbooks are named `prod_web.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook.
 
    a. The example below shows how to setup the production web site in DFW:
 
