@@ -10,13 +10,10 @@
 
 .. code-block:: ruby
 
-There are many options available to you when creating a scaling group. In order to ease the burden, a builder is provided.
-
-To create a scaling group with the builder you first include the builder in your script:
+    # A group builder is provided for you convenience.
+    # For other options please refer to the fog docs
 
     require 'fog/rackspace/models/auto_scale/group_builder'
-
-And then use the builder as follows:
 
     INTERNET = '00000000-0000-0000-0000-000000000000'
     SERVICE_NET = '11111111-1111-1111-1111-111111111111'
@@ -45,3 +42,4 @@ And then use the builder as follows:
     }
 
     my_group = Fog::Rackspace::AutoScale::GroupBuilder.build(service, attributes)
+    
