@@ -1,0 +1,27 @@
+---
+- name: Install system packages necessary for Watcher
+  apt: name={{ item }} update_cache=yes
+  with_items:
+  - python-pyinotify
+  - git
+  sudo: yes
+
+- name: Checkout Watcher
+  git: repo=https://github.com/splitbrain/Watcher.git dest=/tmp/watcher
+
+- name: Configure Watcher
+  copy: src=watcher.ini dest=/etc/watcher.ini
+  sudo: yes
+
+- name: Make sure watcher is executable
+  file: path=/tmp/watcher/watcher.py mode=0755
+
+- name: (Re)start the watcher service
+  shell: ./watcher.py restart chdir=/tmp/watcher
+  sudo: yes
+  sudo_user: publisher
+
+- name: Kick off an initial build 
+  shell: build_site.sh chdir=/vagrant_data
+  sudo: yes
+  sudo_user: publisher
