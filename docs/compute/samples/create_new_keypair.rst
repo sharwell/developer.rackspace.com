@@ -38,3 +38,7 @@
 .. code-block:: ruby
 
     @client.key_pairs.create(:name => 'my_keypair')
+
+.. code-block:: shell
+
+  
