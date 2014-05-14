@@ -16,12 +16,16 @@
 - name: Make sure watcher is executable
   file: path=/tmp/watcher/watcher.py mode=0755
 
+- name: Setup working directory for build
+  file: path=/usr/local/src/developer.rackspace.com mode=755 owner=publisher group=publisher state=directory
+
+- name: Kick off an initial build
+  shell: ./build_site.sh chdir=/vagrant_data
+  sudo: yes
+  sudo_user: publisher
+
 - name: (Re)start the watcher service
   shell: ./watcher.py restart chdir=/tmp/watcher
   sudo: yes
   sudo_user: publisher
 
-- name: Kick off an initial build 
-  shell: build_site.sh chdir=/vagrant_data
-  sudo: yes
-  sudo_user: publisher

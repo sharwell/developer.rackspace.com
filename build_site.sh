@@ -5,22 +5,25 @@
 # blog, etc.) and combines them into a single directory, `site_html`.
 #
 
-WORK_DIR=$(pwd)/_work
-TARGET_DIR=$(pwd)/_site
+BUILD_DIR=/usr/local/src/developer.rackspace.com
+WORK_DIR=$BUILD_DIR/_work
+TARGET_DIR=$BUILD_DIR/_site
 
 # Create temporary work directory
 rm -rf $WORK_DIR
 mkdir $WORK_DIR
 
 # Copy the site source into the work directory
-rsync site_source/ $WORK_DIR/
+rsync -Ca /vagrant_data/src/site_source/ $WORK_DIR/
 
 # Build the Getting Started guides in the `docs/` directory using Sphinx
-cd ./docs
-/usr/local/bin/sphinx-build . $WORK_DIR/site_source/docs
-cd -
+cd /vagrant_data/src/docs
+/usr/local/bin/sphinx-build . $WORK_DIR/docs
 
 # Build the web site HTML
-cd $WORK_DIR/site_source
-/usr/local/bin/jekyll --verbose --source . --destination $TARGET_DIR
-cd -
+cd $WORK_DIR
+/usr/local/bin/jekyll build --source . --destination $TARGET_DIR
+
+# Copy site to build directory
+rsync -Ca $TARGET_DIR/ /var/www/html/developer.rackspace.com
+

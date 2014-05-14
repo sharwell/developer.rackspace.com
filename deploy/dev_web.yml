@@ -3,7 +3,7 @@
   hosts: webservers
   sudo: yes
   vars:
-  - docroot: "/vagrant_data/_site"
+  - docroot: "/var/www/html/developer.rackspace.com"
   roles:
     - webservers
     - { role: bennojoy.nginx,
