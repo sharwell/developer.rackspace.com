@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. code-block:: csharp
 
 .. code-block:: java
@@ -20,16 +19,6 @@
       apiKey: '{apiKey}',
       region: '{region}'
     });
-=======
-.. code-block:: node
-
-  pkgcloud = require('pkgcloud');
-  var rackspace = pkgcloud.dns.createClient({
-    provider: 'rackspace',
-    username: '{username}',
-    apiKey: '{apiKey}'
-  });
->>>>>>> Remove DS_Store and add gitignore and add back authentication.rst in compute
 
 .. code-block:: php
 
@@ -40,7 +29,6 @@
     $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
         'username' => '{username}',
         'apiKey'   => '{apiKey}'
-<<<<<<< HEAD
     ));
 
 .. code-block:: python
@@ -55,6 +43,3 @@
       :rackspace_api_key => '{apiKey}',
       :rackspace_region => '{region}'
     )
-=======
-    ));
->>>>>>> Remove DS_Store and add gitignore and add back authentication.rst in compute
