@@ -43,3 +43,9 @@
       :rackspace_api_key => '{apiKey}',
       :rackspace_region => '{region}'
     )
+
+.. code-block:: shell
+  
+  $ curl -s https://identity.api.rackspacecloud.com/v2.0/tokens -X 'POST' \
+     -d '{"auth":{"RAX-KSKEY:apiKeyCredentials":{"username":"MyRackspaceAcct", "apiKey":"0000000000000000000"}}}' \
+     -H "Content-Type: application/json" | python -m json.tool

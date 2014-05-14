@@ -17,7 +17,7 @@ Snapshot
 
 A snapshot is a point-in-time copy of the data that a volume contains.
 
-Snapshots are incremental, so each time that you create a snapshot, the incremental changes for the new snapshot are appended to the previous snapshot, which is still available. Note that you can create a volume from the snapshot if desired.
+Snapshots are incremental, so each time that you create a snapshot, the incremental changes for the new snapshot are appended to the previous snapshot, which is still available.
 
 Authenticating
 ===============
