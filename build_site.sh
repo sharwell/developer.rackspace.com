@@ -7,7 +7,7 @@
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILD_DIR=/usr/local/src/developer.rackspace.com
 WORK_DIR=$BUILD_DIR/_work
-TARGET_DIR=$PROJECT_ROOT/_site
+TARGET_DIR=/var/www/html/developer.rackspace.com
 
 # Create temporary work directory
 rm -rf $WORK_DIR
