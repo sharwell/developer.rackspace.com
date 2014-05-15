@@ -62,3 +62,20 @@ compute = Fog::Compute.new(
 #  attempts_before_deactivation: Number of monitor failures to tolerate before
 #                                removing a node from rotation. Between 1 and 10.
 @balancer.enable_health_monitor('CONNECT', 10, 10, 3)
+
+# set_throttling.rst
+
+# Arguments, in order:
+#
+#  max_connections: Maximum simultaneous connections to allow from a single IP
+#                   within the rate interval. 0 means unlimited; otherwise,
+#                   between 1 and 100000.
+#  min_connections: Allow at least this many connections per IP before throttling.
+#                   0 means unlimited; otherwise, between 1 and 1000.
+#  max_connection_rate: Maximum connections from a single IP within a given
+#                       rate_interval. 0 means unlimited; otherwise, between 1
+#                       and 100000.
+#  rate_interval: Frequency, in seconds, at which max_connection_rate is assessed.
+#                 Between 1 and 3600.
+#
+@balancer.enable_connection_throttling(5000, 2, 10000, 5)
