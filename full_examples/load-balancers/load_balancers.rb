@@ -79,3 +79,24 @@ compute = Fog::Compute.new(
 #                 Between 1 and 3600.
 #
 @balancer.enable_connection_throttling(5000, 2, 10000, 5)
+
+# blacklist_ips.rst
+
+# Example 1: Blacklist a specific IP
+
+@balancer.access_rules.create(
+  :type => 'DENY',
+  :address => '206.160.165.0/24'
+)
+
+# Example 2: Allow access to 1 IP, and blacklist everything else
+
+@balancer.access_rules.create(
+  :type => 'ALLOW',
+  :address => '206.160.166.0/24'
+)
+
+@balancer.access_rules.create(
+  :type => 'DENY',
+  :address => '0.0.0.0/0'
+)
