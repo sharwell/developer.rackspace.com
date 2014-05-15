@@ -2,7 +2,7 @@
 
 require 'fog'
 
-# authentication.rst
+puts "===== authentication.rst"
 
 @client = Fog::Rackspace::LoadBalancers.new(
   :rackspace_username => '{username}',
@@ -10,7 +10,7 @@ require 'fog'
   :rackspace_region => '{region}'
 )
 
-# create_lb.rst
+puts "===== create_lb.rst"
 
 @balancer = @client.load_balancers.create(
   :name => 'balanced',
@@ -20,11 +20,11 @@ require 'fog'
   :nodes => []
 )
 
-# query_lb_progress.rst
+puts "===== query_lb_progress.rst"
 
 @balancer.wait_for { ready? }
 
-# select_servers.rst
+puts "===== select_servers.rst"
 
 compute = Fog::Compute.new(
   :provider => 'rackspace',
@@ -36,21 +36,23 @@ compute = Fog::Compute.new(
 @server_one = compute.servers.get('{serverId0}')
 @server_two = compute.servers.get('{serverId1}')
 
-# create_nodes.rst
+puts "===== create_nodes.rst"
 
 @server_one_node = @balancer.nodes.create(
   :address => @server_one.addresses['private'][0]['addr'],
   :port => 8080,
   :condition => 'ENABLED'
 )
+@balancer.wait_for { ready? }
 
 @server_two_node = @balancer.nodes.create(
   :address => @server_two.addresses['private'][0]['addr'],
   :port => 8080,
   :condition => 'ENABLED'
 )
+@balancer.wait_for { ready? }
 
-# query_health_monitor.rst
+puts "===== query_health_monitor.rst"
 
 # Arguments, in order:
 #
@@ -62,8 +64,9 @@ compute = Fog::Compute.new(
 #  attempts_before_deactivation: Number of monitor failures to tolerate before
 #                                removing a node from rotation. Between 1 and 10.
 @balancer.enable_health_monitor('CONNECT', 10, 10, 3)
+@balancer.wait_for { ready? }
 
-# set_throttling.rst
+puts "===== set_throttling.rst"
 
 # Arguments, in order:
 #
@@ -79,8 +82,9 @@ compute = Fog::Compute.new(
 #                 Between 1 and 3600.
 #
 @balancer.enable_connection_throttling(5000, 2, 10000, 5)
+@balancer.wait_for { ready? }
 
-# blacklist_ips.rst
+puts "===== blacklist_ips.rst"
 
 # Example 1: Blacklist a specific IP
 
@@ -88,34 +92,40 @@ compute = Fog::Compute.new(
   :type => 'DENY',
   :address => '206.160.165.0/24'
 )
+@balancer.wait_for { ready? }
 
 # Example 2: Allow access to 1 IP, and blacklist everything else
+@balancer.access_rules.create(
+  :type => 'DENY',
+  :address => '206.160.166.0/24'
+)
+@balancer.wait_for { ready? }
 
 @balancer.access_rules.create(
   :type => 'ALLOW',
-  :address => '206.160.166.0/24'
-)
-
-@balancer.access_rules.create(
-  :type => 'DENY',
   :address => '0.0.0.0/0'
 )
+@balancer.wait_for { ready? }
 
-# enable_content_caching.rst
+puts "===== enable_content_caching.rst"
 
 # To check whether or not content caching is enabled
 @balancer.content_caching
 
 # To enable content caching
 @balancer.enable_content_caching
+@balancer.wait_for { ready? }
 
 # To disable caching
 @balancer.disable_content_caching
+@balancer.wait_for { ready? }
 
-# set_custom_error_page.rst
+puts "===== set_custom_error_page.rst"
 
 # To use a custom error page, specify the markup, up to a maximum of 65536 bytes:
 @balancer.error_page = '<html><body>Something went wrong...</body></html>'
+@balancer.wait_for { ready? }
 
 # To delete your custom error page:
 @balancer.reset_error_page
+@balancer.wait_for { ready? }
