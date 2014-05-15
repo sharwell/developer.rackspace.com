@@ -44,16 +44,11 @@ To do:
 
 6. That's it! Your development environment is setup in a VirtualBox VM! It's contents are:
    * A web server running Nginx, accessible at [http://localhost:8000](http://localhost:8000).
-      * Document root is `/var/www/html/developer.rackspace.com` on the VirtualBox VM.
-   * If you have problems with the jekyll watcher process, view the logs with:
+      * To access the Getting Started Guides, go to http://localhost:8000/docs/
+   * If you have problems with the watcher process, view the logs with:
      ```bash
-     sudo less -R /var/log/upstart/site_source_watcher.log
+     sudo tail -F /tmp/watcher.log
      ```
-   * If you have problems with the sphinx watcher process, view its logs with:
-     ```bash
-     sudo less -R /var/log/upstart/docs_watcher.log
-     ```
-
 
 ### Production Setup
 
