@@ -10,6 +10,20 @@ require 'fog'
   :rackspace_region => '{region}'
 )
 
+# create_lb.rst
+
+@balancer = @client.load_balancers.create(
+  :name => 'balanced',
+  :protocol => 'HTTP',
+  :port => 8080,
+  :virtual_ips => [{ :type => 'PUBLIC' }],
+  :nodes => []
+)
+
+# query_lb_progress.rst
+
+@balancer.wait_for { ready? }
+
 # select_servers.rst
 
 compute = Fog::Compute.new(
@@ -19,26 +33,19 @@ compute = Fog::Compute.new(
   :rackspace_region => '{region}'
 )
 
-@servers = []
-@servers << compute.servers.get('{serverId0}')
-@servers << compute.servers.get('{serverId1}')
+@server_one = compute.servers.get('{serverId0}')
+@server_two = compute.servers.get('{serverId1}')
 
 # create_nodes.rst
 
-@balancer = @client.load_balancers.create(
-  :name => 'balanced',
-  :protocol => 'HTTP',
+@server_one_node = @balancer.nodes.create(
+  :address => @server_one.addresses['private'][0]['addr'],
   :port => 8080,
-  :virtual_ips => [{ :type => 'PUBLIC' }],
-  :nodes => []
+  :condition => 'ENABLED'
 )
-@balancer.wait_for { ready? }
 
-# Create the nodes
-@nodes = [@server0, @server1].map do |server|
-  @balancer.nodes.create(
-    :address => server.addresses['private'][0]['addr'],
-    :port => 8080,
-    :condition => 'ENABLED'
-  )
-end
+@server_two_node = @balancer.nodes.create(
+  :address => @server_two.addresses['private'][0]['addr'],
+  :port => 8080,
+  :condition => 'ENABLED'
+)
