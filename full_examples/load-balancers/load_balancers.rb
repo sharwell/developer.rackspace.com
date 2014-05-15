@@ -111,3 +111,11 @@ compute = Fog::Compute.new(
 
 # To disable caching
 @balancer.disable_content_caching
+
+# set_custom_error_page.rst
+
+# To use a custom error page, specify the markup, up to a maximum of 65536 bytes:
+@balancer.error_page = '<html><body>Something went wrong...</body></html>'
+
+# To delete your custom error page:
+@balancer.reset_error_page
