@@ -100,3 +100,14 @@ compute = Fog::Compute.new(
   :type => 'DENY',
   :address => '0.0.0.0/0'
 )
+
+# enable_content_caching.rst
+
+# To check whether or not content caching is enabled
+@balancer.content_caching
+
+# To enable content caching
+@balancer.enable_content_caching
+
+# To disable caching
+@balancer.disable_content_caching
