@@ -3,7 +3,7 @@
   hosts: webservers
   sudo: yes
   vars:
-  - docroot: "/var/www/html/developer.rackspace.com"
+  - docroot: "/vagrant_data/_site"
   roles:
     - webservers
     - { role: bennojoy.nginx,
@@ -24,5 +24,4 @@
       }
     - jekyll
     - sphinx
-    - site_source_watcher
-    - docs_watcher
+    - dev

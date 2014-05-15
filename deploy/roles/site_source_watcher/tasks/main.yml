@@ -1,7 +1,0 @@
----
-- name: Install the watcher's init script
-  template: src=site_source_watcher.conf.j2 dest=/etc/init/site_source_watcher.conf
-  sudo: yes
-
-- name: Ensure that the watcher is started
-  service: name=site_source_watcher state=started
