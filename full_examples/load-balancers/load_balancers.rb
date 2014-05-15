@@ -39,14 +39,14 @@ compute = Fog::Compute.new(
 puts "===== create_nodes.rst"
 
 @server_one_node = @balancer.nodes.create(
-  :address => @server_one.addresses['private'][0]['addr'],
+  :address => @server_one.private_ip_address,
   :port => 8080,
   :condition => 'ENABLED'
 )
 @balancer.wait_for { ready? }
 
 @server_two_node = @balancer.nodes.create(
-  :address => @server_two.addresses['private'][0]['addr'],
+  :address => @server_two.private_ip_address,
   :port => 8080,
   :condition => 'ENABLED'
 )
