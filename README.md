@@ -8,8 +8,8 @@ This repo represents a refactor of the developer.rackspace.com site.
 The dev site currently builds from rackerlabs/devsite but only accepts new blog posts as of March 1 2014.
 
 We are migrating to this repo by June-ish 2014. The areas now building are:
-- landing page: jekyll, content maintained in this repo
-- /docs/: sphinx, content maintained in this repo
+- `/src/docs/`: Getting Started Guides, built using Sphinx
+- `/src/site_source`: Rest of the web site layout and content, built using Jekyll
 
 In progress:
 - /api/: maven, content maintained in /dian4554/rax-api-ref (to move to rackerlabs/rax-api-ref)
