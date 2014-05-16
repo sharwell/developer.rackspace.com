@@ -4,6 +4,7 @@
   sudo: yes
   vars:
   - docroot: "/var/www/html/developer.rackspace.com"
+  - sourceroot: /vagrant_data/
   roles:
     - webservers
     - { role: bennojoy.nginx,
