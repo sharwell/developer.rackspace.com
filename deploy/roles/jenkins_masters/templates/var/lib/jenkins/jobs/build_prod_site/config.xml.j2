@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Builds the developer.rackspace.com web site static content and publishes it to the web servers in the same region as this Jenkins machine.</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.1">
@@ -36,12 +36,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd site_source
-LANG=&quot;en_US.UTF-8&quot; LC_ALL=&quot;en_US.UTF-8&quot; /usr/local/bin/jekyll build --source . --destination ./_site</command>
+      <command>./build_site.sh</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>cd site_source/_site
-{% for host in groups['webservers'] %}
+      <command># Publish to web servers in this region.
+cd _site
+{% for host in groups['prod_webservers'] %}
 {% if host != 'localhost' %}
 rsync -e &quot;ssh -i $JENKINS_HOME/publisher.id_rsa -o StrictHostKeyChecking=no&quot; -ac . publisher@{{ hostvars[host]['rax_networks']['private'][0] }}:/var/www/html/developer.rackspace.com/
 {% endif %}
@@ -49,16 +49,6 @@ rsync -e &quot;ssh -i $JENKINS_HOME/publisher.id_rsa -o StrictHostKeyChecking=no
 </command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>Build Sphinx Docs</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>

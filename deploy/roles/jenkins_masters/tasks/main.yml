@@ -2,7 +2,7 @@
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
   copy:
-    src: ../files/var/lib/jenkins/
+    src: var/lib/jenkins/
     dest: /var/lib/jenkins/
   notify:
     - 'Restart Jenkins'
@@ -10,16 +10,44 @@
 - name: Dynamically set Jenkins IP address in Jenkins config file
   sudo: yes
   template:
-    src: ../files/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.j2
+    src: var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.j2
     dest: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
   notify:
     - 'Restart Jenkins'
 
-- name: Dynamically create 'Build Site' job config with developer.rackspace.com web server IP list
+- name: Create directory for 'build_prod_site' job
+  sudo: yes
+  file:
+    path: "/var/lib/jenkins/jobs/build_prod_site"
+    state: directory
+    owner: jenkins
+    group: jenkins
+  notify:
+    - 'Restart Jenkins'
+
+- name: Dynamically create 'build_prod_site' job config with production web server IP list
   sudo: yes
   template:
-    src: "../files/var/lib/jenkins/jobs/Build Site/config.xml.j2"
-    dest: "/var/lib/jenkins/jobs/Build Site/config.xml"
+    src: "var/lib/jenkins/jobs/build_prod_site/config.xml.j2"
+    dest: "/var/lib/jenkins/jobs/build_prod_site/config.xml"
+  notify:
+    - 'Restart Jenkins'
+
+- name: Create directory for 'build_staging_site' job
+  sudo: yes
+  file:
+    path: "/var/lib/jenkins/jobs/build_staging_site"
+    state: directory
+    owner: jenkins
+    group: jenkins
+  notify:
+    - 'Restart Jenkins'
+
+- name: Dynamically create 'build_staging_site' job config with staging web server IP list
+  sudo: yes
+  template:
+    src: "var/lib/jenkins/jobs/build_staging_site/config.xml.j2"
+    dest: "/var/lib/jenkins/jobs/build_staging_site/config.xml"
   notify:
     - 'Restart Jenkins'
 

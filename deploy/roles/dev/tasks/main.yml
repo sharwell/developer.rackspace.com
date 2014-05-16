@@ -1,31 +1,21 @@
 ---
-- name: Install system packages necessary for Watcher
+- name: Install fileschanged for the watcher service
   apt: name={{ item }} update_cache=yes
   with_items:
-  - python-pyinotify
-  - git
+  - fileschanged
   sudo: yes
 
-- name: Checkout Watcher
-  git: repo=https://github.com/splitbrain/Watcher.git dest=/tmp/watcher
-
-- name: Configure Watcher
-  copy: src=watcher.ini dest=/etc/watcher.ini
+- name: Install the watcher's init script
+  template: src=watcher.conf.j2 dest=/etc/init/watcher.conf
   sudo: yes
 
-- name: Make sure watcher is executable
-  file: path=/tmp/watcher/watcher.py mode=0755
+- name: Ensure that the watcher has started
+  service: name=watcher state=started
 
-- name: Setup working directory for build
-  file: path=/usr/local/src/developer.rackspace.com mode=755 owner=publisher group=publisher state=directory
+- name: Fix the permissions of the site destination folder
+  file: path=/vagrant_data/_site state=directory owner=vagrant group=vagrant recurse=yes
 
 - name: Kick off an initial build
   shell: ./build_site.sh chdir=/vagrant_data
   sudo: yes
-  sudo_user: publisher
-
-- name: (Re)start the watcher service
-  shell: ./watcher.py restart chdir=/tmp/watcher
-  sudo: yes
-  sudo_user: publisher
-
+  sudo_user: vagrant

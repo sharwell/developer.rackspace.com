@@ -3,11 +3,11 @@
 # is no hardcoded inventory here! Instead, we "talk" to localhost since
 # pyrax is installed there and use it to talk to the Rackspace Cloud. Comprende?
 #
-[prod_webservers]
+[staging_webservers]
 localhost
 
-[prod_webservers:vars]
-server_name=developer.rackspace.com
+[staging_webservers:vars]
+server_name=staging-developer.rackspace.com
 
 [all:vars]
 ansible_ssh_user=root
