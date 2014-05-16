@@ -36,10 +36,16 @@
       with_items: rax.success
       when: rax.action == 'create'
 
-# We do this so the 'build_site' Jenkins job can be configured to
-# publish content to the right web server hosts in the same region.
-- name: Gather info about developer.rackspace.com web servers in same region
-  hosts: webservers
+# We gather facts about the production and staging web servers in the
+# same region (as the jenkins server(s)) so the 'build_site' Jenkins job
+# can be properly configured to publish content to the right web server hosts.
+
+- name: Gather info about production web servers in same region
+  hosts: prod_webservers
+  gather_facts: True
+
+- name: Gather info about staging web servers in same region
+  hosts: staging_webservers
   gather_facts: True
 
 - name: Configure jenkins master server(s)
@@ -54,3 +60,4 @@
     - jenkins_masters
     - jekyll
     - sphinx
+

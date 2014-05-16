@@ -1,13 +1,13 @@
 ---
-- name: Provision production web setup
-  hosts: prod_webservers
+- name: Provision staging web setup
+  hosts: staging_webservers
   connection: local
   tasks:
 
-    - name: Provision production web load balancer
+    - name: Provision staging web load balancer
       rax_clb:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_{{ server_name }}"
+        name: "staging_{{ server_name }}"
         port: 80
         protocol: HTTP
         algorithm: ROUND_ROBIN
@@ -18,10 +18,10 @@
         state: present
       register: clb
 
-    - name: Provision 2 production web servers
+    - name: Provision 2 staging web servers
       rax:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_webserver_%01d"
+        name: "staging_webserver_%01d"
         flavor: performance1-1
         image: ubuntu-1204-lts-precise-pangolin
         networks:
@@ -31,7 +31,7 @@
         state: present
         count: 2
         exact_count: yes
-        group: prod_webservers
+        group: staging_webservers
         wait: yes
         key_name: drg
       register: rax
@@ -49,16 +49,16 @@
       with_items: rax.success
       when: rax.action == 'create'
 
-    - name: Add web servers to prod_webservers host group
+    - name: Add web servers to staging webservers host group
       add_host:
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.rax_accessipv4 }}"
-        groupname: prod_webservers
+        groupname: staging_webservers
       with_items: rax.success
       when: rax.action == 'create'
 
 - name: Configure web server(s)
-  hosts: prod_webservers
+  hosts: staging_webservers
   sudo: yes
   vars:
   - docroot: "/var/www/html/developer.rackspace.com"
