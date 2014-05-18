@@ -15,3 +15,11 @@
 .. code-block:: ruby
 
   @client.queues.all
+
+.. code-block:: shell
+
+  $ curl -X GET $ENDPOINT/queues \
+    -H "Content-type: application/json" \ 
+    -H "X-Auth-TOKEN: $TOKEN" \
+    -H "Accept: application/json" \
+    -H "X-Project-Id: {projectId}"

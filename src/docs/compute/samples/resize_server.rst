@@ -21,10 +21,10 @@
 .. .. code-block:: shell
 
     #first you should get the flavor ref number from flavor listing
-    $curl -X PUT $endpoint/{serverId}/action \ -d \
-    '{
-    "resize" : {
-        "flavorRef" : "{flavorRefNumber}"
-     }
-    }' \
-    -H "X-Auth-Token: $token" | python -m json.tool
+    $curl -X PUT $ENDPOINT/{serverId}/action \ -d \
+      '{
+      "resize" : {
+          "flavorRef" : "{flavorRefNumber}"
+       }
+      }' \
+      -H "X-Auth-TOKEN: $TOKEN" | python -m json.tool

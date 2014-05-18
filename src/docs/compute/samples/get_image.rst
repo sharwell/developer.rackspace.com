@@ -37,5 +37,5 @@
 
 .. code-block:: shell
 
-    $curl -X GET $endpoint/images/{imageId} \
-    -H "X-Auth-Token: $token" | python -m json.tool
+    $curl -X GET $ENDPOINT/images/{imageId} \
+      -H "X-Auth-TOKEN: $TOKEN" | python -m json.tool

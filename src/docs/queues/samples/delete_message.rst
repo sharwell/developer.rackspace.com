@@ -25,3 +25,12 @@
 .. code-block:: ruby
 
   message.destroy
+
+.. code-block:: shell
+  
+  $curl -X DELETE $ENDPOINT/queues/{queueName}/messages/{messageId} \ 
+    -H "Content-type: application/json" \
+    -H "X-Auth-TOKEN: $TOKEN" \ 
+    -H "Client-ID: {clientId}" \
+    -H "Accept: application/json" \
+    -H "X-Project-Id: {projectId}"

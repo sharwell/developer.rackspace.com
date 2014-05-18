@@ -37,3 +37,13 @@
     :ttl => 900,
     :grace => 600
   )
+
+.. code-block:: shell
+
+  $ curl -X POST $ENDPOINT/queues/{queueName}/claims -d \
+    '{"ttl": 300,"grace":300}' \
+    -H "Content-type: application/json" \ 
+    -H "Client-ID: {clientId}" \ 
+    -H "X-Auth-TOKEN: $TOKEN" \
+    -H "Accept: application/json" \
+    -H "X-Project-Id: {projectId}"
