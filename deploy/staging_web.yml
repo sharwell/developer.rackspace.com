@@ -7,7 +7,7 @@
     - name: Provision staging web load balancer
       rax_clb:
         credentials: ~/.rackspace_cloud_credentials
-        name: "staging_{{ server_name }}"
+        name: "{{ server_name }}"
         port: 80
         protocol: HTTP
         algorithm: ROUND_ROBIN
