@@ -10,4 +10,6 @@
 
 .. code-block:: ruby
 
-  my_policy = my_group.policies.get '{policyId}'
+  my_policy.cooldown = 60
+  my_policy.change = 3
+  my_policy.save

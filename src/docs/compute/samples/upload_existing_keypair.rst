@@ -52,11 +52,11 @@
 
 .. code-block:: shell
   
-  $ curl -X POST $endpoint/os-keypairs -d \
+  $ curl -X POST $ENDPOINT/os-keypairs -d \
     '{
     "keypair":{
         "name":"{keyPairName}",
         "public_key":"ssh-rsa AAAAB3Nz ..."
       } 
     }' \
-    -H "X-Auth-Token: $token" | python -m json.tool
+    -H "X-Auth-TOKEN: $TOKEN" | python -m json.tool
