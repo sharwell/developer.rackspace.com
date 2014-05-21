@@ -1,7 +1,15 @@
 .DS_Store
-_site
 .pygments-cache
 .tweet-cache
 .jekyll-assets-cache/
 .idea/
 .vagrant
+_site
+html
+
+# Editors
+.*.swp
+.bak
+/.project
+*.xpr
+.idea
