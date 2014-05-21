@@ -26,7 +26,7 @@
   snap = vol.create_snapshot('name-here', 'This is the description')
 
 .. code-block:: ruby
-
+  
   # To create a snapshot for a volume, the volume should be detached from
   # any server. You must supply a name for the snapshot, and may provide
   # an optional description.
@@ -35,3 +35,17 @@
     :display_name => 'name-here',
     :display_description => 'This is the description'
   )
+
+.. code-block:: shell
+
+  $ curl -X POST -d \
+    '{
+    "snapshot": {
+        "display_name": "{name}",
+        "display_description": "{description}",
+        "volume_id": "{volumeId}"
+      }
+    }'\    
+    -H "X-Auth-Token: $TOKEN" \
+    -H "Content-Type: application/json" \
+    $ENDPOINT/snapshots | python -m json.tool
