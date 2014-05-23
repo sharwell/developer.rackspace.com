@@ -6,6 +6,11 @@
 
 .. code-block:: php
 
+    $image->update(array(
+        'name'        => 'foo',
+        'newProperty' => 'bar'
+    ));
+
 .. code-block:: python
 
   # After authenticating, get a reference to the client
