@@ -20,18 +20,18 @@ To do:
 
 ## Development Setup
 
-1. Fetch the git submodules if you haven't already.
+1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
+
+2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+
+3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
+   * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
+
+4. Fetch the git submodules if you haven't already.
 
    ```bash
    $ git submodule update --init
    ```
-
-2. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
-
-3. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-
-4. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
-   * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
 5. Run Vagrant to set up a VirtualBox VM running a development environment. Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
 
