@@ -30,7 +30,7 @@ To do:
 4. Ensure that you are in the root directory of this repo; e.g., `cd ~/src/developer.rackspace.com` (or wherever you've cloned it). If you haven't cloned the repo, fork it via the Github web interface and then
 
     ```bash
-    $ sgit clone {your-repo-path}/developer.rackspace.com
+    $ git clone {your-repo-path}/developer.rackspace.com
     ```
 
 5. Then, fetch the git submodules if you haven't already.
