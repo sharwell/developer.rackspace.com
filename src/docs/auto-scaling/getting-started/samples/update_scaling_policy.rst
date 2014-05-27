@@ -26,3 +26,17 @@
   my_policy.cooldown = 60
   my_policy.change = 3
   my_policy.save
+
+.. code-block:: sh
+
+  $ curl -X PUT -d \
+    '{
+         "change":1,
+         "cooldown":{newCooldown},
+         "name":"scale up by one server",
+         "type":"webhook"
+      }' \
+    -H "X-Auth-Token: $TOKEN" \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    $ENDPOINT/groups/{groupId}/policies/{policyId}

@@ -22,3 +22,17 @@
   group_config.cooldown = 120
   group_config.max_entities = 16
   group_config.save
+
+.. code-block:: sh
+
+  $ curl -X PUT -d \
+    '{
+     "name":"{groupName}",
+     "cooldown":60,
+     "minEntities":{newMinServers},
+     "maxEntities":{newMaxServers}
+    }' \
+    -H "X-Auth-Token: $TOKEN" \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    $ENDPOINT/groups/{groupId}/config

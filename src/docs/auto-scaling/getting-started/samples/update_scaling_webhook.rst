@@ -28,3 +28,17 @@
       :owner => 'webteam'
   }
   my_webhook.save
+
+.. code-block:: sh
+
+  $ curl -X PUT -d \
+    '{
+    "name": "alice",
+    "metadata": {
+        "notes": "{newNote}"
+          }
+      }' \
+    -H "X-Auth-Token: $TOKEN" \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    $ENDPOINT/groups/{groupId}/policies/{policyId}/webhooks/{webhookId}
