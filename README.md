@@ -27,7 +27,7 @@ To do:
 3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
-4. Fetch the git submodules if you haven't already.
+4. Ensure that you are in the root directory of this repo; e.g., `cd ~/src/developer.rackspace.com` (or wherever you've installed it). Then, fetch the git submodules if you haven't already.
 
    ```bash
    $ git submodule update --init
