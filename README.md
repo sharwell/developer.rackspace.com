@@ -33,7 +33,7 @@ To do:
    $ git submodule update --init
    ```
 
-5. Run Vagrant to set up a VirtualBox VM running a development environment. Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM.
+5. Run Vagrant to set up a VirtualBox VM running a development environment. Vagrant's rsync-auto command so edits you make on your development machine automatically trigger changes inside the VirtualBox VM. **Note: This command will "hang" since it is watching for directory changes**. If you need to do more work in the Terminal, please open a new window and continue there.
 
     ```bash
     $ vagrant up && vagrant rsync-auto
