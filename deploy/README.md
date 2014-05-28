@@ -33,7 +33,7 @@ $ chmod 600 ~/.ssh/drg.pem
 
 6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com.
 
-7. There are 2 Ansible playbooks for the production environment, one each for the web site and the Jenkins setup. These three playbooks are named `prod_web.yml` and `prod_jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook.
+7. There are 2 Ansible playbooks for the production environment, one each for the web site and the Jenkins setup. These three playbooks are named `prod_web.yml` and `jenkins.yml`. Each playbook sets things up in a particular region, which is to be specified via the `RAX_REGION` environment variable when running the playbook.
 
    a. The example below shows how to setup the production web site in DFW:
 
@@ -44,7 +44,7 @@ $ chmod 600 ~/.ssh/drg.pem
    b. The example below shows how to setup a Jenkins setup in DFW:
 
       ```bash
-      $ RAX_REGION=dfw ansible-playbook prod_jenkins.yml -i inventory/prod
+      $ RAX_REGION=dfw ansible-playbook jenkins.yml -i inventory/prod
       ```
 
       **IMPORTANT!** The `prod_jenkins.yml` playbook MUST be run after the `prod_web.yml` playbook has run for the same `RAX_REGION`. Here's why: The `prod_jenkins.yml` playbook creates a 'Build Site' Jenkins job. This job generates the content for the developer.rackspace.com web site. The `prod_jenkins.yml` playbook will automatically lookup the private (ServiceNet) IP addresses of the developer.rackspace.com web servers in the specified region (via the `RAX_REGION` environment variable) and use them to configure the 'Build Site' job. This lets the 'Build Site' job publish the generated content to the developer.rackspace.com web servers in its region.
