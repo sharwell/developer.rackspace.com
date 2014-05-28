@@ -44,10 +44,10 @@ $ chmod 600 ~/.ssh/drg.pem
    b. The example below shows how to setup a Jenkins setup in DFW:
 
       ```bash
-      $ RAX_REGION=dfw ansible-playbook jenkins.yml -i inventory/prod
+      $ RAX_REGION=dfw ansible-playbook jenkins.yml -i inventory/jenkins
       ```
 
-      **IMPORTANT!** The `prod_jenkins.yml` playbook MUST be run after the `prod_web.yml` playbook has run for the same `RAX_REGION`. Here's why: The `prod_jenkins.yml` playbook creates a 'Build Site' Jenkins job. This job generates the content for the developer.rackspace.com web site. The `prod_jenkins.yml` playbook will automatically lookup the private (ServiceNet) IP addresses of the developer.rackspace.com web servers in the specified region (via the `RAX_REGION` environment variable) and use them to configure the 'Build Site' job. This lets the 'Build Site' job publish the generated content to the developer.rackspace.com web servers in its region.
+      **IMPORTANT!** The `jenkins.yml` playbook MUST be run after the `prod_web.yml` playbook has run for the same `RAX_REGION`. Here's why: The `jenkins.yml` playbook creates a 'Build Site' Jenkins job. This job generates the content for the developer.rackspace.com web site. The `jenkins.yml` playbook will automatically lookup the private (ServiceNet) IP addresses of the developer.rackspace.com web servers in the specified region (via the `RAX_REGION` environment variable) and use them to configure the 'Build Site' job. This lets the 'Build Site' job publish the generated content to the developer.rackspace.com web servers in its region.
 
 8. Depending on the playbook you ran, here is what you should see in your Rackspace Cloud control panel:
 
@@ -77,5 +77,5 @@ $ chmod 600 ~/.ssh/drg.pem
    * **hosts**: Ansible inventory file for production environment.
    * **rax.py**: Ansible dynamic inventory file (since we are working with the Rackspace cloud). See http://docs.ansible.com/guide_rax.html#host-inventory.
 * **prod_web.yml**: Ansible playbook to setup and configure developer.rackspace.com infrastructure in a given region.
-* **prod_jenkins.yml**: Ansible playbook to setup and configure Jenkins infrastructure in a given region.
+* **jenkins.yml**: Ansible playbook to setup and configure Jenkins infrastructure in a given region.
 * **roles/**: Various Ansible roles referenced in the playbooks.
