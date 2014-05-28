@@ -4,7 +4,7 @@ Quickstart Guide
 =================
 
 Auto Scale
----------------
+-----------
 
 Rackspace Auto Scale is a service that lets you configure automated scaling of resources in response to an increase or decrease in overall workload based on user-defined policies. You can set up a schedule for launching Auto Scale or define an event that is triggered by Cloud Monitoring. You can also specify a minimum and maximum number of cloud servers, the amount of resources that you want to increase or decrease, and the thresholds in Cloud Monitoring that trigger the scaling activities.
 
@@ -14,8 +14,8 @@ Assumptions
 ------------
 This guide assumes the reader has working familiarity with (at the very least):
     
-    * Cloud Servers
-    * Cloud Monitoring
+* `Cloud Servers </docs/cloud-servers/getting-started/>`_
+* `Cloud Monitoring </docs/cloud-monitoring/getting-started/>`_
 
 
 Concepts
@@ -28,9 +28,9 @@ The scaling group is at the heart of an Auto Scale deployment. The scaling group
 
 When you create a scaling group, you specify the details for the following two configurations:
 
-  * Group Configuration: Outlines the basic elements of the Auto Scale configuration. The group configuration manages how many servers can participate in the scaling group. It sets a minimum and maximum limit for the number of entities that can be used in the scaling process. It also specifies information related to load balancers
+* Group Configuration: Outlines the basic elements of the Auto Scale configuration. The group configuration manages how many servers can participate in the scaling group. It sets a minimum and maximum limit for the number of entities that can be used in the scaling process. It also specifies information related to load balancers.
 
-  * Launch Configuration: Creates a blueprint for how new servers will be created. The launch configuration specifies what type of server image will be started on launch, what flavor the new server is, and which load balancer the new server connects to.
+* Launch Configuration: Creates a blueprint for how new servers will be created. The launch configuration specifies what type of server image will be started on launch, what flavor the new server is, and which load balancer the new server connects to.
 
 
 Webhooks and Capability URLs
@@ -48,9 +48,9 @@ Auto Scale uses policies to define the scaling activity that will take place, as
 
 You can create two kinds of Auto Scale policies:
 
-  * Policies that trigger Auto Scale activities through a webhook.
+* Policies that trigger Auto Scale activities through a webhook.
 
-  * Policies that trigger Auto Scale activities based on a schedule.
+* Policies that trigger Auto Scale activities based on a schedule.
 
 
 API Operations
@@ -59,34 +59,34 @@ API Operations
 Authentication
 ----------------
 
-Before we start working with the APIs, we first need to get our authentication token. To do so, see code samples below:
+Before we start working with the APIs, we first need to get our authentication token.
 
 .. include::  samples/authentication.rst
 
-Scaling Groups 
+Scaling Groups
 -----------------
 
-You can create an autoscaling group via SDK or API as shown below:
+First, create an autoscaling group.
 
 .. include:: samples/create_scaling_group.rst
 
-To list autoscaling groups you already have setup in any given region, consider the following code:
+List the autoscaling groups you have setup.
 
 .. include:: samples/list_scaling_groups.rst
 
-If you want to see the details of a scaling group, see the code below:
+Or even get details of the scaling group you created.
 
 .. include:: samples/get_scaling_group_details.rst
 
-If you want to alter details for a scaling group, see code samples below:
+Alter the details of the scaling group.
 
 .. include:: samples/update_scaling_group_details.rst
 
-Additionally, if you want to inspect the current state of an autoscaling group, do as follows:
+Look into the state of the autoscaling group.
 
 .. include:: samples/get_scaling_group_state.rst
 
-And, in the event that you want to delete an autoscaling group, follow the code sample below:
+Finally, delete the autoscaling group.
 
 .. include:: samples/delete_scaling_group.rst
 
@@ -94,7 +94,12 @@ And, in the event that you want to delete an autoscaling group, follow the code 
 Policies
 ----------
 
-In order to create an autoscaling policy consider the code samples below:
+To create an autoscale policy that will
+
+* Add one server
+* Only allow another scaling actions to happen after a 360 second cool down
+
+you simply:
 
 .. include:: samples/create_scaling_policy.rst
 
@@ -106,15 +111,15 @@ Alternatively, the code samples below show how to go about if you want to inspec
 
 .. include:: samples/get_scaling_policy_details.rst
 
-If you want to alter details for a policy, see code samples below:
+If you want to alter details for a policy:
 
 .. include:: samples/update_scaling_policy.rst
 
-To execute a particular autoscaling policy see code samples below:
+To execute a particular autoscaling policy:
 
 .. include:: samples/execute_scaling_policy.rst
 
-Finally, if you want to delete an autoscaling policy, consider the following:
+Finally, if you want to delete an autoscaling policy:
 
 .. include:: samples/delete_scaling_policy.rst
 
@@ -122,22 +127,22 @@ Finally, if you want to delete an autoscaling policy, consider the following:
 Webhooks
 ---------
 
-The first task as with most other API operations in this guide is to create an entity. In this case, to create a Webhook follow the code below:
+To trigger our autoscale actions, we can create a webhook:
 
 .. include:: samples/create_scaling_webhook.rst
 
-The next step is to inspect autoscaling Webhook details:
+Then you can inspect the autoscaling Webhook details:
 
 .. include:: samples/get_scaling_webhook_details.rst
 
-Alternatively, you could list all available autoscaling Webhooks in a particular region as follows:
+You could also list all available autoscaling Webhooks in a particular region:
 
 .. include:: samples/list_scaling_webhooks.rst
 
-If you want to alter details about an existing Webhook, see code samples below:
+Now you can alter details about the webhook:
 
 .. include:: samples/update_scaling_webhook.rst
 
-Finally, to delete an autoscaling Webhook, you can do as suggested in the code samples below:
+Finally, delete the webhook if you don't need it:
 
 .. include:: samples/delete_scaling_webhook.rst
