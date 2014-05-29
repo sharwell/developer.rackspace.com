@@ -7,6 +7,9 @@
   notify:
     - 'Restart Jenkins'
 
+- name: Copy motd file
+  copy: etc/motd dest=/etc/motd owner=root group=root mode=0644
+
 - name: Dynamically set Jenkins IP address in Jenkins config file
   sudo: yes
   template:
