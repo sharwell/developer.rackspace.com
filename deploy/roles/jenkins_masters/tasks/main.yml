@@ -7,6 +7,11 @@
   notify:
     - 'Restart Jenkins'
 
+- name: Copy motd file
+  copy: src=deploy/roles/jenkins_masters/files/etc/motd
+        dest=/etc/motd
+        owner=root group=root mode=0644
+
 - name: Dynamically set Jenkins IP address in Jenkins config file
   sudo: yes
   template:
@@ -50,6 +55,9 @@
     dest: "/var/lib/jenkins/jobs/build_staging_site/config.xml"
   notify:
     - 'Restart Jenkins'
+
+- name: Copy motd file
+- copy: src=/developer.rackspace.com/deploy/roles/jenkins_masters/files/etc/motd dest=/etc/motd owner=jenkins
 
 - name: Setup correct ownerships and permissions
   sudo: yes
