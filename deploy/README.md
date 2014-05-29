@@ -18,7 +18,7 @@
     api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
     ```
 
-4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file access rights:
+4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
 
     ```bash
     $ chmod 600 ~/.ssh/drg.pem
@@ -30,7 +30,7 @@
     $ cd /path/to/developer.rackspace.com/deploy
     ```
 
-6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com.
+6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com. Modify file permissions:
 
     ```bash
     $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
