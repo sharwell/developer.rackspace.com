@@ -8,9 +8,7 @@
     - 'Restart Jenkins'
 
 - name: Copy motd file
-  copy: src=deploy/roles/jenkins_masters/files/etc/motd
-        dest=/etc/motd
-        owner=root group=root mode=0644
+  copy: etc/motd dest=/etc/motd owner=root group=root mode=0644
 
 - name: Dynamically set Jenkins IP address in Jenkins config file
   sudo: yes
