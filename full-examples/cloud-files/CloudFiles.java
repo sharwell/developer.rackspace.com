@@ -1,5 +1,3 @@
-package org.jclouds.examples.rackspace;
-
 import java.net.URI;
 
 import org.jclouds.ContextBuilder;
