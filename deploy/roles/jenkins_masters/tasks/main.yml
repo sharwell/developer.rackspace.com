@@ -7,6 +7,12 @@
   notify:
     - 'Restart Jenkins'
 
+- name: Setup correct permissions
+  sudo: yes
+  file:
+    path: /var/lib/jenkins/publisher.id_rsa
+    mode: 0600
+
 - name: Dynamically set Jenkins IP address in Jenkins config file
   sudo: yes
   template:
@@ -51,7 +57,7 @@
   notify:
     - 'Restart Jenkins'
 
-- name: Setup correct ownerships and permissions
+- name: Setup correct ownerships
   sudo: yes
   file:
     path: /var/lib/jenkins/
@@ -61,3 +67,5 @@
     group: jenkins
   notify:
     - 'Restart Jenkins'
+   
+
