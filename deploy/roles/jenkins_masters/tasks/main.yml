@@ -54,9 +54,6 @@
   notify:
     - 'Restart Jenkins'
 
-- name: Copy motd file
-- copy: src=/developer.rackspace.com/deploy/roles/jenkins_masters/files/etc/motd dest=/etc/motd owner=jenkins
-
 - name: Setup correct ownerships and permissions
   sudo: yes
   file:
