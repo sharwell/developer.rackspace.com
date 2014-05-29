@@ -75,7 +75,12 @@
               file_name: developer.rackspace.com,
               listen: 80,
               server_name: "{{ server_name }}",
-              root: "{{ docroot }}"
+              root: "{{ docroot }}",
+              gzip: "on",
+              gzip_min_length: 1400,
+              gzip_types: "text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript",
+              gzip_vary: "on",
+              gzip_proxied: "any"
             }
           }
         ]
