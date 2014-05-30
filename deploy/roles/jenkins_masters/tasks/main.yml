@@ -1,4 +1,9 @@
 ---
+- name: Disable password authentication for SSH
+  copy: src=etc/ssh/sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode=0644
+  notify:
+  - restart ssh server
+
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
   copy:

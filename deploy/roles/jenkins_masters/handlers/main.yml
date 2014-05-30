@@ -1,3 +1,7 @@
+---
+- name: restart ssh server
+  service: name=ssh state=restarted
+
 - name: Restart Jenkins
   sudo: yes
   command: /etc/init.d/jenkins restart
