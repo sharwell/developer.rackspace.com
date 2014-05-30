@@ -1,4 +1,9 @@
 ---
+- name: Disable password authentication for SSH
+  copy: src=etc/ssh/sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode=0644
+  notify:
+  - restart ssh server
+  
 - name: Create user for pushing static site
   user: name=publisher comment="Site Publisher" state=present
         groups=www-data
