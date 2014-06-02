@@ -28,12 +28,8 @@ public class AutoScale {
 
    private static final String NAME = "jclouds-example";
 
-   //private static final String USERNAME = System.getProperty("username", "{username}");
-   //private static final String API_KEY = System.getProperty("apikey", "{apiKey}");
-
-   private static final String USERNAME = System.getProperty("username", "zackracktest");
-   private static final String API_KEY = System.getProperty("apikey", "7c8b97d7dff1cf3d979bc48f5e5f460c");
-
+   private static final String USERNAME = System.getProperty("username", "{username}");
+   private static final String API_KEY = System.getProperty("apikey", "{apiKey}");
 
    public static void main(String[] args) throws Exception {
       AutoscaleApi autoscaleApi = ContextBuilder.newBuilder(PROVIDER)
