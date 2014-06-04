@@ -18,7 +18,7 @@
     api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
     ```
 
-4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
+4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). The corresponding public key needs to be uploaded as the `drg` public key in the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
 
     ```bash
     $ chmod 600 ~/.ssh/drg.pem
