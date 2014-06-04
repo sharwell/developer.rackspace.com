@@ -1,5 +1,11 @@
 # Production Setup
 
+0. Initialize and update git submodules
+
+  ```bash
+  git submodule update --init
+  ```
+
 1. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
