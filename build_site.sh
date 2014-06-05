@@ -9,6 +9,25 @@ BUILD_DIR=/tmp/developer.rackspace.com
 WORK_DIR=$BUILD_DIR/_work
 TARGET_DIR=$PROJECT_ROOT/_site
 
+ALL_PIDS=$(pgrep build_site.sh)
+NUM_ALL_PIDS=$(echo "$ALL_PIDS" | wc -l)
+
+if (( $NUM_ALL_PIDS > 1 )); then
+
+  # If there's clones of me already running, kill all of them
+  # so I'm the only one running. This isn't perfect because
+  # there is a chance that two of these processes could kill
+  # each other but, short of implementing a semaphore, there
+  # is no way to ensure that they don't.
+  for pid in $ALL_PIDS; do
+    if [ $pid != $$ ]; then
+      echo "Killing my clone with PID = $pid"
+      kill $pid
+    fi
+  done
+
+fi
+
 # Create temporary work directory
 rm -rf $WORK_DIR
 mkdir -p $WORK_DIR

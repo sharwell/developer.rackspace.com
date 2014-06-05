@@ -1,5 +1,11 @@
 # Production Setup
 
+0. Initialize and update git submodules
+
+  ```bash
+  git submodule update --init
+  ```
+
 1. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
    * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
 
@@ -18,7 +24,7 @@
     api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
     ```
 
-4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). Make sure the corresponding public key has been uploaded to the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
+4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). The corresponding public key needs to be uploaded as the `drg` public key in the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
 
     ```bash
     $ chmod 600 ~/.ssh/drg.pem
