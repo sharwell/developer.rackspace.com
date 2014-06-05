@@ -6,6 +6,8 @@
 ---
 - name: Provision Jenkins setup
   hosts: local
+  vars_files:
+    - ip_access.yml
   connection: local
   gather_facts: False
   tasks:
@@ -50,6 +52,8 @@
 
 - name: Configure jenkins master server(s)
   hosts: jenkins_masters
+  vars_files:
+    - ip_access.yml
   sudo: yes
   vars:
   - plugins:

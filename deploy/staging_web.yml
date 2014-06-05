@@ -1,6 +1,8 @@
 ---
 - name: Provision staging web setup
   hosts: local
+  vars_files:
+    - ip_access.yml
   connection: local
   tasks:
 
@@ -59,6 +61,8 @@
 
 - name: Configure web server(s)
   hosts: staging_webservers
+  vars_files:
+    - ip_access.yml
   sudo: yes
   vars:
     docroot: /var/www/html/developer.rackspace.com
