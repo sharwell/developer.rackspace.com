@@ -34,11 +34,14 @@ public class CloudServers {
 
         List<? extends Image> images = listImages(novaApi);
         Image image = getImage(novaApi, images);
+
         List<? extends Flavor> flavors = listFlavors(novaApi);
         Flavor flavor = getFlavor(novaApi);
+
         KeyPair keyPair = createNewKeyPair(novaApi);
         ServerCreated serverCreated = createServerWithKeypair(novaApi, image, flavor, keyPair);
         Server server = queryServerBuild(novaApi, serverCreated);
+        
         deleteServer(novaApi, server);
         deleteKeyPair(novaApi, keyPair);
     }
@@ -61,7 +64,7 @@ public class CloudServers {
     public static Image getImage(NovaApi novaApi, List<? extends Image> images) {
         Image ubuntu1404Image = Iterables.find(images, new Predicate<Image>() {
             public boolean apply(Image image) {
-                return image.getName().startsWith("Ubuntu 14.04");
+                return image.getName().equals("Ubuntu 14.04 LTS (Trusty Tahr)");
             }
         });
         
