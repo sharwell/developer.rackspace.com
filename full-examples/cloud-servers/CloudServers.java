@@ -1,4 +1,6 @@
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 import org.jclouds.ContextBuilder;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
@@ -8,8 +10,7 @@ import org.jclouds.openstack.nova.v2_0.features.FlavorApi;
 import org.jclouds.openstack.nova.v2_0.features.ImageApi;
 import org.jclouds.openstack.nova.v2_0.features.ServerApi;
 import org.jclouds.openstack.nova.v2_0.options.CreateServerOptions;
-// TODO: ServerPredicates is only available in jclouds 1.7.3
-//import org.jclouds.openstack.nova.v2_0.predicates.ServerPredicates;
+import org.jclouds.openstack.nova.v2_0.predicates.ServerPredicates;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import static com.google.common.base.Charsets.UTF_8;
 public class CloudServers {
     public static final String PROVIDER = System.getProperty("provider", "rackspace-cloudservers-us");
     public static final String ZONE = System.getProperty("zone", "IAD");
+    public static final String FLAVOR_ID = System.getProperty("flavorid", "performance1-1");
 
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
@@ -32,12 +34,14 @@ public class CloudServers {
 
         List<? extends Image> images = listImages(novaApi);
         Image image = getImage(novaApi, images);
+
         List<? extends Flavor> flavors = listFlavors(novaApi);
-        Flavor flavor = getFlavor(novaApi, flavors);
+        Flavor flavor = getFlavor(novaApi);
+
         KeyPair keyPair = createNewKeyPair(novaApi);
         ServerCreated serverCreated = createServerWithKeypair(novaApi, image, flavor, keyPair);
         Server server = queryServerBuild(novaApi, serverCreated);
-        resizeServer(novaApi, server, flavors.get(1));
+        
         deleteServer(novaApi, server);
         deleteKeyPair(novaApi, keyPair);
     }
@@ -58,9 +62,14 @@ public class CloudServers {
     }
 
     public static Image getImage(NovaApi novaApi, List<? extends Image> images) {
-        String imageId = images.get(0).getId();
+        Image ubuntu1404Image = Iterables.find(images, new Predicate<Image>() {
+            public boolean apply(Image image) {
+                return image.getName().equals("Ubuntu 14.04 LTS (Trusty Tahr)");
+            }
+        });
+        
         ImageApi imageApi = novaApi.getImageApiForZone(ZONE);
-        Image image = imageApi.get(imageId);
+        Image image = imageApi.get(ubuntu1404Image.getId());
 
         return image;
     }
@@ -72,10 +81,9 @@ public class CloudServers {
         return flavors;
     }
 
-    public static Flavor getFlavor(NovaApi novaApi, List<? extends Flavor> flavors) {
-        String flavorId = flavors.get(0).getId();
+    public static Flavor getFlavor(NovaApi novaApi) {
         FlavorApi flavorApi = novaApi.getFlavorApiForZone(ZONE);
-        Flavor flavor = flavorApi.get(flavorId);
+        Flavor flavor = flavorApi.get(FLAVOR_ID);
 
         return flavor;
     }
@@ -102,19 +110,13 @@ public class CloudServers {
     public static Server queryServerBuild(NovaApi novaApi, ServerCreated serverCreated) throws TimeoutException {
         ServerApi serverApi = novaApi.getServerApiForZone(ZONE);
 
-// TODO: ServerPredicates is only available in jclouds 1.7.3
-//        if (!ServerPredicates.awaitActive(serverApi).apply(serverCreated.getId())) {
-//            throw new TimeoutException("Timeout on server: " + serverCreated);
-//        }
+        if (!ServerPredicates.awaitActive(serverApi).apply(serverCreated.getId())) {
+            throw new TimeoutException("Timeout on server: " + serverCreated);
+        }
 
         Server server = serverApi.get(serverCreated.getId());
 
         return server;
-    }
-
-    public static void resizeServer(NovaApi novaApi, Server server, Flavor flavors) {
-        ServerApi serverApi = novaApi.getServerApiForZone(ZONE);
-        serverApi.resize(server.getId(), flavors.getId());
     }
 
     public static void deleteServer(NovaApi novaApi, Server server) {
