@@ -1,8 +1,6 @@
 ---
 - name: Provision staging web setup
   hosts: local
-  vars_files:
-    - ip_access.yml
   connection: local
   tasks:
 
