@@ -75,3 +75,18 @@
     group: jenkins
   notify:
     - 'Restart Jenkins'
+
+- name: Log the firewall
+  ufw: logging=on
+
+- name: Allow SSH access from specific hosts
+  ufw: rule=allow src={{ item }} port=22 proto=tcp
+  with_items: ip_accesses
+
+- name: Allow access to 8080 from specific hosts
+  ufw: rule=allow src={{ item }} port=8080 proto=tcp direction=in
+  with_items: ip_accesses
+
+- name: Drop everything else
+  ufw: policy=reject state=enabled
+
