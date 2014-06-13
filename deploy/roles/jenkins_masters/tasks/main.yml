@@ -79,10 +79,13 @@
 - name: Log the firewall
   ufw: logging=on
 
+# Jenkins can only be accessed from specific hosts
+# over SSH
 - name: Allow SSH access from specific hosts
   ufw: rule=allow src={{ item }} port=22 proto=tcp
   with_items: ip_accesses
 
+# As well as on the web
 - name: Allow access to 8080 from specific hosts
   ufw: rule=allow src={{ item }} port=8080 proto=tcp direction=in
   with_items: ip_accesses
