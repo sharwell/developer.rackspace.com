@@ -41,16 +41,17 @@
   ```bash
   $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
   ```
+7. Create `ip_access.yml`. The format is specified in `ip_access.yml.example` (don't use those IPs though, they're completely hokey. For the canonical list, contact @ycombinator or @rgbkrk.
 
-7. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region.
+8. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region.
 
   ```bash
   $ RAX_REGION=DFW ansible-playbook -i inventory/site site.yml
   ```
 
-8. Each cloud server has nginx installed, configured and running.
+9. Each cloud server has nginx installed, configured and running.
 
-9. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
+10. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
 
 ## Folder Layout
 
