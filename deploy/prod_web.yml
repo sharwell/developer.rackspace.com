@@ -61,7 +61,7 @@
   hosts: prod_webservers
   remote_user: root
   vars:
-  - docroot: "/var/www/html/developer.rackspace.com"
+    docroot: /var/www/html/developer.rackspace.com
   roles:
     - webserver
     - { role: bennojoy.nginx,
