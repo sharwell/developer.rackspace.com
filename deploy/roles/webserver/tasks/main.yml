@@ -3,18 +3,26 @@
   copy: src=etc/ssh/sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode=0644
   notify:
   - restart ssh server
-  
+
 - name: Create user for pushing static site
   user: name=publisher comment="Site Publisher" state=present
         groups=www-data
-  sudo: yes
 
 - name: Add SSH public key to authorized_keys for publisher user
   authorized_key: user=publisher key="{{ lookup('file', 'id_rsa.pub') }}"
+                  state=present
 
 - name: Copy motd file
   copy: src=etc/motd dest=/etc/motd owner=root group=root mode=0644
-          
+
 - name: Make publisher user owner of docroot directory
   file: path={{ docroot }} owner=publisher recurse=yes state=directory
-  sudo: yes
+
+- name: Prequisites for apt_repository tasks
+  apt: name=python-apt state=installed
+
+- name: Node.js PPA
+  apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+
+- name: Recent node.js
+  apt: name=nodejs state=installed
