@@ -42,25 +42,11 @@
     $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
     ```
 
-7. There are 3 Ansible playbooks for setting up a region, and they must be run in order:
+7. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region.
 
-   a. Setting up the production web servers and load balancer:
-
-      ```bash
-      $ RAX_REGION=dfw ansible-playbook prod_web.yml -i inventory/prod
-      ```
-
-   b. Setting up the staging web servers and load balancer:
-
-      ```bash
-      $ RAX_REGION=dfw ansible-playbook staging_web.yml -i inventory/staging
-      ```
-
-   c. Setting up Jenkins:
-
-      ```bash
-      $ RAX_REGION=dfw ansible-playbook jenkins.yml -i inventory/jenkins
-      ```
+    ```bash
+    $ RAX_REGION=DFW ansible-playbook -i inventory/site site.yml
+    ```
 
 9. Each cloud server has nginx installed, configured and running.
 
@@ -73,9 +59,10 @@
 * **inventory**:
   * **dev**:
    * **hosts**: Ansible inventory file for development environment.
-  * **prod**:
-   * **hosts**: Ansible inventory file for production environment.
+  * **site**:
+   * **hosts**: Ansible inventory file for production and staging environments.
    * **rax.py**: Ansible dynamic inventory file (since we are working with the Rackspace cloud). See http://docs.ansible.com/guide_rax.html#host-inventory.
+* **site.yml**:
 * **prod_web.yml**: Ansible playbook to setup and configure developer.rackspace.com infrastructure in a given region.
 * **jenkins.yml**: Ansible playbook to setup and configure Jenkins infrastructure in a given region.
 * **roles/**: Various Ansible roles referenced in the playbooks.
