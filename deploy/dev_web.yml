@@ -6,7 +6,7 @@
   - docroot: "/vagrant_data/_site"
   - sourceroot: /vagrant_data/
   roles:
-    - webservers
+    - webserver
     - { role: bennojoy.nginx,
         nginx_http_params: {
           sendfile: "on",
@@ -25,5 +25,4 @@
       }
     - jekyll
     - sphinx
-    - backend
     - dev
