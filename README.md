@@ -50,6 +50,6 @@ To do:
       * To access the Getting Started Guides, go to http://localhost:8000/docs/
    * If you have problems with the watcher process, view the logs with:
      ```bash
-     sudo tail -F /tmp/watcher.log
+     sudo tail -F /var/log/upstart/watcher.log
      ```
 
