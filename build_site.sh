@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -u
+
 #
 # This script builds the various parts of the site (Getting Started guides,
 # blog, etc.) and combines them into a single directory, `site_html`.
