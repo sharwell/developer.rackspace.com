@@ -1,6 +1,6 @@
 ---
 - name: Provision production web setup
-  hosts: prod_webservers
+  hosts: local
   connection: local
   tasks:
 
