@@ -12,46 +12,45 @@
 
 2. Install pyrax.
 
-   ```bash
-   $ sudo pip install pyrax
-   ```
+  ```bash
+  $ sudo pip install pyrax
+  ```
 
 3. Create a file named `~/.rackspace_cloud_credentials` with the following contents:
 
-    ```
-    [rackspace_cloud]
-    username = <REPLACE WITH YOUR RACKSPACE CLOUD USERNAME>
-    api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
-    ```
+  ```
+  [rackspace_cloud]
+  username = <REPLACE WITH YOUR RACKSPACE CLOUD USERNAME>
+  api_key = <REPLACE WITH YOUR RACKSPACE CLOUD API KEY>
+  ```
 
 4. Make sure the `drg.pem` file is in your `~/.ssh` directory (ask @ycombinator for it). The corresponding public key needs to be uploaded as the `drg` public key in the "SSH Keys" section of your Rackspace Cloud Control Panel for the region(s) where you wish to setup production infrastructure. Modify file permissions:
 
-    ```bash
-    $ chmod 600 ~/.ssh/drg.pem
-    ```
+  ```bash
+  $ chmod 600 ~/.ssh/drg.pem
+  ```
 
 5. Change to this directory on your development machine.
 
-    ```bash
-    $ cd /path/to/developer.rackspace.com/deploy
-    ```
+  ```bash
+  $ cd /path/to/developer.rackspace.com/deploy
+  ```
 
 6. Make sure the `publisher.id_rsa` file is in the `roles/jenkins_masters/files/var/lib/jenkins/` directory (ask @ycombinator for it). This is the private key used by Jenkins jobs to publish the generated web site to the various web servers serving developer.rackspace.com. Modify file permissions:
 
-    ```bash
-    $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
-    ```
+  ```bash
+  $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
+  ```
 
 7. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region.
 
-    ```bash
-    $ RAX_REGION=DFW ansible-playbook -i inventory/site site.yml
-    ```
+  ```bash
+  $ RAX_REGION=DFW ansible-playbook -i inventory/site site.yml
+  ```
 
-9. Each cloud server has nginx installed, configured and running.
+8. Each cloud server has nginx installed, configured and running.
 
-10. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
-
+9. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
 
 ## Folder Layout
 
