@@ -5,7 +5,7 @@
 #
 ---
 - name: Provision Jenkins setup
-  hosts: jenkins
+  hosts: local
   connection: local
   gather_facts: False
   tasks:
@@ -60,4 +60,3 @@
     - jenkins_masters
     - jekyll
     - sphinx
-

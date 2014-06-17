@@ -1,6 +1,6 @@
 ---
 - name: Provision staging web setup
-  hosts: staging_webservers
+  hosts: local
   connection: local
   tasks:
 
@@ -65,7 +65,7 @@
   roles:
     - webservers
     - { role: bennojoy.nginx,
-        nginx_http_params: { 
+        nginx_http_params: {
           sendfile: "on",
           access_log: "/var/log/nginx/access.log"
         },
