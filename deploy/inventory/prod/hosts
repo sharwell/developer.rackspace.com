@@ -3,12 +3,10 @@
 # is no hardcoded inventory here! Instead, we "talk" to localhost since
 # pyrax is installed there and use it to talk to the Rackspace Cloud. Comprende?
 #
-[prod_webservers]
+[local]
 localhost
-
-[prod_webservers:vars]
-server_name=developer.rackspace.com
 
 [all:vars]
 ansible_ssh_user=root
 ansible_ssh_private_key_file=~/.ssh/drg.pem
+server_name=developer.rackspace.com

@@ -1,6 +1,6 @@
 ---
 - name: Provision production web setup
-  hosts: prod_webservers
+  hosts: local
   connection: local
   tasks:
 
@@ -59,7 +59,7 @@
 
 - name: Configure web server(s)
   hosts: prod_webservers
-  sudo: yes
+  remote_user: root
   vars:
   - docroot: "/var/www/html/developer.rackspace.com"
   roles:
