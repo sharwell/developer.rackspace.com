@@ -64,8 +64,9 @@
   - docroot: "/var/www/html/developer.rackspace.com"
   roles:
     - webservers
+    - backend
     - { role: bennojoy.nginx,
-        nginx_http_params: { 
+        nginx_http_params: {
           sendfile: "on",
           access_log: "/var/log/nginx/access.log"
         },
