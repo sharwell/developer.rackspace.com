@@ -61,7 +61,7 @@
   hosts: staging_webservers
   sudo: yes
   vars:
-  - docroot: "/var/www/html/developer.rackspace.com"
+    docroot: /var/www/html/developer.rackspace.com
   roles:
     - webserver
     - { role: bennojoy.nginx,
