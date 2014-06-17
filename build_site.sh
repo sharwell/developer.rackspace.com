@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -u
+
 #
 # This script builds the various parts of the site (Getting Started guides,
 # blog, etc.) and combines them into a single directory, `site_html`.
@@ -34,6 +36,10 @@ mkdir -p $WORK_DIR
 
 # Copy the site source into the work directory
 rsync -Ca $PROJECT_ROOT/src/site_source/ $WORK_DIR/
+
+# Use the default configuration unless a configuration has already been
+# specified.
+[ -f $WORK_DIR/_config.yml ] || cp $WORK_DIR/_config.default.yml $WORK_DIR/_config.yml
 
 # Build the Getting Started guides in the `docs/` directory using Sphinx
 cd $PROJECT_ROOT/src/docs

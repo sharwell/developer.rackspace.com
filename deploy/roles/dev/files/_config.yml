@@ -63,5 +63,5 @@ gravatar_emails:
 # jekyll-assets plugin configuration.
 assets:
   js_compressor: ~
-  css_compressor: yui
+  css_compressor: ~
   cache: true
