@@ -1,0 +1,9 @@
+---
+- name: Prequisites for apt_repository tasks
+  apt: name=python-apt state=installed
+
+- name: Node.js PPA
+  apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+
+- name: Recent node.js
+  apt: name=nodejs state=installed
