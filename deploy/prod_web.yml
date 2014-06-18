@@ -66,6 +66,7 @@
     docroot: /var/www/html/developer.rackspace.com
   roles:
     - webserver
+    - lockboxweb
     - { role: bennojoy.nginx,
         nginx_http_params: {
           sendfile: "on",
