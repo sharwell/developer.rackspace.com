@@ -1,0 +1,6 @@
+---
+# All the specific whitelisted IP addresses for accesses
+# These can be IPv4 or IPv6
+ip_accesses:
+  - 192.168.1.1
+  - fe80::be76:4eff:fe05:a50a
