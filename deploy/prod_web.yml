@@ -67,24 +67,18 @@
   roles:
     - webserver
     - lockboxweb
-    - { role: bennojoy.nginx,
-        nginx_http_params: {
-          sendfile: "on",
-          access_log: "/var/log/nginx/access.log"
-        },
-        nginx_sites: [
-          {
-            server: {
-              file_name: developer.rackspace.com,
-              listen: 80,
-              server_name: "{{ server_name }}",
-              root: "{{ docroot }}",
-              gzip: "on",
-              gzip_min_length: 1400,
-              gzip_types: "text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript",
-              gzip_vary: "on",
-              gzip_proxied: "any"
-            }
-          }
-        ]
-      }
+    - role: bennojoy.nginx
+      nginx_http_params:
+        sendfile: on
+        access_log: /var/log/nginx/access.log
+      nginx_sites:
+      - server:
+          file_name: developer.rackspace.com
+          listen: 80
+          server_name: "{{ server_name }}"
+          root: "{{ docroot }}"
+          gzip: on
+          gzip_min_length: 1400
+          gzip_types: text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript
+          gzip_vary: on
+          gzip_proxied: any
