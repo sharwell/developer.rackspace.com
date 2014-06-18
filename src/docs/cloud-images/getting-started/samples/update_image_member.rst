@@ -29,12 +29,12 @@
 
 .. code-block:: ruby
 
-  // Fog doesn't support this API presently
+  # Fog doesn't support this API presently
 
 .. code-block:: sh
 
-    curl -s $ENDPOINT/images/{imageId}/members/{memberId} -X PUT \
-      -d '{"status":"accepted"}' -H "X-Auth-Token: $TOKEN" | python -m json.tool
+  curl -s $ENDPOINT/images/{imageId}/members/{memberId} -X PUT \
+    -d '{"status":"accepted"}' -H "X-Auth-Token: $TOKEN" | python -m json.tool
 
-    # NOTE: {imageId} and {memberId} are placeholders:
-    # Replace them with actual values and do not enclose the values with {}.
+  # NOTE: {imageId} and {memberId} are placeholders:
+  # Replace them with actual values and do not enclose the values with {}.

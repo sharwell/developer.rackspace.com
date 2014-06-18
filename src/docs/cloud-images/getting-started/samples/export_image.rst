@@ -24,13 +24,13 @@
 
 .. code-block:: ruby
 
-  // Fog doesn't support this API presently
+  # Fog doesn't support this API presently
 
 .. code-block:: sh
 
-    $ curl -s $ENDPOINT/tasks -X POST \
-        -d '{"type": "export","input":{"image_uuid": "{imageId}","receiving_swift_container": "exports"}}' \
-        -H "X-Auth-Token: $TOKEN" | python -m json.tool
+  curl -s $ENDPOINT/tasks -X POST \
+      -d '{"type": "export","input":{"image_uuid": "{imageId}","receiving_swift_container": "exports"}}' \
+      -H "X-Auth-Token: $TOKEN" | python -m json.tool
 
-    # NOTE: {imageId} is a placeholder: Replace it with
-    # an actual value and do not enclose it with {}.
+  # NOTE: {imageId} is a placeholder: Replace it with
+  # an actual value and do not enclose it with {}.
