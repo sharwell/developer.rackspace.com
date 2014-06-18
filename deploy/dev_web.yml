@@ -10,7 +10,7 @@
     - webserver
     - role: bennojoy.nginx
       nginx_http_params:
-        sendfile: on
+        sendfile: "on"
         access_log: /var/log/nginx/access.log
       nginx_sites:
       - server:
