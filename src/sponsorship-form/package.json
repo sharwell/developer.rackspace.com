@@ -1,0 +1,19 @@
+{
+  "name": "sponsorship-form",
+  "version": "0.0.0",
+  "description": "A sponsorship form for developer.rackspace.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ken Perkins <ken.perkins@rackspace.com>",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "~2.8.1",
+    "async": "0.9.0",
+    "pkgcloud": "0.9.5",
+    "underscore": "1.4.4",
+    "mailgun-js": "0.4.15",
+    "winston": "0.7.3"
+  }
+}
