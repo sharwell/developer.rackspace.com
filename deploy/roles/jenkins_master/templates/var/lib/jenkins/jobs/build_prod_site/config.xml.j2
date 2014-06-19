@@ -40,12 +40,7 @@
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command># Publish to web servers in this region.
-cd _site
-{% for host in groups['prod_webservers'] %}
-{% if host != 'localhost' %}
-rsync -e &quot;ssh -i $JENKINS_HOME/publisher.id_rsa -o StrictHostKeyChecking=no&quot; -ac . publisher@{{ hostvars[host]['rax_networks']['private'][0] }}:/var/www/html/developer.rackspace.com/
-{% endif %}
-{% endfor %}
+ansible-playbook deploy/push.yml --extra-vars "group=prod_webservers"
 </command>
     </hudson.tasks.Shell>
   </builders>
