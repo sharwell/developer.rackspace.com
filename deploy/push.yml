@@ -19,7 +19,12 @@
     notify:
     - restart the sponsorship-form
 
-  # TODO upstart config
+  - name: Upstart service to manage the backend.
+    template: src=templates/sponsorship-form.conf.j2
+              dest=/etc/init/sponsorship-form.conf
+
+  - name: Start the backend service
+    service: name=sponsorship-form state=started
 
   handlers:
 
