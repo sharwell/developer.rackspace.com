@@ -6,5 +6,10 @@ localhost
 {{ host }} ansible_ssh_ip={{ hostvars[host]['rax_networks']['private'][0] }}
 {% endfor %}
 
+[staging_webservers]
+{% for host in groups['staging_webservers'] %}
+{{ host }} ansible_ssh_ip={{ hostvars[host]['rax_networks']['private'][0] }}
+{% endfor %}
+
 [all:vars]
 ansible_ssh_private_key_file=/var/lib/jenkins/publisher.id_rsa
