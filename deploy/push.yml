@@ -19,6 +19,9 @@
     notify:
     - restart the sponsorship-form
 
+  - name: Install sponsorship form dependencies.
+    npm: path={{ backendroot }} production=yes
+
   - name: Upstart service to manage the backend.
     template: src=templates/sponsorship-form.conf.j2
               dest=/etc/init/sponsorship-form.conf
