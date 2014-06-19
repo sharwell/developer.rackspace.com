@@ -83,6 +83,9 @@
 - name: ansibleception
   pip: name=ansible state=present
 
+- name: Create an inventory
+  template: src=etc/ansible/hosts.j2 dest=/etc/ansible/hosts mode=0644
+
 - name: Log the firewall
   ufw: logging=on
 
