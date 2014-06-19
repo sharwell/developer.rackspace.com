@@ -1,0 +1,27 @@
+---
+- name: Invoked from Jenkins to deploy the site to each webserver.
+  hosts: "{{ group }}"
+  remote_user: publisher
+  vars_files:
+  - paths.yml
+  tasks:
+
+  - name: Run the build script locally to generate the site.
+    local_action: module=command build_site.sh
+
+  - name: Deploy the static HTML.
+    synchronize: src=_site dest={{ docroot }}
+                 archive=yes checksum=yes
+
+  - name: Deploy the sponsorship-form backend.
+    synchronize: src=src/sponsorship-form dest={{ backendroot }}
+                 archive=yes checksum=yes
+    notify:
+    - restart the sponsorship-form
+
+  # TODO upstart config
+
+  handlers:
+
+  - name: restart the sponsorship-form
+    service: name=sponsorship-form state=restarted
