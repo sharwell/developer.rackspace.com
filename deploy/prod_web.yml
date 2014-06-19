@@ -61,9 +61,8 @@
   hosts: prod_webservers
   remote_user: root
   vars_files:
-    - ip_access.yml
-  vars:
-    docroot: /var/www/html/developer.rackspace.com
+  - ip_access.yml
+  - paths.yml
   roles:
     - webserver
     - lockboxweb
