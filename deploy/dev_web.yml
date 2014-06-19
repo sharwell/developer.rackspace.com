@@ -18,10 +18,9 @@
           listen: 80
           server_name: "{{ server_name }}"
           root: "{{ docroot }}",
-          location1: {
+          location1:
             name: '/api',
             proxy_pass: 'http://127.0.0.1:8111'
-          }
     - jekyll
     - sphinx
     - dev
