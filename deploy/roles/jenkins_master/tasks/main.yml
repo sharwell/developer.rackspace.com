@@ -76,6 +76,13 @@
   notify:
     - 'Restart Jenkins'
 
+- name: pip
+  shell: curl --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python2.7
+         creates=/usr/local/bin/pip
+
+- name: ansibleception
+  pip: name=ansible state=present
+
 - name: Log the firewall
   ufw: logging=on
 
@@ -92,4 +99,3 @@
 
 - name: Drop everything else
   ufw: policy=reject state=enabled
-
