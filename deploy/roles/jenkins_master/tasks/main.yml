@@ -18,6 +18,10 @@
     path: /var/lib/jenkins/publisher.id_rsa
     mode: 0600
 
+- name: Install the vault password
+  template: src=var/lib/jenkins/vault.txt.j2 dest=/var/lib/jenkins/vault.txt
+            owner=root group=jenkins mode=0640
+
 - name: Copy motd file
   copy: src=etc/motd dest=/etc/motd owner=root group=root mode=0644
 
