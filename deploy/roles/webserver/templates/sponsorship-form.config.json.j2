@@ -1,16 +1,16 @@
 {
   "pkgcloudConfig": {
-    "username": "",
-    "apiKey": "",
+    "username": "{{ rackspace_username }}",
+    "apiKey": "{{ rackspace_apikey }}",
     "provider": "rackspace",
-    "region": "ORD"
+    "region": "{{ lookup('env', 'RAX_REGION') | upper }}"
   },
   "logLevel": "debug",
   "containerName": "drg-sponsorship-forms",
   "notificationAddress": "",
   "fromAddress": "Rackspace Developer Relations <sdk-support@rackspace.com>",
   "mailgun": {
-    "apiKey": "",
-    "domain": ""
+    "apiKey": "{{ mailgun_apikey }}",
+    "domain": "{{ mailgun_domain }}"
   }
 }
