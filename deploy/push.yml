@@ -4,7 +4,6 @@
   remote_user: publisher
   vars_files:
   - paths.yml
-  - secrets.yml
   tasks:
 
   - name: Run the build script locally to generate the site.
