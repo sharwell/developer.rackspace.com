@@ -18,6 +18,9 @@
 - name: Make publisher user owner of docroot directory
   file: path={{ docroot }} owner=publisher recurse=yes state=directory
 
+- name: Make publisher user owner of the backend directory
+  file: path={{ backendroot }} owner=publisher recurse=yes state=directory
+
 - name: Prequisites for apt_repository tasks
   apt: name=python-apt state=installed
 
