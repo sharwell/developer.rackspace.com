@@ -1,13 +1,18 @@
 ---
+- name: Build the site locally first.
+  hosts: local
+  connection: local
+  tasks:
+
+  - name: Run the build script to generate the site.
+    command: ../build_site.sh
+
 - name: Invoked from Jenkins to deploy the site to each webserver.
   hosts: "{{ group }}"
   remote_user: publisher
   vars_files:
   - paths.yml
   tasks:
-
-  - name: Run the build script locally to generate the site.
-    local_action: command ../build_site.sh
 
   - name: Deploy the static HTML.
     synchronize: src=../_site dest={{ docroot }}
