@@ -18,6 +18,9 @@
         state: present
       register: clb
 
+    - name: Apply the whitelist to the staging load balancer.
+      command: ../script/lockclb
+
     - name: Provision 2 staging web servers
       rax:
         credentials: ~/.rackspace_cloud_credentials
