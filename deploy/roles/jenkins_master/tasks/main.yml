@@ -95,6 +95,30 @@
 - name: Create an inventory
   template: src=etc/ansible/hosts.j2 dest=/etc/ansible/hosts mode=0644
 
+- name: Register SSH host signatures for each production webserver
+  command: ssh-keyscan -H {{ hostvars[item]['rax_networks']['private'][0] }}
+  register: prod_ssh_signatures
+  with_items: groups['prod_webservers']
+
+- name: Trust the SSH signatures we just collected
+  lineinfile: dest=/var/lib/jenkins/.ssh/known_hosts
+              line="{{ item.stdout }}"
+              create=yes
+              state=present
+  with_items: prod_ssh_signatures.results
+
+- name: Register SSH host signatures for each staging webserver
+  command: ssh-keyscan -H {{ hostvars[item]['rax_networks']['private'][0] }}
+  register: staging_ssh_signatures
+  with_items: groups['staging_webservers']
+
+- name: Trust the SSH signatures we just collected
+  lineinfile: dest=/var/lib/jenkins/.ssh/known_hosts
+              line="{{ item.stdout }}"
+              create=yes
+              state=present
+  with_items: staging_ssh_signatures.results
+
 - name: Log the firewall
   ufw: logging=on
 
