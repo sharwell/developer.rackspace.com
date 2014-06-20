@@ -76,12 +76,21 @@
   notify:
     - 'Restart Jenkins'
 
+- name: Build tools
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - build-essential
+  - python-dev
+
 - name: pip
-  shell: curl --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python2.7
+  shell: curl --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python
          creates=/usr/local/bin/pip
 
 - name: ansibleception
   pip: name=ansible state=present
+
+- name: Create the inventory directory
+  file: dest=/etc/ansible state=directory mode=0755
 
 - name: Create an inventory
   template: src=etc/ansible/hosts.j2 dest=/etc/ansible/hosts mode=0644
