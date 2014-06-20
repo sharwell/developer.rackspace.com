@@ -41,7 +41,7 @@
     <hudson.tasks.Shell>
       <command># Publish to web servers in this region.
 # Publish to web servers in this region.
-ansible-playbook deploy/push.yml --extra-vars "group=staging_webservers"
+ansible-playbook deploy/jenkins_push.yml --extra-vars "group=staging_webservers"
 </command>
     </hudson.tasks.Shell>
   </builders>
