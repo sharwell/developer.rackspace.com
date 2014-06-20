@@ -63,6 +63,7 @@
   vars_files:
   - ip_access.yml
   - paths.yml
+  - secrets.yml
   roles:
     - webserver
     - lockboxweb
