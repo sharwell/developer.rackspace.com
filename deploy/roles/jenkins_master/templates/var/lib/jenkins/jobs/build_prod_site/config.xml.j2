@@ -36,9 +36,6 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build_site.sh</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
       <command># Publish to web servers in this region.
 ansible-playbook deploy/jenkins_push.yml --extra-vars "group=prod_webservers"
 </command>
