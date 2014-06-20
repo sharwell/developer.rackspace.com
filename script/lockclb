@@ -3,8 +3,16 @@
 # Control access to the staging load balancer.
 
 import os
+import sys
 import pyrax
 import yaml
+
+# Validate ye argv
+
+if len(sys.argv) < 2:
+    raise RuntimeError("%s requires one argument: the load balancer name." %
+                       sys.argv[0])
+the_lbname = sys.argv[1]
 
 # Get our bearings within the filesystem.
 
@@ -22,7 +30,7 @@ clb = pyrax.cloud_loadbalancers
 
 the_balancer = None
 for each in clb.list():
-    if each.name == 'staging-developer.rackspace.com':
+    if each.name == the_lbname:
         the_balancer = each
 
 if not the_balancer:
