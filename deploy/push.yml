@@ -28,14 +28,19 @@
     notify:
     - restart the sponsorship-form
 
-  - name: Upstart service to manage the backend.
-    template: src=templates/sponsorship-form.conf.j2
-              dest=/etc/init/sponsorship-form.conf
+  - name: Check the list of forever.js apps that are currently running.
+    command: forever list
+    register: forever_list
+    changed_when: false
+
+  - name: Show the output of "forever list"
+    debug: var=forever_list
 
   - name: Start the backend service
-    service: name=sponsorship-form state=started
+    command: chdir={{ backendroot }} forever start {{ backendroot }}/index.js
+    when: "forever_list.stdout.find('{{ backendroot }}') == -1"
 
   handlers:
 
   - name: restart the sponsorship-form
-    service: name=sponsorship-form state=restarted
+    command: chdir={{ backendroot }} forever restart {{ backendroot }}/index.js
