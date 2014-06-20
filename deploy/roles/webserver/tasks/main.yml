@@ -34,3 +34,6 @@
 - name: Recent node.js
   apt: name=nodejs state=installed
   sudo: yes
+
+- name: Forever.js
+  npm: name=forever global=yes state=latest
