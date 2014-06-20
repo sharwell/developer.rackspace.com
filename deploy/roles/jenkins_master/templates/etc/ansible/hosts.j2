@@ -1,5 +1,5 @@
 [local]
-localhost
+localhost ansible_connection=local
 
 [prod_webservers]
 {% for host in groups['prod_webservers'] %}
