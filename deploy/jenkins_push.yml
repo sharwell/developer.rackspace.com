@@ -7,24 +7,20 @@
   tasks:
 
   - name: Run the build script locally to generate the site.
-    local_action: command build_site.sh
+    local_action: command ../build_site.sh
 
   - name: Deploy the static HTML.
-    synchronize: src=_site dest={{ docroot }}
+    synchronize: src=../_site dest={{ docroot }}
                  archive=yes checksum=yes
 
   - name: Deploy the sponsorship-form backend.
-    synchronize: src=src/sponsorship-form dest={{ backendroot }}
+    synchronize: src=../src/sponsorship-form dest={{ backendroot }}
                  archive=yes checksum=yes
     notify:
     - restart the sponsorship-form
 
   - name: Install sponsorship form dependencies.
     npm: path={{ backendroot }} production=yes
-
-  - name: Sponsorship form configuration.
-    template: src=templates/sponsorship-form.json.j2
-              dest={{ backendroot }}/config.js
     notify:
     - restart the sponsorship-form
 
