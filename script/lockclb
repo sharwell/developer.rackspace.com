@@ -41,5 +41,8 @@ with open(whitelist_path) as inf:
 access_list = [dict(address=addr, type='ALLOW') for addr in whitelist]
 access_list.append(dict(address='0.0.0.0/0', type='DENY'))
 
+pyrax.utils.wait_until(the_balancer, "status", "ACTIVE", interval=1, attempts=30)
 the_balancer.delete_access_list()
+
+pyrax.utils.wait_until(the_balancer, "status", "ACTIVE", interval=1, attempts=30)
 the_balancer.add_access_list(access_list)
