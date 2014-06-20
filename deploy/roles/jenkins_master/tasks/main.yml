@@ -108,7 +108,7 @@
   with_items: ssh_signatures.results
 
 - name: Get localhost's SSH signature
-  command: ssh-keyscan -H localhost
+  command: ssh-keyscan -H 127.0.0.1
   register: localhost_signature
 
 - name: Trust localhost's SSH signature
