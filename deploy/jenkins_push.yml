@@ -15,11 +15,11 @@
   tasks:
 
   - name: Deploy the static HTML.
-    synchronize: src=../_site dest={{ docroot }}
+    synchronize: src=../_site/ dest={{ docroot }}
                  archive=yes checksum=yes
 
   - name: Deploy the sponsorship-form backend.
-    synchronize: src=../src/sponsorship-form dest={{ backendroot }}
+    synchronize: src=../src/sponsorship-form/ dest={{ backendroot }}
                  archive=yes checksum=yes
     notify:
     - restart the sponsorship-form
