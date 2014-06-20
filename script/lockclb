@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+#
+# Control access to the staging load balancer.
+
+import os
+import sys
+import pyrax
+import yaml
+
+# Validate ye argv
+
+if len(sys.argv) < 2:
+    raise RuntimeError("%s requires one argument: the load balancer name." %
+                       sys.argv[0])
+the_lbname = sys.argv[1]
+
+# Get our bearings within the filesystem.
+
+root = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Authenticate to pyrax.
+
+pyrax.set_setting("identity_type", "rackspace")
+pyrax.set_setting("region", os.environ['RAX_REGION'])
+pyrax.set_credential_file(os.path.expanduser("~/.rackspace_cloud_credentials"))
+
+clb = pyrax.cloud_loadbalancers
+
+# Locate the staging load balancer
+
+the_balancer = None
+for each in clb.list():
+    if each.name == the_lbname:
+        the_balancer = each
+
+if not the_balancer:
+    raise RuntimeError("I couldn't find the staging load balancer!")
+
+# Load the IP whitelist.
+
+whitelist_path = os.path.join(root, 'deploy', 'ip_access.yml')
+whitelist = None
+
+with open(whitelist_path) as inf:
+    whitelist = yaml.load(inf.read())['ip_accesses']
+
+# Create the access list.
+
+access_list = [dict(address=addr, type='ALLOW') for addr in whitelist]
+access_list.append(dict(address='0.0.0.0/0', type='DENY'))
+
+pyrax.utils.wait_until(the_balancer, "status", "ACTIVE", interval=1, attempts=30)
+the_balancer.delete_access_list()
+
+pyrax.utils.wait_until(the_balancer, "status", "ACTIVE", interval=1, attempts=30)
+the_balancer.add_access_list(access_list)

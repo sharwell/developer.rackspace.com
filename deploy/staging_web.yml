@@ -18,6 +18,11 @@
         state: present
       register: clb
 
+    # This is a workaround for the rax_clb module not supporting access list
+    # manipulation.
+    - name: Apply the whitelist to the staging load balancer.
+      command: ../script/lockclb '{{ server_name }}'
+
     - name: Provision 2 staging web servers
       rax:
         credentials: ~/.rackspace_cloud_credentials
