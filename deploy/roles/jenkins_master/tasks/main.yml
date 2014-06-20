@@ -97,27 +97,25 @@
 
 - name: Register SSH host signatures for each production webserver
   command: ssh-keyscan -H {{ hostvars[item]['rax_networks']['private'][0] }}
-  register: prod_ssh_signatures
-  with_items: groups['prod_webservers']
+  register: ssh_signatures
+  with_items: groups['prod_webservers'] + groups['staging_webservers']
 
 - name: Trust the SSH signatures we just collected
-  lineinfile: dest=/var/lib/jenkins/.ssh/known_hosts
-              line="{{ item.stdout }}"
-              create=yes
-              state=present
-  with_items: prod_ssh_signatures.results
+  lineinfile: "dest=/var/lib/jenkins/.ssh/known_hosts
+               line='{{ item.stdout | trim }}'
+               create=yes
+               state=present"
+  with_items: ssh_signatures.results
 
-- name: Register SSH host signatures for each staging webserver
-  command: ssh-keyscan -H {{ hostvars[item]['rax_networks']['private'][0] }}
-  register: staging_ssh_signatures
-  with_items: groups['staging_webservers']
+- name: Get localhost's SSH signature
+  command: ssh-keyscan -H localhost
+  register: localhost_signature
 
-- name: Trust the SSH signatures we just collected
-  lineinfile: dest=/var/lib/jenkins/.ssh/known_hosts
-              line="{{ item.stdout }}"
-              create=yes
-              state=present
-  with_items: staging_ssh_signatures.results
+- name: Trust localhost's SSH signature
+  lineinfile: "dest=/var/lib/jenkins/.ssh/known_hosts
+               line='{{ localhost_signature.stdout | trim }}'
+               create=yes
+               state=present"
 
 - name: Log the firewall
   ufw: logging=on
