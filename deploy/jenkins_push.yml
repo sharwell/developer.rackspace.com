@@ -34,9 +34,6 @@
     register: forever_list
     changed_when: false
 
-  - name: Show the output of "forever list"
-    debug: var=forever_list
-
   - name: Start the backend service
     command: chdir={{ backendroot }} forever start {{ backendroot }}/index.js
     when: "forever_list.stdout.find('{{ backendroot }}') == -1"
