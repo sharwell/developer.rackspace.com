@@ -7,7 +7,7 @@
   tasks:
 
   - name: Run the build script locally to generate the site.
-    local_action: module=command build_site.sh
+    local_action: command build_site.sh
 
   - name: Deploy the static HTML.
     synchronize: src=_site dest={{ docroot }}
