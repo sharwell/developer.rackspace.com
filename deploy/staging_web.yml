@@ -82,3 +82,6 @@
           gzip_types: text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript
           gzip_vary: "on"
           gzip_proxied: any
+          location1:
+            name: /api
+            proxy_pass: http://127.0.0.1:8111
