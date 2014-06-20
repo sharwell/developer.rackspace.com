@@ -18,6 +18,8 @@
         state: present
       register: clb
 
+    # This is a workaround for the rax_clb module not supporting access list
+    # manipulation.
     - name: Apply the whitelist to the staging load balancer.
       command: ../script/lockclb
 
