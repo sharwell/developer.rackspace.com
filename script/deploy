@@ -4,62 +4,66 @@ ROOT=`dirname $0`/..
 
 # Make sure that all of the Secrets and prerequisites are in place.
 
-HAS_RAXREGION=0
-HAS_ANSIBLE=0
-HAS_PYRAX=0
-HAS_DRGPEM=0
-HAS_PUBLISHERKEY=0
-HAS_IPLIST=0
+HAS_RAXREGION=false
+HAS_ANSIBLE=false
+HAS_PYRAX=false
+HAS_DRGPEM=false
+HAS_PUBLISHERKEY=false
+HAS_IPLIST=false
 
-[ -n ${HAS_RAXREGION} ] && HAS_RAXREGION=1
-which -s ansible && HAS_ANSIBLE=1
-python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=1
-[ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=1
-[ -f ${ROOT}/deploy/roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=1
-[ -f ${ROOT}/deploy/ip_access.yml ] && HAS_IPLIST=1
+[ -n ${HAS_RAXREGION} ] && HAS_RAXREGION=true
+which -s ansible-playbook && HAS_ANSIBLE=true
+python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=true
+[ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=true
+[ -f ${ROOT}/deploy/roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=true
+[ -f ${ROOT}/deploy/ip_access.yml ] && HAS_IPLIST=true
 
-if [ ! $HAS_RAXREGION ] || [ ! $HAS_ANSIBLE ] || [ ! $HAS_PYRAX ] ||
-    [ ! $HAS_DRGPEM ] || [ ! $HAS_PUBLISHERKEY ] || [ ! $HAS_IPLIST ]; then
+if ! $HAS_DRGPEM || ! $HAS_PUBLISHERKEY ; then
+  echo "no ansible"
+fi
+
+if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
+    ! $HAS_DRGPEM || ! $HAS_PUBLISHERKEY || ! $HAS_IPLIST ; then
   echo "Uh oh! You're missing some things you'll need to get started."
   echo
 
-  if [ ! $HAS_RAXREGION ]; then
+  if ! $HAS_RAXREGION ; then
     echo "* Please set RAX_REGION to the region you're targetting for deployment."
     echo "  Example:"
     echo "  $ RAX_REGION=DFW $0"
     echo
   fi
 
-  if [ ! $HAS_ANSIBLE ]; then
+  if ! $HAS_ANSIBLE ; then
     echo "* You don't have Ansible installed!"
     echo "  Grab a recent version from your favorite package manager."
     echo "  For example:"
-    echo "  $ pip install ansible"
+    echo "  $ [sudo] pip install ansible"
     echo "  $ brew install ansible"
     echo "  $ apt install ansible"
     echo
   fi
 
-  if [ ! $HAS_PYRAX ]; then
+  if ! $HAS_PYRAX ; then
     echo "* Pyrax is missing from your Python install!"
     echo "  Get it from pip:"
-    echo "  $ pip install pyrax"
+    echo "  $ [sudo] pip install pyrax"
     echo
   fi
 
-  if [ ! $HAS_DRGPEM ]; then
+  if ! $HAS_DRGPEM ; then
     echo "* The drg.pem private key is missing."
     echo "  Put it at ${HOME}/.ssh and chmod it 600."
     echo
   fi
 
-  if [ ! $HAS_PUBLISHERKEY ]; then
+  if ! $HAS_PUBLISHERKEY ; then
     echo "* The publisher.id_rsa private key is missing."
     echo "  Download it and put it in deploy/roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa."
     echo
   fi
 
-  if [ ! $HAS_IPLIST ]; then
+  if ! $HAS_IPLIST ; then
     echo "* The IP whitelist is missing."
     echo "  Put it at deploy/ip_access.yml. You can also set it to your own IP for testing"
     echo "  and development. Follow the format found in deploy/ip_access.yml.example."
