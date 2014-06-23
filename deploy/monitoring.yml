@@ -11,6 +11,7 @@
     - mzord
     warning_email: ash.wilson@rackspace.com
     critical_email: ash.wilson@rackspace.com
+    ok_email: ash.wilson@rackspace.com
   tasks:
 
   - name: Create a monitoring entities for the load balancer
@@ -87,35 +88,47 @@
       target_alias: load_balancer
     register: http_check_sdk
 
-  - name: First-tier notification.
+  - name: Ok notification.
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: first_tier
+      label: ok_tier
+      notification_type: email
+      details:
+        address: "{{ ok_email }}"
+    register: ok_notification
+
+  - name: Warning notification.
+    rax_mon_notification:
+      credentials: ~/.rackspace_cloud_credentials
+      state: present
+      label: warning_tier
       notification_type: email
       details:
         address: "{{ warning_email }}"
-    register: first_tier
+    register: warning_notification
 
-  - name: Second-tier notification.
+  - name: Critical notification.
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: second_tier
+      label: critical_tier
       notification_type: email
       details:
         address: "{{ critical_email }}"
-    register: second_tier
+    register: critical_notification
 
   - name: Create a notification plan.
     rax_mon_notification_plan:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       label: escalation_station
+      ok_state:
+      - "{{ ok_notification['notification']['id'] }}"
       warning_state:
-      - "{{ first_tier['notification']['id'] }}"
+      - "{{ warning_notification['notification']['id'] }}"
       critical_state:
-      - "{{ second_tier['notification']['id'] }}"
+      - "{{ critical_notification['notification']['id'] }}"
     register: escalation_station
 
   - name: Trigger an alarm when port 80 doesn't respond.
