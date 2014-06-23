@@ -144,6 +144,9 @@
         if (metric['code'] != "200") {
           return new AlarmStatus(CRITICAL);
         }
+        if (metric['body_match'] == "") {
+          return new AlarmStatus(CRITICAL);
+        }
         if (metric['duration'] > 500) {
           return new AlarmStatus(WARNING);
         }
