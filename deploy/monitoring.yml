@@ -46,9 +46,9 @@
       details:
         url: http://{{ lb_ip }}/
         body: <h1 class="firstline">Introducing the all-new <br/>developer hosting tier.</h1>
-        include_body: true
+        include_body: "true"
         method: GET
-        follow_redirects: true
+        follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
     register: http_check_index
@@ -63,9 +63,9 @@
       details:
         url: http://{{ lb_ip }}/blog/
         body: <span class="headline">Developer Blog</span>
-        include_body: true
+        include_body: "true"
         method: GET
-        follow_redirects: true
+        follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
     register: http_check_blog
@@ -128,7 +128,7 @@
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
         if (metric['average'] > 100) {
-          return new AlarmStatus(WARNING);
+          return new AlarmStatus(WARNING, "Average ping was #{average}ms > 100ms.");
         }
         return new AlarmStatus(OK);
 
@@ -142,13 +142,13 @@
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
         if (metric['code'] != "200") {
-          return new AlarmStatus(CRITICAL);
+          return new AlarmStatus(CRITICAL, "Non-200 status code #{code} returned.");
         }
         if (metric['body_match'] == "") {
-          return new AlarmStatus(CRITICAL);
+          return new AlarmStatus(CRITICAL, "Expected header content not found.");
         }
         if (metric['duration'] > 500) {
-          return new AlarmStatus(WARNING);
+          return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 500ms.");
         }
         return new AlarmStatus(OK);
     with_items:
