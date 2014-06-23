@@ -78,4 +78,4 @@ ANSIBLE_ARGS=
 # Kick it. Pass any additional arguments to Ansible.
 
 cd ${ROOT}/deploy
-ansible-playbook -i inventory/site site.yml $ANSIBLE_ARGS $*
+ansible-playbook -i inventory/site site.yml -M ../script/modules $ANSIBLE_ARGS $*
