@@ -11,7 +11,7 @@ HAS_DRGPEM=false
 HAS_PUBLISHERKEY=false
 HAS_IPLIST=false
 
-[ -n ${HAS_RAXREGION} ] && HAS_RAXREGION=true
+[ -n "${RAX_REGION}" ] && HAS_RAXREGION=true
 which -s ansible-playbook && HAS_ANSIBLE=true
 python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=true
 [ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=true
