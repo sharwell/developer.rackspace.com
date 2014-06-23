@@ -15,7 +15,7 @@ HAS_IPLIST=false
 which -s ansible-playbook && HAS_ANSIBLE=true
 python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=true
 [ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=true
-[ -f ${ROOT}/deploy/roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=true
+[ -f ${ROOT}/deploy/roles/jenkins_master/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=true
 [ -f ${ROOT}/deploy/ip_access.yml ] && HAS_IPLIST=true
 
 if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
@@ -74,4 +74,4 @@ fi
 # Kick it. Pass any additional arguments to Ansible.
 
 cd ${ROOT}/deploy
-ansible-playbook -i inventory/site site.yml $*
+ansible-playbook -i inventory/site site.yml --ask-vault-pass $*
