@@ -14,8 +14,6 @@ cm = pyrax.cloud_monitoring
 print ">> ENTITIES ::"
 for e in cm.list_entities():
     print e
-    if e.label in ('test', 'sample_entity', 'somehost', 'entity_prod-webserver-2', 'somehost.domain.com'):
-        e.delete()
 
 print ">> CHECKS ::"
 for e in cm.list_entities():
