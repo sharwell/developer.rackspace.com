@@ -74,4 +74,4 @@ fi
 # Kick it. Pass any additional arguments to Ansible.
 
 cd ${ROOT}/deploy
-ansible-playbook -i inventory/site site.yml
+ansible-playbook -i inventory/site site.yml $*
