@@ -9,9 +9,9 @@
     - mzdfw
     - mziad
     - mzord
-    warning_email: ash.wilson@rackspace.com
-    critical_email: ash.wilson@rackspace.com
-    ok_email: ash.wilson@rackspace.com
+    warning_email: sdk-support@rackspace.com
+    critical_email: sdk-support@rackspace.com
+    ok_email: sdk-support@rackspace.com
   tasks:
 
   - name: Create a monitoring entities for the load balancer
