@@ -53,7 +53,7 @@ Before you begin, you'll need to collect a number of private keys and passphrase
 8. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region. Enter the vault password when prompted to do so.
 
   ```bash
-  $ RAX_REGION=DFW ansible-playbook -i inventory/site site.yml --ask-vault-pass
+  $ RAX_REGION=DFW script/deploy
   ```
 
 9. Each cloud server has nginx installed, configured and running.
