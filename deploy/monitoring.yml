@@ -45,8 +45,8 @@
       check_type: remote.http
       details:
         url: http://{{ lb_ip }}/
-        body: <h1>Welcome to the Rackspace Developer Center!</h1>
-        include_body: false
+        body: <h1 class="firstline">Introducing the all-new <br/>developer hosting tier.</h1>
+        include_body: true
         method: GET
         follow_redirects: true
       monitoring_zones_poll: "{{ monitoring_zones }}"
@@ -62,7 +62,7 @@
       check_type: remote.http
       details:
         url: http://{{ lb_ip }}/blog/
-        body: <span class="highlight-blue">Devops</span>
+        body: <span class="headline">Developer Blog</span>
         include_body: true
         method: GET
         follow_redirects: true
