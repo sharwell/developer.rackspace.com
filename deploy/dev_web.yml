@@ -7,7 +7,8 @@
     backendroot: /var/webapp/sponsorship-form
     sourceroot: /vagrant_data/
     server_name: localhost
-    sponsorship_notification_email: sdk-support@rackspace.com
+  vars_files:
+  - [ "dev_secrets.yml", "dev_secrets.example.yml" ]
   roles:
     - webserver
     - role: bennojoy.nginx
