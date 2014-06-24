@@ -1,4 +1,7 @@
 ---
+# This playbook is invoked by Jenkins to build the site and rsync it out
+# to each webserver.
+
 - name: Build the site locally first.
   hosts: local
   connection: local
@@ -7,10 +10,11 @@
   - name: Run the build script to generate the site.
     command: ../build_site.sh
 
-- name: Invoked from Jenkins to deploy the site to each webserver.
+- name: Deploy the site and the form handler.
   hosts: "{{ group }}"
   remote_user: publisher
   vars_files:
   - paths.yml
   roles:
-  - backend
+  - role: backend
+    srcroot: ..

@@ -27,4 +27,5 @@
     - jekyll
     - sphinx
     - dev
-    - backend
+    - role: backend
+      srcroot: /vagrant_data
