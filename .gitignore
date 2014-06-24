@@ -1,6 +1,9 @@
 # Our list of whitelisted hosts
 deploy/ip_access.yml
 
+# Shhh
+deploy/secrets.yml
+
 .DS_Store
 .pygments-cache
 .tweet-cache

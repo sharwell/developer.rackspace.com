@@ -71,7 +71,11 @@ if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
   exit 1
 fi
 
+ANSIBLE_ARGS=
+
+[ -f deploy/secrets.yml ] || ANSIBLE_ARGS='--ask-vault-pass'
+
 # Kick it. Pass any additional arguments to Ansible.
 
 cd ${ROOT}/deploy
-ansible-playbook -i inventory/site site.yml --ask-vault-pass $*
+ansible-playbook -i inventory/site site.yml $ANSIBLE_ARGS $*
