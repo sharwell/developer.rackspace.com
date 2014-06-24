@@ -8,7 +8,7 @@
     sourceroot: /vagrant_data/
     server_name: localhost
   vars_files:
-  - [ "dev_secrets.yml", "dev_secrets.example.yml" ]
+  - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
     - webserver
     - role: bennojoy.nginx

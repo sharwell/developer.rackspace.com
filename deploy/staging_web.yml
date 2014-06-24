@@ -68,7 +68,7 @@
   vars_files:
   - ip_access.yml
   - paths.yml
-  - secrets.yml
+  - [ 'secrets.yml', 'secrets.prod.yml' ]
   vars:
     sponsorship_notification_email: sdk-support@rackspace.com
   roles:
