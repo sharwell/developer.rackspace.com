@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Script to tail the page generation log for Vagrant development.
+
+vagrant ssh -c 'sudo less -r /var/log/upstart/watcher.log'
