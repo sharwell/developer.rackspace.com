@@ -2,7 +2,7 @@
 deploy/ip_access.yml
 
 # Shhh
-deploy/dev_secrets.yml
+deploy/secrets.yml
 
 .DS_Store
 .pygments-cache
