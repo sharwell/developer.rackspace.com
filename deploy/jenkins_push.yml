@@ -18,3 +18,4 @@
   roles:
   - role: content
     srcroot: ..
+    foreverroot: /home/publisher/.forever

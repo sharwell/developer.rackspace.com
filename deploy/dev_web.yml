@@ -29,7 +29,8 @@
 
 - name: Launch the backend form submission script
   hosts: webservers
-  remote_user: publisher
+  sudo: yes
+  sudo_user: publisher
   vars:
     docroot: /vagrant_data/_site
     backendroot: /vagrant_data/src/sponsorship-form
@@ -37,3 +38,4 @@
   roles:
     - role: content
       srcroot: /vagrant_data
+      foreverroot: /home/publisher/.forever
