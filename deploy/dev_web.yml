@@ -35,5 +35,5 @@
     backendroot: /vagrant_data/src/sponsorship-form
     sourceroot: /vagrant_data/
   roles:
-    - role: backend
+    - role: content
       srcroot: /vagrant_data

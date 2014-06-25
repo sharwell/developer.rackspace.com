@@ -10,11 +10,11 @@
   - name: Run the build script to generate the site.
     command: ../build_site.sh
 
-- name: Deploy the site and the form handler.
+- name: Deploy content to the chosen webserver group.
   hosts: "{{ group }}"
   remote_user: publisher
   vars_files:
   - paths.yml
   roles:
-  - role: backend
+  - role: content
     srcroot: ..
