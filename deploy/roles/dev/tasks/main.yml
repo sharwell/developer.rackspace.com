@@ -5,6 +5,9 @@
   - fileschanged
   sudo: yes
 
+- name: Fix the permissions of the site destination folder
+  file: path=/vagrant_data/_site state=directory owner=vagrant group=vagrant recurse=yes
+
 - name: Kick off an initial build
   shell: ./build_site.sh chdir=/vagrant_data
   sudo: yes
@@ -16,9 +19,6 @@
 
 - name: Ensure that the watcher has started
   service: name=watcher state=started
-
-- name: Fix the permissions of the site destination folder
-  file: path=/vagrant_data/_site state=directory owner=vagrant group=vagrant recurse=yes
 
 - name: Install the dev Jekyll configuration
   copy: src=_config.yml dest=/vagrant_data/src/site_source/_config.yml
