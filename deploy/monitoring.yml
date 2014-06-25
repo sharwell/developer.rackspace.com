@@ -9,9 +9,6 @@
     - mzdfw
     - mziad
     - mzord
-    warning_email: sdk-support@rackspace.com
-    critical_email: sdk-support@rackspace.com
-    ok_email: sdk-support@rackspace.com
   tasks:
 
   - name: Create a monitoring entities for the load balancer
@@ -88,35 +85,15 @@
       target_alias: load_balancer
     register: http_check_sdk
 
-  - name: Ok notification.
+  - name: PagerDuty notification.
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: ok_tier
-      notification_type: email
+      label: pagerduty_notification
+      notification_type: pagerduty
       details:
-        address: "{{ ok_email }}"
-    register: ok_notification
-
-  - name: Warning notification.
-    rax_mon_notification:
-      credentials: ~/.rackspace_cloud_credentials
-      state: present
-      label: warning_tier
-      notification_type: email
-      details:
-        address: "{{ warning_email }}"
-    register: warning_notification
-
-  - name: Critical notification.
-    rax_mon_notification:
-      credentials: ~/.rackspace_cloud_credentials
-      state: present
-      label: critical_tier
-      notification_type: email
-      details:
-        address: "{{ critical_email }}"
-    register: critical_notification
+        service_key: "{{ }}"
+    register: pagerduty_notification
 
   - name: Create a notification plan.
     rax_mon_notification_plan:
@@ -124,11 +101,11 @@
       state: present
       label: escalation_station
       ok_state:
-      - "{{ ok_notification['notification']['id'] }}"
+      - "{{ pagerduty_notification['notification']['id'] }}"
       warning_state:
-      - "{{ warning_notification['notification']['id'] }}"
+      - "{{ pagerduty_notification['notification']['id'] }}"
       critical_state:
-      - "{{ critical_notification['notification']['id'] }}"
+      - "{{ pagerduty_notification['notification']['id'] }}"
     register: escalation_station
 
   - name: Trigger an alarm when port 80 doesn't respond.
