@@ -13,7 +13,7 @@
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
-  - name: Create a monitoring entities for the load balancer
+  - name: Create a monitoring entity for the load balancer
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
       state: present
