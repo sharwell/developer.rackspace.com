@@ -128,9 +128,9 @@
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: index_is_down
+      label: "{{ item.label }}"
       entity_id: "{{ entity['entity']['id'] }}"
-      check_id: "{{ http_check_index['check']['id'] }}"
+      check_id: "{{ item.check_id }}"
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
         if (metric['code'] != "200") {
@@ -144,6 +144,9 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - "{{ http_check_index['check']['id'] }}"
-    - "{{ http_check_blog['check']['id'] }}"
-    - "{{ http_check_sdk['check']['id'] }}"
+    - label: index_is_down
+      check_id: "{{ http_check_index['check']['id'] }}"
+    - label: blog_is_down
+      check_id: "{{ http_check_blog['check']['id'] }}"
+    - label: sdk_is_down
+      check_id: "{{ http_check_sdk['check']['id'] }}"
