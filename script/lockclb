@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Control access to the staging load balancer.
+# Control access to the staging load balancer via ip_access.yml
 
 import os
 import sys
