@@ -6,7 +6,7 @@
     "region": "{{ lookup('env', 'RAX_REGION') | upper }}"
   },
   "logLevel": "debug",
-  "containerName": "drg-sponsorship-forms",
+  "containerName": "{{ sponsorship_container }}",
   "notificationAddress": "{{ sponsorship_notification_email }}",
   "fromAddress": "Rackspace Developer Relations <sdk-support@rackspace.com>",
   "mailgun": {
