@@ -9,6 +9,8 @@
     - mzdfw
     - mziad
     - mzord
+  vars_files:
+  - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
   - name: Create a monitoring entities for the load balancer
