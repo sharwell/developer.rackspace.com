@@ -137,7 +137,7 @@
           return new AlarmStatus(CRITICAL, "Non-200 status code #{code} returned.");
         }
         if (metric['body_match'] == "") {
-          return new AlarmStatus(CRITICAL, "Expected header content not found.");
+          return new AlarmStatus(CRITICAL, "Expected page content not found.");
         }
         if (metric['duration'] > 500) {
           return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 500ms.");
