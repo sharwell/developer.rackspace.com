@@ -21,5 +21,6 @@
 
 - name: Start the backend service
   command: chdir={{ backendroot }}
-           forever start -p {{ foreverroot }} {{ backendroot }}/index.js
+           forever start -p {{ foreverroot }} {{ foreverargs }}
+           {{ backendroot }}/index.js
   when: "forever_list.stdout.find('{{ backendroot }}') == -1"

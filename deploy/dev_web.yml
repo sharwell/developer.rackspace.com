@@ -39,3 +39,4 @@
     - role: content
       srcroot: /vagrant_data
       foreverroot: /home/publisher/.forever
+      foreverargs: -w
