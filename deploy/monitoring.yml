@@ -92,7 +92,7 @@
       label: pagerduty_notification
       notification_type: pagerduty
       details:
-        service_key: "{{ }}"
+        service_key: "{{ pagerduty_servicekey }}"
     register: pagerduty_notification
 
   - name: Create a notification plan.
