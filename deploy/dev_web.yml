@@ -9,7 +9,8 @@
   vars_files:
   - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
-    - webserver
+    - role: webserver
+      content_owner: vagrant
     - role: bennojoy.nginx
       nginx_http_params:
         sendfile: "on"
@@ -29,8 +30,6 @@
 
 - name: Launch the backend form submission script
   hosts: webservers
-  sudo: yes
-  sudo_user: publisher
   vars:
     docroot: /vagrant_data/_site
     backendroot: /vagrant_data/src/sponsorship-form
@@ -38,5 +37,4 @@
   roles:
     - role: content
       srcroot: /vagrant_data
-      foreverroot: /home/publisher/.forever
-      foreverargs: -w
+      foreverargs: --watch --watchDirectory {{ backendroot }}

@@ -15,12 +15,10 @@
   - restart the sponsorship-form
 
 - name: Check the list of forever.js apps that are currently running.
-  command: forever list -p {{ foreverroot }}
+  command: forever list
   register: forever_list
   changed_when: false
 
 - name: Start the backend service
-  command: chdir={{ backendroot }}
-           forever start -p {{ foreverroot }} {{ foreverargs }}
-           {{ backendroot }}/index.js
+  command: forever start {{ foreverargs }} {{ backendroot }}/index.js
   when: "forever_list.stdout.find('{{ backendroot }}') == -1"

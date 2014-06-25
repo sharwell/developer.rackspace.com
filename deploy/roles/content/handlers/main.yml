@@ -1,4 +1,3 @@
 ---
 - name: restart the sponsorship-form
-  command: chdir={{ backendroot }}
-           forever restart -p {{ foreverroot }} {{ backendroot }}/index.js
+  command: chdir={{ backendroot }} forever restart {{ backendroot }}/index.js

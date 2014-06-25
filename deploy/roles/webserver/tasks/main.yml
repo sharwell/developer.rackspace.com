@@ -15,15 +15,15 @@
 - name: Copy motd file
   copy: src=etc/motd dest=/etc/motd owner=root group=root mode=0644
 
-- name: Make publisher user owner of docroot directory
-  file: path={{ docroot }} owner=publisher recurse=yes state=directory
+- name: Make {{ content_owner }} user owner of docroot directory
+  file: path={{ docroot }} owner={{ content_owner }} recurse=yes state=directory
 
-- name: Make publisher user owner of the backend directory
-  file: path={{ backendroot }} owner=publisher recurse=yes state=directory
+- name: Make {{ content_owner }} user owner of the backend directory
+  file: path={{ backendroot }} owner={{ content_owner }} recurse=yes state=directory
 
 - name: Install the configuration file
   template: src=sponsorship-form.config.json.j2 dest={{ backendroot }}/config.json
-            owner=publisher group=publisher mode=0600
+            owner={{ content_owner }} group={{ content_owner }} mode=0600
 
 - name: Prequisites for apt_repository tasks
   apt: name=python-apt state=installed
