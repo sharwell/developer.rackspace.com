@@ -79,7 +79,7 @@
       check_type: remote.http
       details:
         url: http://{{ lb_ip }}/sdks/
-        body: <span class="headline">SDKs & Tools</span>
+        body: <span class="headline">SDKs &amp; Tools</span>
         include_body: false
         method: GET
         follow_redirects: true
