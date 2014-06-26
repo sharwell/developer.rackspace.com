@@ -148,7 +148,3 @@ server.post('/api/sponsorship', function(req, res, next) {
 server.listen(8111, function() {
   log.info('Server listening at ' + server.url);
 });
-
-
-
-

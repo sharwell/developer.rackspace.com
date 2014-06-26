@@ -4,13 +4,13 @@
   sudo: yes
   vars:
     docroot: /vagrant_data/_site
-    backendroot: /var/webapp/sponsorship-form
-    sourceroot: /vagrant_data/
+    backendroot: /vagrant_data/src/sponsorship-form
     server_name: localhost
   vars_files:
   - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
-    - webserver
+    - role: webserver
+      content_owner: vagrant
     - role: bennojoy.nginx
       nginx_http_params:
         sendfile: "on"
@@ -27,3 +27,14 @@
     - jekyll
     - sphinx
     - dev
+
+- name: Launch the backend form submission script
+  hosts: webservers
+  vars:
+    docroot: /vagrant_data/_site
+    backendroot: /vagrant_data/src/sponsorship-form
+    sourceroot: /vagrant_data/
+  roles:
+    - role: content
+      srcroot: /vagrant_data
+      foreverargs: --watch --watchDirectory {{ backendroot }}

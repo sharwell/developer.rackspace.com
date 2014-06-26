@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Tail the logs for the node.js process within Vagrant.
+
+exec vagrant ssh -c 'forever logs 0 -f'
