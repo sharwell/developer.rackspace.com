@@ -17,6 +17,7 @@
         ssl_termination:
           private_key: "{{ lookup('file', 'credentials/' + server_name + '.key') }}"
           certificate: "{{ lookup('file', 'credentials/' + server_name + '.crt') }}"
+          secure_traffic_only: yes
         https_redirect: yes
         wait: yes
         state: present
