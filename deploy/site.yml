@@ -1,10 +1,10 @@
 # Master playbook to provision and bootstrap all production and staging servers.
 ---
 
-- include: prod_web.yml server_name=developer.rackspace.com
+- include: prod_web.yml server_name=developer.rackspace.com tags=production
 
-- include: staging_web.yml server_name=staging.developer.rackspace.com
+- include: staging_web.yml server_name=staging.developer.rackspace.com tags=staging
 
-- include: jenkins.yml
+- include: jenkins.yml tags=jenkins
 
-- include: monitoring.yml
+- include: monitoring.yml tags=monitoring
