@@ -323,9 +323,9 @@ def cloud_load_balancer(module, state, name, meta, algorithm, port, protocol,
                     'certificate': ssl_termination['certificate'],
                     'intermediateCertificate':
                         ssl_termination.get('intermediate_certificate'),
-                    'enabled': ssl_termination.get('enabled') == 'yes',
+                    'enabled': ssl_termination.get('enabled'),
                     'secureTrafficOnly':
-                        ssl_termination.get('secure_traffic_only') == 'yes'
+                        ssl_termination.get('secure_traffic_only')
                 }
 
                 ssl_changed = False
@@ -339,6 +339,7 @@ def cloud_load_balancer(module, state, name, meta, algorithm, port, protocol,
             elif existing_ssl:
                 # Remove the existing SSL termination.
                 balancer.delete_ssl_termination()
+                changed = True
 
             # Update HTTPS redirection after potentially re-configuring
             # SSL termination.
