@@ -330,7 +330,7 @@ def cloud_load_balancer(module, state, name, meta, algorithm, port, protocol,
 
                 ssl_changed = False
                 for ssl_att, value in ssl_atts.iteritems():
-                    if existing_ssl.get(ssl_att) != value:
+                    if value and existing_ssl.get(ssl_att) != value:
                         ssl_changed = True
 
                 if ssl_changed:
