@@ -72,7 +72,7 @@
   - paths.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   vars:
-    sponsorship_notification_email: sdk-support@rackspace.com
+    sponsorship_notification_email: sponsorships@rackspace.com
   roles:
     - webserver
     - lockboxweb
