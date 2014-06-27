@@ -76,8 +76,6 @@
   - ip_access.yml
   - paths.yml
   - [ 'secrets.yml', 'secrets.staging.yml' ]
-  vars:
-    sponsorship_notification_email: sdk-support@rackspace.com
   roles:
     - webserver
     - lockboxweb
