@@ -143,8 +143,8 @@
         if (metric['body_match'] == "") {
           return new AlarmStatus(CRITICAL, "Expected page content not found.");
         }
-        if (metric['cert_end_in'] < 604800) {
-          return new AlarmStatus(WARNING, "SSL certificate will expire in less than two weeks.");
+        if (metric['cert_end_in'] < 5184000) {
+          return new AlarmStatus(WARNING, "SSL certificate will expire in less than 60 days.");
         }
         if (metric['duration'] > 500) {
           return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 500ms.");
