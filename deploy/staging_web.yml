@@ -2,6 +2,8 @@
 - name: Provision staging web setup
   hosts: local
   connection: local
+  vars_files:
+  - [ 'secrets.yml', 'secrets.staging.yml' ]
   tasks:
 
     - name: Provision staging web load balancer
@@ -14,6 +16,11 @@
         type: PUBLIC
         timeout: 30
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        ssl_termination:
+          private_key: "{{ staging_ssl_key }}"
+          certificate: "{{ staging_ssl_certificate }}"
+          secure_traffic_only: yes
+        https_redirect: yes
         wait: yes
         state: present
       register: clb_staging

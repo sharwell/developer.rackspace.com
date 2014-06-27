@@ -3,7 +3,7 @@
 
 - include: prod_web.yml server_name=developer.rackspace.com
 
-- include: staging_web.yml server_name=staging-developer.rackspace.com
+- include: staging_web.yml server_name=staging.developer.rackspace.com
 
 - include: jenkins.yml
 

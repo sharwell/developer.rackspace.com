@@ -22,19 +22,20 @@
         load_balancer: "{{ lb_ip }}"
     register: entity
 
-  - name: Create a check on port 80
+  - name: Verify that port 80 is redirecting to 443
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       entity_id: "{{ entity['entity']['id'] }}"
-      label: tcp_check_80
-      check_type: remote.tcp
+      label: http_check_redirect
+      check_type: remote.http
       details:
-        ssl: false
-        port: 80
+        url: http://{{ lb_ip }}/
+        method: GET
+        follow_redirects: false
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: tcp_check_80
+    register: http_check_redirect
 
   - name: Create a check on index.html
     rax_mon_check:
@@ -44,7 +45,7 @@
       label: http_check_index
       check_type: remote.http
       details:
-        url: http://{{ lb_ip }}/
+        url: https://{{ lb_ip }}/
         body: <h1 class="firstline">Introducing the all-new <br/>developer hosting tier.</h1>
         include_body: "true"
         method: GET
@@ -61,7 +62,7 @@
       label: http_check_blog
       check_type: remote.http
       details:
-        url: http://{{ lb_ip }}/blog/
+        url: https://{{ lb_ip }}/blog/
         body: <span class="headline">Developer Blog</span>
         include_body: "true"
         method: GET
@@ -78,7 +79,7 @@
       label: http_check_sdk
       check_type: remote.http
       details:
-        url: http://{{ lb_ip }}/sdks/
+        url: https://{{ lb_ip }}/sdks/
         body: <span class="headline">SDKs &amp; Tools</span>
         include_body: false
         method: GET
@@ -110,17 +111,20 @@
       - "{{ pagerduty_notification['notification']['id'] }}"
     register: escalation_station
 
-  - name: Trigger an alarm when port 80 doesn't respond.
+  - name: Trigger an alarm when the redirection doesn't happen.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: port_80_is_down
+      label: redirection
       entity_id: "{{ entity['entity']['id'] }}"
-      check_id: "{{ tcp_check_80['check']['id'] }}"
+      check_id: "{{ http_check_redirect['check']['id'] }}"
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
-        if (metric['average'] > 100) {
-          return new AlarmStatus(WARNING, "Average ping was #{average}ms > 100ms.");
+        if (metric['code'] != "301") {
+          return new AlarmStatus(CRITICAL, "Non-301 status code #{code} returned.");
+        }
+        if (metric['duration'] > 500) {
+          return new AlarmStatus(WARNING, "Redirectin took #{duration}ms > 500ms.");
         }
         return new AlarmStatus(OK);
 
@@ -138,6 +142,9 @@
         }
         if (metric['body_match'] == "") {
           return new AlarmStatus(CRITICAL, "Expected page content not found.");
+        }
+        if (metric['cert_end_in'] < 5184000) {
+          return new AlarmStatus(WARNING, "SSL certificate will expire in less than 60 days.");
         }
         if (metric['duration'] > 500) {
           return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 500ms.");
