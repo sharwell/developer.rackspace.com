@@ -17,8 +17,8 @@
         timeout: 30
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
         ssl_termination:
-          private_key: "{{ ssl_key }}"
-          certificate: "{{ ssl_certificate }}"
+          private_key: "{{ production_ssl_key }}"
+          certificate: "{{ production_ssl_certificate }}"
           secure_traffic_only: yes
         https_redirect: yes
         wait: yes
