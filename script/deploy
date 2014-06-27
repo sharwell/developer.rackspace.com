@@ -10,10 +10,6 @@ HAS_PYRAX=false
 HAS_DRGPEM=false
 HAS_PUBLISHERKEY=false
 HAS_IPLIST=false
-HAS_PROD_KEY=false
-HAS_PROD_CRT=false
-HAS_STAGE_KEY=false
-HAS_STAGE_CRT=false
 
 [ -n "${RAX_REGION}" ] && HAS_RAXREGION=true
 (which ansible-playbook 2>&1 >/dev/null) && HAS_ANSIBLE=true
@@ -21,15 +17,9 @@ python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=true
 [ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=true
 [ -f ${ROOT}/deploy/roles/jenkins_master/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=true
 [ -f ${ROOT}/deploy/ip_access.yml ] && HAS_IPLIST=true
-[ -f ${ROOT}/deploy/credentials/developer.rackspace.com.key ] && HAS_PROD_KEY=true
-[ -f ${ROOT}/deploy/credentials/developer.rackspace.com.crt ] && HAS_PROD_CRT=true
-[ -f ${ROOT}/deploy/credentials/staging.developer.rackspace.com.key ] && HAS_STAGE_KEY=true
-[ -f ${ROOT}/deploy/credentials/staging.developer.rackspace.com.crt ] && HAS_STAGE_CRT=true
 
 if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
-    ! $HAS_DRGPEM || ! $HAS_PUBLISHERKEY || ! $HAS_IPLIST ||
-    ! $HAS_PROD_KEY || ! $HAS_PROD_CRT ||
-    ! $HAS_STAGE_KEY || ! $HAS_STAGE_CRT ; then
+    ! $HAS_DRGPEM || ! $HAS_PUBLISHERKEY || ! $HAS_IPLIST ; then
   echo "Uh oh! You're missing some things you'll need to get started."
   echo
 
@@ -74,26 +64,6 @@ if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
     echo "  Put it at deploy/ip_access.yml. You can also set it to your own IP for testing"
     echo "  and development. Follow the format found in deploy/ip_access.yml.example."
     echo
-  fi
-
-  if ! $HAS_PROD_KEY ; then
-    echo "* The SSL private key for production is missing."
-    echo "  Copy it into a file at deploy/credentials/developer.rackspace.com.key ."
-  fi
-
-  if ! $HAS_PROD_CRT ; then
-    echo "* The SSL public certificate for production is missing."
-    echo "  Copy it into a file at deploy/credentials/developer.rackspace.com.crt ."
-  fi
-
-  if ! $HAS_STAGE_KEY ; then
-    echo "* The SSL private key for staging is missing."
-    echo "  Copy it into a file at deploy/credentials/staging.developer.rackspace.com.key ."
-  fi
-
-  if ! $HAS_STAGE_CRT ; then
-    echo "* The SSL private key for production is missing."
-    echo "  Copy it into a file at deploy/credentials/staging.developer.rackspace.com.crt ."
   fi
 
   echo "Give it another shot once you've tracked those down."
