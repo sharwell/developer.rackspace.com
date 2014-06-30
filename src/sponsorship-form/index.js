@@ -35,7 +35,7 @@ server.post('/api/sponsorship', function(req, res, next) {
   // Define our standard form values that would need to be returned over the wire
   // in case of an error
   var fields = ['event_name', 'num_attendees', 'start_date', 'end_date', 'location', 'venue',
-    'event_url', 'code_of_conduct_url', 'event_twitter_handle', 'type_of_sponsorship',
+    'event_url', 'event_twitter_handle', 'type_of_sponsorship',
     'contact_name', 'contact_email',
     'is_online_only', 'speaking_opportunity'];
 
