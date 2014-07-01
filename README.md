@@ -24,8 +24,22 @@ To do:
 
 2. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-3. Download and install [Ansible](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
-   * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run: `$ brew install ansible`
+3. Download and install [Ansible 1.6.3 or higher](http://docs.ansible.com/intro_installation.html#installing-the-control-machine).
+
+  * On Mac OSX machines with [Homebrew](http://brew.sh/) installed, you can simply run:
+  ```bash
+  brew update && brew install ansible
+  ```
+
+  * To check your Ansible version, you can run:
+  ```bash
+  ansible --version
+  ```
+
+  * If the version of Ansible from your package manager is too out of date, you can always find the most recent version from `pip`:
+  ```bash
+  sudo pip install --upgrade ansible
+  ```
 
 4. Ensure that you are in the root directory of this repo; e.g., `cd ~/src/developer.rackspace.com` (or wherever you've cloned it). If you haven't cloned the repo, fork it via the Github web interface and then
 
@@ -52,4 +66,3 @@ To do:
      ```bash
      sudo tail -F /var/log/upstart/watcher.log
      ```
-
