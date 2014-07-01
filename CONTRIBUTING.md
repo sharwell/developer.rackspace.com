@@ -2,7 +2,7 @@
 
 We welcome contributions to this repository. To make a contribution, please send a pull request (PR) to the "dev" branch of this repository. This is the default behavior so you shouldn't have to do anything special when sending in your PR.
 
-Sometimes you might want to get a PR started but still keep working on it. This way, others would be free to review your work but your PR would not want to merge it into the "dev" branch. To indicate this, add the "wip" label to your PR.
+Sometimes you might want to get a PR started but still keep working on it. This way, others would be free to review your work but not merge it into the "dev" branch. To indicate this, add the "wip" label to your PR.
 
 ## Contribution workflow
 
