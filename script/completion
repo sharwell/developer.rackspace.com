@@ -2,11 +2,12 @@
 #
 # Create a report on the current state of the Getting Started samples.
 #
-# Usage: vagrant ssh -c 'ruby /vagrant_data/sample_completion.rb'
+# Usage: script/completion  # If you have Ruby installed
+# Usage: vagrant ssh -c 'ruby /vagrant_data/script/completion'
 
 require 'set'
 
-DOCROOT = File.join(__dir__, 'src', 'docs')
+DOCROOT = File.join(__dir__, '..', 'src', 'docs')
 
 SERVICES = begin
   entries = Dir[File.join DOCROOT, '*']
