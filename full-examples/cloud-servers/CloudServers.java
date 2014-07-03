@@ -29,8 +29,10 @@ public class CloudServers {
     // The jclouds Provider for the Rackspace Cloud Servers US cloud service. It contains information
     // about the cloud service API and specific instantiation values, such as the endpoint URL.
     public static final String PROVIDER = System.getProperty("provider", "rackspace-cloudservers-us");
+
     // jclouds refers to "regions" as "zones"
     public static final String REGION = System.getProperty("region", "IAD");
+
     // Authentication credentials
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
@@ -38,7 +40,6 @@ public class CloudServers {
     public static final String FLAVOR_ID = System.getProperty("flavorid", "performance1-1");
 
     public static void main(String[] args) throws Exception {
-
         NovaApi novaApi = authenticate(USERNAME, API_KEY);
 
         ImageApi imageApi = novaApi.getImageApiForZone(REGION);
@@ -51,16 +52,18 @@ public class CloudServers {
 
         KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone(REGION).get();
         KeyPair keyPair = createNewKeyPair(keyPairApi);
-        ServerCreated serverCreated = createServerWithKeypair(novaApi, image, flavor, keyPair);
-        Server server = queryServerBuild(novaApi, serverCreated);
+
+        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
+        ServerCreated serverCreated = createServerWithKeypair(serverApi, image, flavor, keyPair);
+        Server server = queryServerBuild(serverApi, serverCreated);
 
         deleteResources(novaApi, keyPair, server);
     }
 
     public static NovaApi authenticate(String username, String apiKey) {
         NovaApi novaApi = ContextBuilder.newBuilder(PROVIDER)
-            .credentials(username, apiKey)
-            .buildApi(NovaApi.class);
+                .credentials(username, apiKey)
+                .buildApi(NovaApi.class);
 
         return novaApi;
     }
@@ -111,17 +114,14 @@ public class CloudServers {
         return keyPair;
     }
 
-    public static ServerCreated createServerWithKeypair(NovaApi novaApi, Image image, Flavor flavor, KeyPair keyPair){
-        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
+    public static ServerCreated createServerWithKeypair(ServerApi serverApi, Image image, Flavor flavor, KeyPair keyPair) {
         CreateServerOptions options = CreateServerOptions.Builder.keyPairName(keyPair.getName());
-        ServerCreated serverCreated = serverApi.create("My new server", image.getId(), flavor.getId(), options);
+        ServerCreated serverCreated = serverApi.create("My server", image.getId(), flavor.getId(), options);
 
         return serverCreated;
     }
 
-    public static Server queryServerBuild(NovaApi novaApi, ServerCreated serverCreated) throws TimeoutException {
-        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
-
+    public static Server queryServerBuild(ServerApi serverApi, ServerCreated serverCreated) throws TimeoutException {
         // Wait until the Server is Active
         if (!awaitActive(serverApi).apply(serverCreated.getId())) {
             throw new TimeoutException("Timeout on server: " + serverCreated);
@@ -143,9 +143,9 @@ public class CloudServers {
     }
 
     private static void deleteResources(NovaApi novaApi, KeyPair keyPair, Server server) throws IOException {
-       deleteKeyPair(novaApi, keyPair);
-       deleteServer(novaApi, server);
+        deleteKeyPair(novaApi, keyPair);
+        deleteServer(novaApi, server);
 
-       Closeables.close(novaApi, true);
+        Closeables.close(novaApi, true);
     }
 }

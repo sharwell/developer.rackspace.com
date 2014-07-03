@@ -1,6 +1,8 @@
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
+import com.google.common.io.Files;
 import org.jclouds.ContextBuilder;
 import org.jclouds.blobstore.BlobRequestSigner;
 import org.jclouds.blobstore.BlobStore;
@@ -13,6 +15,7 @@ import org.jclouds.openstack.swift.v1.features.AccountApi;
 import org.jclouds.openstack.swift.v1.features.ContainerApi;
 import org.jclouds.openstack.swift.v1.features.ObjectApi;
 import org.jclouds.rackspace.cloudfiles.v1.CloudFilesApi;
+import org.jclouds.rackspace.cloudfiles.v1.domain.CDNContainer;
 import org.jclouds.rackspace.cloudfiles.v1.features.CDNApi;
 
 import com.google.common.collect.ImmutableMap;
@@ -23,8 +26,10 @@ public class CloudFiles {
     // The jclouds Provider for the Rackspace Cloud Files US cloud service. It contains information
     // about the cloud service API and specific instantiation values, such as the endpoint URL.
     public static final String PROVIDER = System.getProperty("provider", "rackspace-cloudfiles-us");
+
     // jclouds refers to "regions" as "zones"
     public static final String REGION = System.getProperty("region", "IAD");
+
     // Authentication credentials
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
@@ -47,7 +52,7 @@ public class CloudFiles {
 
         ObjectApi objectApi = cloudFilesApi.getObjectApiForRegionAndContainer(REGION, CONTAINER_NAME);
         uploadObject(objectApi);
-        SwiftObject object = getObject(objectApi);
+        SwiftObject object1 = getObjectSDK(objectApi);
         updateObjectMetadata(objectApi);
 
         AccountApi accountApi = cloudFilesApi.getAccountApiForRegion(REGION);
@@ -55,6 +60,7 @@ public class CloudFiles {
 
         CDNApi cdnApi = cloudFilesApi.getCDNApiForRegion(REGION);
         URI uri = enableCDN(cdnApi);
+        getObjectCDN(cdnApi);
         disableCDN(cdnApi);
 
         deleteResources(cloudFilesApi, containerApi, objectApi);
@@ -65,15 +71,29 @@ public class CloudFiles {
     }
 
     public static void uploadObject(ObjectApi objectApi) {
-        Payload payload = Payloads.newByteSourcePayload(ByteSource.wrap("Hello Cloud Files!".getBytes()));
+        // Upload a String
+        Payload stringPayload = Payloads.newByteSourcePayload(ByteSource.wrap("sample-data".getBytes()));
+        objectApi.put("String" + OBJECT_NAME, stringPayload);
 
-        objectApi.put(OBJECT_NAME, payload);
+        // Upload a File
+        ByteSource byteSource = Files.asByteSource(new File("{filePath}"));
+        Payload filePayload = Payloads.newByteSourcePayload(byteSource);
+        objectApi.put("File" + OBJECT_NAME, filePayload);
     }
 
-    public static SwiftObject getObject(ObjectApi objectApi) {
+    public static SwiftObject getObjectSDK(ObjectApi objectApi) {
         SwiftObject object = objectApi.get(OBJECT_NAME);
 
         return object;
+    }
+
+    private static void getObjectCDN(CDNApi cdnApi) {
+        CDNContainer cdnContainer = cdnApi.get(CONTAINER_NAME);
+
+        URI uri = cdnContainer.getUri();
+        URI sslUri = cdnContainer.getSslUri();
+        URI streamingUri = cdnContainer.getStreamingUri();
+        URI iosUri = cdnContainer.getIosUri();
     }
 
     public static void updateObjectMetadata(ObjectApi objectApi) {

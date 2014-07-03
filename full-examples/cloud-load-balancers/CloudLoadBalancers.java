@@ -1,22 +1,11 @@
-import static org.jclouds.openstack.nova.v2_0.predicates.ServerPredicates.awaitActive;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.domain.VirtualIP.Type.PUBLIC;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.domain.internal.BaseLoadBalancer.Algorithm.RANDOM;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.domain.internal.BaseNode.Condition.DISABLED;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.domain.internal.BaseNode.Condition.ENABLED;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.predicates.LoadBalancerPredicates.awaitAvailable;
-import static org.jclouds.rackspace.cloudloadbalancers.v1.predicates.LoadBalancerPredicates.awaitDeleted;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeoutException;
-
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
+import com.google.common.io.Closeables;
 import org.jclouds.ContextBuilder;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
-import org.jclouds.openstack.nova.v2_0.domain.Image;
 import org.jclouds.openstack.nova.v2_0.domain.Server;
-import org.jclouds.openstack.nova.v2_0.domain.ServerCreated;
-import org.jclouds.openstack.nova.v2_0.features.ImageApi;
 import org.jclouds.openstack.nova.v2_0.features.ServerApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.CloudLoadBalancersApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.domain.AccessRule;
@@ -26,6 +15,9 @@ import org.jclouds.rackspace.cloudloadbalancers.v1.domain.CreateLoadBalancer;
 import org.jclouds.rackspace.cloudloadbalancers.v1.domain.HealthMonitor;
 import org.jclouds.rackspace.cloudloadbalancers.v1.domain.LoadBalancer;
 import org.jclouds.rackspace.cloudloadbalancers.v1.domain.Node;
+import org.jclouds.rackspace.cloudloadbalancers.v1.domain.VirtualIP;
+import org.jclouds.rackspace.cloudloadbalancers.v1.domain.internal.BaseLoadBalancer;
+import org.jclouds.rackspace.cloudloadbalancers.v1.domain.internal.BaseNode;
 import org.jclouds.rackspace.cloudloadbalancers.v1.features.AccessRuleApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.features.ConnectionApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.features.ContentCachingApi;
@@ -34,41 +26,35 @@ import org.jclouds.rackspace.cloudloadbalancers.v1.features.HealthMonitorApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.features.LoadBalancerApi;
 import org.jclouds.rackspace.cloudloadbalancers.v1.features.NodeApi;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeoutException;
+
+import static org.jclouds.rackspace.cloudloadbalancers.v1.predicates.LoadBalancerPredicates.awaitAvailable;
+import static org.jclouds.rackspace.cloudloadbalancers.v1.predicates.LoadBalancerPredicates.awaitDeleted;
 
 public class CloudLoadBalancers {
     // The jclouds Provider for the Rackspace Cloud Block Storage US cloud service. It contains information
     // about the cloud service API and specific instantiation values, such as the endpoint URL.
     public static final String PROVIDER = System.getProperty("provider", "rackspace-cloudloadbalancers-us");
+
     // jclouds refers to "regions" as "zones"
     public static final String REGION = System.getProperty("region", "IAD");
+
     // Authentication credentials
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
 
-    public static final String LOAD_BALANCER_NAME = System.getProperty("loadBalancerName", "sample-load-balancer");
-    public static final String SERVER_NAME = System.getProperty("serverName", "sample-server");
-    public static final String GROUP_NAME = System.getProperty("groupName", "group");
-
-    public static final String FLAVOR_ID = System.getProperty("flavorid", "performance1-1");
-
     public static void main(String[] args) throws Exception {
 
-        NovaApi novaApi = authenticate(USERNAME, API_KEY);
-        Server server = createServer(novaApi);
-        Set<AddNode> loadBalancerNodes = createNodes(server);
-
-        CloudLoadBalancersApi clbApi = ContextBuilder.newBuilder(PROVIDER)
-            .credentials(USERNAME, API_KEY)
-            .buildApi(CloudLoadBalancersApi.class);
+        CloudLoadBalancersApi clbApi = authenticate(USERNAME, API_KEY);
 
         LoadBalancerApi lbApi = clbApi.getLoadBalancerApiForZone(REGION);
-        LoadBalancer loadBalancer = createLoadBalancer(clbApi, lbApi, loadBalancerNodes);
+        LoadBalancer loadBalancer = createLoadBalancer(lbApi);
+
+        NodeApi nodeApi = clbApi.getNodeApiForZoneAndLoadBalancer(REGION, loadBalancer.getId());
+        createNodes(nodeApi);
 
         HealthMonitorApi healthMonitorApi = clbApi.getHealthMonitorApiForZoneAndLoadBalancer(REGION, loadBalancer.getId());
         createHealthMonitor(healthMonitorApi);
@@ -86,49 +72,24 @@ public class CloudLoadBalancers {
         ErrorPageApi errorPageApi = clbApi.getErrorPageApiForZoneAndLoadBalancer(REGION, loadBalancer.getId());
         setCustomErrorPage(errorPageApi);
 
-        deleteResources(novaApi, clbApi, server, loadBalancer);
+        deleteResources(clbApi, loadBalancer);
     }
 
-    public static NovaApi authenticate(String username, String apiKey) {
-        NovaApi novaApi = ContextBuilder.newBuilder("rackspace-cloudservers-us")
-            .credentials(username, apiKey)
-            .buildApi(NovaApi.class);
+    public static CloudLoadBalancersApi authenticate(String username, String apiKey) {
+        CloudLoadBalancersApi clbApi = ContextBuilder.newBuilder(PROVIDER)
+                .credentials(USERNAME, API_KEY)
+                .buildApi(CloudLoadBalancersApi.class);
 
-        return novaApi;
+        return clbApi;
     }
 
-    public static Server createServer(NovaApi novaApi) throws TimeoutException {
-        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
-        ImageApi imageApi = novaApi.getImageApiForZone(REGION);
-        
-        ImmutableList<? extends Image> images = imageApi.listInDetail().concat().toList();
-        Image ubuntu1404Image = Iterables.find(images, new Predicate<Image>() {
-            public boolean apply(Image image) {
-                return image.getName().equals("Ubuntu 14.04 LTS (Trusty Tahr)");
-            }
-        });
-
-        Image image = imageApi.get(ubuntu1404Image.getId());
-        ServerCreated serverCreated = serverApi.create("My new server", image.getId(), FLAVOR_ID);
-
-        // Wait until the server is active
-        if (!awaitActive(serverApi).apply(serverCreated.getId())) {
-            throw new TimeoutException("Timeout on server: " + serverCreated);
-        }
-
-        Server server = serverApi.get(serverCreated.getId());
-
-        return server;
-    }
-
-    public static LoadBalancer createLoadBalancer(CloudLoadBalancersApi clbApi, LoadBalancerApi lbApi, Set<AddNode> addNodes) throws TimeoutException {
+    public static LoadBalancer createLoadBalancer(LoadBalancerApi lbApi) throws TimeoutException {
         CreateLoadBalancer createLB = CreateLoadBalancer.builder()
-            .name(LOAD_BALANCER_NAME)
+            .name("My Load Balancer")
             .protocol("HTTP")
             .port(80)
-            .algorithm(RANDOM)
-            .nodes(addNodes)
-            .virtualIPType(PUBLIC)
+            .algorithm(BaseLoadBalancer.Algorithm.RANDOM)
+            .virtualIPType(VirtualIP.Type.PUBLIC)
             .build();
 
         LoadBalancer loadBalancer = lbApi.create(createLB);
@@ -141,37 +102,38 @@ public class CloudLoadBalancers {
         return loadBalancer;
     }
 
+    public static void selectServers() {
+        NovaApi novaApi = ContextBuilder.newBuilder("rackspace-cloudservers-us")
+                .credentials(USERNAME, API_KEY)
+                .buildApi(NovaApi.class);
+        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
 
-    public static Set<AddNode> createNodes(Server server) { 
-        Set<AddNode> addLBNodes = Sets.newHashSet();
+        Server server1 = serverApi.get("{serverId}");
+        Server server2 = serverApi.get("{serverId}");
+    }
 
+    public static Set<AddNode> createNodes(NodeApi nodeApi) {
         AddNode node1 = AddNode.builder()
             .address("10.180.1.1")
-            .condition(DISABLED)
+            .condition(BaseNode.Condition.DISABLED)
             .port(80)
             .weight(20)
             .build();
 
         AddNode node2 = AddNode.builder()
             .address("10.180.1.2")
-            .condition(ENABLED)
+            .condition(BaseNode.Condition.ENABLED)
             .port(80)
             .weight(20)
             .build();
 
-        String address = server.getAddresses().values().iterator().next().getAddr();
-        AddNode addNode = AddNode.builder()
-            .address(address)
-            .condition(ENABLED)
-            .port(80)
-            .weight(20)
-            .build();
+        Set<AddNode> addNodes = Sets.newHashSet();
+        addNodes.add(node1);
+        addNodes.add(node2);
 
-        addLBNodes.add(node1);
-        addLBNodes.add(node2);
-        addLBNodes.add(addNode);
+        nodeApi.add(addNodes);
 
-        return addLBNodes;
+        return addNodes;
     }
 
     public static void createHealthMonitor(HealthMonitorApi healthMonitorApi) {
@@ -186,9 +148,9 @@ public class CloudLoadBalancers {
     }
 
     public static HealthMonitor getHealthMonitor(HealthMonitorApi healthMonitorApi) {
-        HealthMonitor monitor = healthMonitorApi.get();
+        HealthMonitor healthMonitor = healthMonitorApi.get();
 
-        return monitor;
+        return healthMonitor;
     }
 
     public static void setThrottling(ConnectionApi connectionApi) {
@@ -207,7 +169,7 @@ public class CloudLoadBalancers {
         AccessRule rule2 = AccessRule.allow("206.160.165.0/2");
         AccessRule blacklisted = AccessRule.deny("0.0.0.0/0");
 
-        List<AccessRule> accessList = ImmutableList.<AccessRule> of(rule1, rule2, blacklisted);
+        List<AccessRule> accessList = ImmutableList.of(rule1, rule2, blacklisted);
 
         accessRuleApi.create(accessList);
     }
@@ -240,24 +202,17 @@ public class CloudLoadBalancers {
         }
     }
 
-    public static void deleteServer(NovaApi novaApi, Server server) {
-        ServerApi serverApi = novaApi.getServerApiForZone(REGION);
-        serverApi.delete(server.getId());
-    }
-
     public static class NodeToId implements Function<Node, Integer> {
         public Integer apply(Node node) {
             return node.getId();
         }
     }
 
-    public static void deleteResources(NovaApi novaApi, CloudLoadBalancersApi clbApi, Server server, LoadBalancer loadBalancer)
+    public static void deleteResources(CloudLoadBalancersApi clbApi, LoadBalancer loadBalancer)
           throws IOException, TimeoutException {
         deleteNodes(clbApi, loadBalancer);
         deleteLoadBalancer(clbApi, loadBalancer);
-        deleteServer(novaApi, server);
 
-        Closeables.close(novaApi, true);
         Closeables.close(clbApi, true);
     }
 }

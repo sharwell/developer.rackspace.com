@@ -23,6 +23,7 @@ public class CloudDNS {
     // The jclouds Provider for the Rackspace Cloud DNS US cloud service. It contains information
     // about the cloud service API and specific instantiation values, such as the endpoint URL.
     public static final String PROVIDER = System.getProperty("provider", "rackspace-clouddns-us");
+
     // Authentication credentials
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
@@ -30,7 +31,6 @@ public class CloudDNS {
     public static final String DOMAIN_NAME = System.getProperty("domain", "domain.com");
 
     public static void main(String[] args) throws Exception {
-
         CloudDNSApi cloudDNSApi = authenticate(USERNAME, API_KEY);
 
         DomainApi domainApi = cloudDNSApi.getDomainApi();
