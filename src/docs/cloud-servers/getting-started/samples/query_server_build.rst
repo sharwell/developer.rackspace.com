@@ -8,6 +8,19 @@
 
 .. code-block:: php
 
+  use OpenCloud\Compute\Constants\ServerState;
+
+  $callback = function ($server) {
+    if (isset($server->error)) {
+      var_dump($server->error); die;
+    } else {
+      $progress = isset($server->progress) ? $server->progress : 0;
+      printf("Waiting on %s [%s]: %4s%%", $server->name(), $server->status(), $progress);  
+    }
+  };
+
+  $server->waitFor(ServerState::ACTIVE, 600, $callback);
+
 .. code-block:: python
 
   pyrax.utils.wait_for_build(server, verbose=True)
