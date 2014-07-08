@@ -21,3 +21,4 @@ assets:
   js_compressor: ~
   css_compressor: ~
   cache: true
+  gzip: false
