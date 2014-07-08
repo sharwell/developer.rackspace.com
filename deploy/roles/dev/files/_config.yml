@@ -14,6 +14,10 @@ excerpt_separator: "<!-- more -->"
 
 # jekyll-assets plugin configuration.
 assets:
+  sources:
+    - _assets/img
+    - _assets/js
+    - _assets/css
   js_compressor: ~
   css_compressor: ~
   cache: true
