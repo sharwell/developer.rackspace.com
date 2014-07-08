@@ -1,0 +1,9 @@
+{
+  "pkgcloud": {
+    "username": "{{ jenkins_prod_rackspace_username }}",
+    "apiKey": "{{ jenkins_prod_rackspace_apikey }}",
+    "region": "{{ lookup('env', 'RAX_REGION') | upper }}",
+    "provider": "rackspace"
+  },
+  "container": "{{ prod_container }}"
+}
