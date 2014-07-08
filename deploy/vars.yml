@@ -6,3 +6,9 @@ docroot: /var/www/html/developer.rackspace.com
 
 # Directory for the sponsorship-form backend.
 backendroot: /var/webapp/sponsorship-form
+
+# Destination container for production static assets.
+production_container: drc-static-prod
+
+# Destination container for staging static assets.
+staging_container: drc-static-staging

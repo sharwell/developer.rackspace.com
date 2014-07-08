@@ -72,7 +72,7 @@
     - name: Ensure the CDN container exists
       rax_files:
         credentials: ~/.rackspace_cloud_credentials
-        container: drc-static-staging
+        container: "{{ staging_container }}"
         state: present
         ttl: 31536000
         public: yes

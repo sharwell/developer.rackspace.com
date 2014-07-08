@@ -3,6 +3,7 @@
   hosts: local
   connection: local
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
@@ -67,7 +68,7 @@
     - name: Ensure the CDN container exists
       rax_files:
         credentials: ~/.rackspace_cloud_credentials
-        container: drc-static-prod
+        container: "{{ production_container }}"
         state: present
         ttl: 31536000
         public: yes
