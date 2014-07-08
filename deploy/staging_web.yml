@@ -69,6 +69,14 @@
       with_items: rax_staging.success
       when: rax_staging.action == 'create'
 
+    - name: Ensure the CDN container exists
+      rax_files:
+        credentials: ~/.rackspace_cloud_credentials
+        container: devrackcom_staging
+        state: present
+        public: yes
+        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+
 - name: Configure web server(s)
   hosts: staging_webservers
   remote_user: root

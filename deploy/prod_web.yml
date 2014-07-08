@@ -64,6 +64,14 @@
       with_items: rax_prod.success
       when: rax_prod.action == 'create'
 
+    - name: Ensure the CDN container exists
+      rax_files:
+        credentials: ~/.rackspace_cloud_credentials
+        container: devrackcom_production
+        state: present
+        public: yes
+        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+
 - name: Configure web server(s)
   hosts: prod_webservers
   remote_user: root
