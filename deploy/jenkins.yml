@@ -57,9 +57,9 @@
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   sudo: yes
   vars:
-  - plugins:
+    plugins:
     - 'github'
-  - startup_delay_s: 30
+    startup_delay_s: 30
   roles:
     - ICTO.ansible-jenkins
     - jenkins_master
