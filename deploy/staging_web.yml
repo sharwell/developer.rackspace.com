@@ -3,6 +3,7 @@
   hosts: local
   connection: local
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.staging.yml' ]
   tasks:
 
