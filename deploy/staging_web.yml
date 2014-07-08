@@ -72,7 +72,7 @@
     - name: Ensure the CDN container exists
       rax_files:
         credentials: ~/.rackspace_cloud_credentials
-        container: devrackcom_staging
+        container: drc-static-staging
         state: present
         ttl: 31536000
         public: yes
