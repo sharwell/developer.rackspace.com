@@ -77,6 +77,7 @@
         ttl: 31536000
         public: yes
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      register: rax_staging_container
 
 - name: Configure web server(s)
   hosts: staging_webservers

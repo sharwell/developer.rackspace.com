@@ -73,6 +73,7 @@
         ttl: 31536000
         public: yes
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      register: rax_prod_container
 
 - name: Configure web server(s)
   hosts: prod_webservers
