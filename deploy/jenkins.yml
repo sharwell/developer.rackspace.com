@@ -53,7 +53,9 @@
 - name: Configure jenkins master server(s)
   hosts: jenkins_masters
   vars_files:
-    - ip_access.yml
+  - ip_access.yml
+  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - [ 'secrets.yml', 'secrets.staging.yml' ]
   sudo: yes
   vars:
   - plugins:
