@@ -10,6 +10,12 @@
   - name: Run the build script to generate the site.
     command: ../build_site.sh
 
+  - name: Install dependencies for the CDN publisher.
+    npm: path=../src/cdn_publisher/
+
+  - name: Publish static assets to the appropriate container.
+    command: chdir=../src/cdn_publisher node index.js /var/lib/jenkins/{{ env }}-config.json
+
 - name: Deploy content to the chosen webserver group.
   hosts: "{{ group }}"
   remote_user: publisher
