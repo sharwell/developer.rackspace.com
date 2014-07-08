@@ -68,9 +68,7 @@ public class CloudDatabases {
         return flavors;
     }
 
-    public static Flavor getFlavor(TroveApi troveApi) {
-        // List your flavors and get the first.
-        FlavorApi flavorApi = troveApi.getFlavorApiForZone(REGION);
+    public static Flavor getFlavor(FlavorApi flavorApi) {
         Flavor flavor = Iterables.getFirst(flavorApi.list(), null);
 
         return flavor;
