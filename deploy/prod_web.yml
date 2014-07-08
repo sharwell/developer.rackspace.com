@@ -69,6 +69,7 @@
         credentials: ~/.rackspace_cloud_credentials
         container: devrackcom_production
         state: present
+        ttl: 31536000
         public: yes
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
 
