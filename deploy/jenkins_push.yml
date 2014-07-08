@@ -14,7 +14,7 @@
   hosts: "{{ group }}"
   remote_user: publisher
   vars_files:
-  - paths.yml
+  - vars.yml
   roles:
   - role: content
     srcroot: ..

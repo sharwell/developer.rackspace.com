@@ -83,7 +83,7 @@
   remote_user: root
   vars_files:
   - ip_access.yml
-  - paths.yml
+  - vars.yml
   - [ 'secrets.yml', 'secrets.staging.yml' ]
   roles:
     - webserver

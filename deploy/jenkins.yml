@@ -55,7 +55,6 @@
   vars_files:
   - ip_access.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
-  - [ 'secrets.yml', 'secrets.staging.yml' ]
   sudo: yes
   vars:
   - plugins:
