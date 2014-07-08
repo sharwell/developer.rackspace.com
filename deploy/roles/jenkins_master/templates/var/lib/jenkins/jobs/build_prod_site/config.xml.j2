@@ -37,7 +37,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command># Publish to web servers in this region.
-ansible-playbook deploy/jenkins_push.yml --extra-vars "group=prod_webservers"
+ansible-playbook deploy/jenkins_push.yml --extra-vars "group=prod_webservers env=production"
 </command>
     </hudson.tasks.Shell>
   </builders>
