@@ -7,6 +7,9 @@
   connection: local
   tasks:
 
+  - name: Generate the Jekyll configuration
+    template: src=templates/_config.yml.j2 dest={{ ansible_env.PWD }}/../src/site_source/_config.yml
+
   - name: Run the build script to generate the site.
     command: ../build_site.sh
 
