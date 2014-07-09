@@ -89,8 +89,8 @@
     plugins:
     - 'github'
     startup_delay_s: 30
-    prod_container_url: "{{ rax_prod_container.container_urls.ssl_url }}"
-    staging_container_url: "{{ rax_staging_container.container_urls.ssl_url }}"
+    prod_container_url: "{{ hostvars['localhost'].rax_prod_container.container_urls.ssl_url }}"
+    staging_container_url: "{{ hostvars['localhost'].rax_staging_container.container_urls.ssl_url }}"
   roles:
     - ICTO.ansible-jenkins
     - jenkins_master
