@@ -19,8 +19,10 @@ public class CloudQueues {
     // The jclouds Provider for the Rackspace Cloud Queues US cloud service. It contains information
     // about the cloud service API and specific instantiation values, such as the endpoint URL.
     public static final String PROVIDER = System.getProperty("provider", "rackspace-cloudqueues-us");
+
     // jclouds refers to "regions" as "zones"
     public static final String REGION = System.getProperty("region", "IAD");
+
     // Authentication credentials
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
@@ -65,7 +67,10 @@ public class CloudQueues {
     }
 
     public static MessagesCreated postMessage(MessageApi messageApi) {
-        CreateMessage createMessage = CreateMessage.builder().ttl(900).body("{\"play\": \"hockey\"}").build();
+        CreateMessage createMessage = CreateMessage.builder()
+                .ttl(900)
+                .body("{\"play\": \"hockey\"}")
+                .build();
         List<CreateMessage> createMessages = ImmutableList.of(createMessage);
 
         MessagesCreated messagesCreated = messageApi.create(createMessages);
