@@ -58,7 +58,7 @@
         condition: enabled
         type: primary
         wait: yes
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ common_region }}"
       with_items: rax_staging.success
       when: rax_staging.action == 'create'
 

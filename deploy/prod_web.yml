@@ -72,7 +72,7 @@
         state: present
         ttl: "{{ cdn_ttl }}"
         public: yes
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ common_region }}"
 
 - name: Configure web server(s)
   hosts: prod_webservers

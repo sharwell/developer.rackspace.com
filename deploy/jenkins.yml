@@ -65,7 +65,7 @@
       state: present
       public: yes
       ttl: "{{ cdn_ttl }}"
-      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      region: "{{ common_region }}"
     register: rax_prod_container
 
   - name: Staging CDN container
@@ -75,7 +75,7 @@
       state: present
       public: yes
       ttl: "{{ cdn_ttl }}"
-      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      region: "{{ common_region }}"
     register: rax_staging_container
 
 - name: Configure jenkins master server(s)

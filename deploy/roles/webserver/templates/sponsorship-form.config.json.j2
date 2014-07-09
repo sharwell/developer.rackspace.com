@@ -3,7 +3,7 @@
     "username": "{{ rackspace_username }}",
     "apiKey": "{{ rackspace_apikey }}",
     "provider": "rackspace",
-    "region": "{{ lookup('env', 'RAX_REGION') | upper }}"
+    "region": "{{ common_region }}"
   },
   "logLevel": "debug",
   "containerName": "{{ sponsorship_container }}",
