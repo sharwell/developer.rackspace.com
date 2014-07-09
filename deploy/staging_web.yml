@@ -75,10 +75,9 @@
         credentials: ~/.rackspace_cloud_credentials
         container: "{{ staging_container }}"
         state: present
-        ttl: 31536000
+        ttl: "{{ cdn_ttl }}"
         public: yes
         region: "{{ lookup('env', 'RAX_REGION') | upper }}"
-      register: rax_staging_container
 
 - name: Configure web server(s)
   hosts: staging_webservers

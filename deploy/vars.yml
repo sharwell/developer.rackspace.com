@@ -12,3 +12,6 @@ production_container: drc-static-prod
 
 # Destination container for staging static assets.
 staging_container: drc-static-staging
+
+# TTL value for CDN containers.
+cdn_ttl: 31536000

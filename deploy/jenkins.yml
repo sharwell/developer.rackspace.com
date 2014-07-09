@@ -50,6 +50,34 @@
   hosts: staging_webservers
   gather_facts: True
 
+- name: Gather facts about the Cloud Files containers in same region
+  hosts: local
+  connection: local
+  vars_files:
+  - vars.yml
+  gather_facts: False
+  tasks:
+
+  - name: Production CDN container
+    rax_files:
+      credentials: ~/.rackspace_cloud_credentials
+      container: "{{ production_container }}"
+      state: present
+      public: yes
+      ttl: "{{ cdn_ttl }}"
+      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+    register: rax_prod_container
+
+  - name: Staging CDN container
+    rax_files:
+      credentials: ~/.rackspace_cloud_credentials
+      container: "{{ staging_container }}"
+      state: present
+      public: yes
+      ttl: "{{ cdn_ttl }}"
+      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+    register: rax_staging_container
+
 - name: Configure jenkins master server(s)
   hosts: jenkins_masters
   vars_files:
@@ -61,6 +89,8 @@
     plugins:
     - 'github'
     startup_delay_s: 30
+    prod_container_url: "{{ rax_prod_container.container_urls.ssl_url }}"
+    staging_container_url: "{{ rax_staging_container.container_urls.ssl_url }}"
   roles:
     - ICTO.ansible-jenkins
     - jenkins_master
