@@ -89,8 +89,10 @@
     plugins:
     - 'github'
     startup_delay_s: 30
-    prod_container_url: "{{ hostvars['localhost'].rax_prod_container.container_urls.ssl_url }}"
-    staging_container_url: "{{ hostvars['localhost'].rax_staging_container.container_urls.ssl_url }}"
+    prod_container_url: https://c2a32ff18d23c8f567f0-e44b0df73868b5d567b1e58e01681d15.ssl.cf5.rackcdn.com/
+    staging_container_url: https://208bc4db91728f6bb01b-30750b19900aa246ab67cafd6fbe1ddd.ssl.cf5.rackcdn.com/
+    # prod_container_url: "{{ hostvars['localhost'].rax_prod_container.container_urls.ssl_url }}"
+    # staging_container_url: "{{ hostvars['localhost'].rax_staging_container.container_urls.ssl_url }}"
   roles:
     - ICTO.ansible-jenkins
     - jenkins_master
