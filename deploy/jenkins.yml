@@ -60,7 +60,8 @@
 
   - name: Production CDN container
     rax_files:
-      credentials: ~/.rackspace_cloud_credentials
+      username: "{{ rackspace_username }}"
+      api_key: "{{ rackspace_apikey }}"
       container: "{{ production_container }}"
       state: present
       public: yes
@@ -70,7 +71,8 @@
 
   - name: Staging CDN container
     rax_files:
-      credentials: ~/.rackspace_cloud_credentials
+      username: "{{ rackspace_username }}"
+      api_key: "{{ rackspace_apikey }}"
       container: "{{ staging_container }}"
       state: present
       public: yes
