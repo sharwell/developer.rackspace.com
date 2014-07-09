@@ -117,6 +117,23 @@
                create=yes
                state=present"
 
+- name: Prequisites for apt_repository tasks
+  apt: name=python-apt state=installed
+
+- name: Node.js PPA
+  apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+
+- name: Recent node.js
+  apt: name=nodejs state=installed
+
+- name: Template the production CDN publisher configuration
+  template: src=var/lib/jenkins/production-config.json.j2 dest=/var/lib/jenkins/production-config.json
+            owner=jenkins group=jenkins mode=0600
+
+- name: Template the staging CDN publisher configuration
+  template: src=var/lib/jenkins/staging-config.json.j2 dest=/var/lib/jenkins/staging-config.json
+            owner=jenkins group=jenkins mode=0600
+
 - name: Log the firewall
   ufw: logging=on
 

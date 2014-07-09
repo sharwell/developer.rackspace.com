@@ -7,14 +7,23 @@
   connection: local
   tasks:
 
+  - name: Generate the Jekyll configuration
+    template: src=templates/_config.yml.j2 dest={{ ansible_env.PWD }}/../src/site_source/_config.yml
+
   - name: Run the build script to generate the site.
     command: ../build_site.sh
+
+  - name: Install dependencies for the CDN publisher.
+    npm: path={{ ansible_env.PWD }}/../src/cdn-publisher/
+
+  - name: Publish static assets to the appropriate container.
+    command: chdir={{ ansible_env.PWD }}/.. node src/cdn-publisher/index.js /var/lib/jenkins/{{ env }}-config.json
 
 - name: Deploy content to the chosen webserver group.
   hosts: "{{ group }}"
   remote_user: publisher
   vars_files:
-  - paths.yml
+  - vars.yml
   roles:
   - role: content
     srcroot: ..

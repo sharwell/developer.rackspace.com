@@ -3,6 +3,7 @@
   hosts: local
   connection: local
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
@@ -64,12 +65,22 @@
       with_items: rax_prod.success
       when: rax_prod.action == 'create'
 
+    - name: Ensure the CDN container exists
+      rax_files:
+        username: "{{ rackspace_username }}"
+        api_key: "{{ rackspace_apikey }}"
+        region: "{{ common_region }}"
+        container: "{{ production_container }}"
+        state: present
+        ttl: "{{ cdn_ttl }}"
+        public: yes
+
 - name: Configure web server(s)
   hosts: prod_webservers
   remote_user: root
   vars_files:
   - ip_access.yml
-  - paths.yml
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   roles:
     - webserver
