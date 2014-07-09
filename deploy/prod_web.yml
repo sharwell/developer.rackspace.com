@@ -69,11 +69,11 @@
       rax_files:
         username: "{{ rackspace_username }}"
         api_key: "{{ rackspace_apikey }}"
+        region: "{{ common_region }}"
         container: "{{ production_container }}"
         state: present
         ttl: "{{ cdn_ttl }}"
         public: yes
-        region: "{{ common_region }}"
 
 - name: Configure web server(s)
   hosts: prod_webservers

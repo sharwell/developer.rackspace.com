@@ -55,6 +55,7 @@
   connection: local
   vars_files:
   - vars.yml
+  - [ 'secrets.yml', 'secrets.prod.yml' ]
   gather_facts: False
   tasks:
 
