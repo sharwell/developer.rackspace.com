@@ -6,8 +6,8 @@
     docroot: /vagrant_data/_site
     backendroot: /vagrant_data/src/sponsorship-form
     server_name: localhost
+    common_region: IAD
   vars_files:
-  - vars.yml
   - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
     - role: webserver
