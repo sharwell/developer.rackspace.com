@@ -46,7 +46,7 @@
       check_type: remote.http
       details:
         url: https://{{ lb_ip }}/
-        body: <h1 class="firstline">Go make something awesome, <br/>on the house.</h1>
+        body: <span class="boxtitle">SDKs &amp; Tools</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"
