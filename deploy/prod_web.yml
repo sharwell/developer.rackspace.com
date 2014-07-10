@@ -89,6 +89,7 @@
       nginx_http_params:
         sendfile: "on"
         access_log: /var/log/nginx/access.log
+        client_max_body_size: 50m
       nginx_sites:
       - server:
           file_name: developer.rackspace.com
