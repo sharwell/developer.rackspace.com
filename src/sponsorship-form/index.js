@@ -46,32 +46,33 @@ server.post('/api/sponsorship', function(req, res, next) {
     id: data.event_name + '-' + data.contact_email + '-' + new Date().toISOString()
   }, data);
 
+  // eagerly return to caller
+  // TODO Deal with timeouts from Cloud Files
+  // see https://github.com/rackerlabs/developer.rackspace.com/issues/529
+
+  res.header('Location', '/community?success=true');
+  res.send(302);
+
   /** this is where the magic happens
    *
    * first, upload the prospectus (if we have one) and the data to cloud files
    *
-   * then we send a response to the caller
-   *
    * after the response, we send two notification emails, one to the requestor,
    *   and one to rackspace DRG team
    */
-  async.series([ uploadProspectus, uploadData], function(err) {
+  async.series([ uploadProspectus, uploadData ], function(err) {
     if (err) {
       log.error('Error uploading to cloud files', err);
-      res.header('Location', '/community/?error=true&' +
-        _.map(_.pick(data, fields), function (value, key) {
-          return key + '=' + encodeURIComponent(value)
-        }).join('&'));
-      res.send(302);
+      log.error('Error during save', data);
+
+      // Update json data to reference that it failed to archive for the notification email
+      data.failedToArchive = true;
 
       // Remove the prospectus, if any
       fs.unlink(req.files.prospectus.path);
-      return next();
     }
 
     log.info('success...');
-    res.header('Location', '/community?success=true');
-    res.send(302);
 
     async.parallel([ sendNotificationEmail, sendResponseEmail], function(err) {
       if (err) {
@@ -84,6 +85,7 @@ server.post('/api/sponsorship', function(req, res, next) {
   });
 
   function uploadProspectus(callback) {
+    // Skip if we have no prospectus
     if (!req.files || !req.files.prospectus || !req.files.prospectus.name) {
       callback();
       return;
@@ -127,8 +129,7 @@ server.post('/api/sponsorship', function(req, res, next) {
     if (req.files && req.files.prospectus && req.files.prospectus.name) {
       var file = fs.readFileSync(req.files.prospectus.path);
 
-      var attch = new Mailgun.Attachment(file, req.files.prospectus.name);
-      emailData.attachment = attch;
+      emailData.attachment = new Mailgun.Attachment(file, req.files.prospectus.name);
     }
 
     mailgun.messages().send(emailData, callback);
