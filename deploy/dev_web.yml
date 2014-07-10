@@ -7,6 +7,7 @@
     backendroot: /vagrant_data/src/sponsorship-form
     server_name: localhost
   vars_files:
+  - vars.yml
   - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
     - role: webserver
