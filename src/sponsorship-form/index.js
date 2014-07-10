@@ -40,7 +40,7 @@ server.post('/api/sponsorship', function(req, res, next) {
   // in case of an error
   var fields = ['event_name', 'num_attendees', 'start_date', 'end_date', 'location', 'venue',
     'event_url', 'code_of_conduct_url', 'event_twitter_handle', 'type_of_sponsorship',
-    'contact_name', 'contact_email',
+    'contact_name', 'contact_email', 'charitable_event',
     'is_online_only', 'speaking_opportunity'];
 
   // construct our data payload to be used in saving our archive
