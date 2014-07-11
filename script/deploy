@@ -75,10 +75,6 @@ ANSIBLE_ARGS=
 
 [ -f deploy/secrets.yml ] || ANSIBLE_ARGS='--ask-vault-pass'
 
-# Nuke any pre-existing monitoring.
-
-${ROOT}/script/rmmon
-
 # Kick it. Pass any additional arguments to Ansible.
 
 cd ${ROOT}/deploy
