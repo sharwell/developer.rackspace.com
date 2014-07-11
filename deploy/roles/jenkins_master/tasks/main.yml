@@ -6,9 +6,7 @@
 
 - name: Touch up the Jenkins init script
   sudo: yes
-  template:
-    src: etc/default/jenkins
-    dest: /etc/default/jenkins
+  copy: src=etc/default/jenkins dest=/etc/default/jenkins
   notify:
   - Restart Jenkins
 
@@ -20,11 +18,16 @@
   notify:
     - 'Restart Jenkins'
 
+- name: Give root the a certificate for jenkins-cli
+  sudo: yes
+  copy: src=var/lib/jenkins/publisher.id_rsa dest=/root/.ssh/id_rsa
+
 - name: Setup correct permissions
   sudo: yes
-  file:
-    path: /var/lib/jenkins/publisher.id_rsa
-    mode: 0600
+  file: path={{ item }} mode=0600
+  with_items:
+  - /var/lib/jenkins/publisher.id_rsa
+  - /root/.ssh/id_rsa
 
 - name: Copy motd file
   copy: src=etc/motd dest=/etc/motd owner=root group=root mode=0644
