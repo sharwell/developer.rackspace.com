@@ -20,6 +20,7 @@
         ssl_termination:
           private_key: "{{ production_ssl_key }}"
           certificate: "{{ production_ssl_certificate }}"
+          intermediate_certificate: "{{ production_intermediate_certificate }}"
           secure_traffic_only: yes
         https_redirect: yes
         wait: yes
