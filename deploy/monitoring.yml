@@ -13,6 +13,9 @@
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
+  - name: Nuke all existing monitoring on this account
+    command: ../script/rmmon
+
   - name: Create a monitoring entity for the load balancer
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
