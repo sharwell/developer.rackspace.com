@@ -44,11 +44,11 @@ version `2.6.7` and I ran the test 5 times on each machine.
 
 ### Redis-Benchmark w/o Pipelining
 
-<img src="/images/2013-12-02-redis-benchmark-rackspace-performance-vm/redis-benchmark-no-pipelining.png">
+<img src="{% asset_path 2013-12-02-redis-benchmark-rackspace-performance-vm/redis-benchmark-no-pipelining.png %}">
 
 ### Redis-Benchmark with pipelining enabled (16 commands):
 
-<img src="/images/2013-12-02-redis-benchmark-rackspace-performance-vm/redis-benchmark-with-pipelining.png">
+<img src="{% asset_path 2013-12-02-redis-benchmark-rackspace-performance-vm/redis-benchmark-with-pipelining.png %}">
 
 #### The Raw Data
 
@@ -115,6 +115,6 @@ I'm not claiming to be an expert on Redis performance, but it's obvious that
 in the non-pipelined case, and 16-31% in the pipelined case. Not bad
 considering we made the pricing even more competitive.
 
-If you haven't already signed up for our [Developer Trial](developer.rackspace.com/devtrial)
+If you haven't already signed up for our [Developer Trial](https://developer.rackspace.com/devtrial)
 you should to give the new servers a spin, hopefully these numbers will help entice you!
 

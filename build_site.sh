@@ -11,6 +11,21 @@ BUILD_DIR=/tmp/developer.rackspace.com
 WORK_DIR=$BUILD_DIR/_work
 TARGET_DIR=$PROJECT_ROOT/_site
 
+# Error out immediately unless a _config.yml has been templated in.
+if [ ! -f ${PROJECT_ROOT}/src/site_source/_config.yml ]; then
+  echo "No _config.yml found in ${PROJECT_ROOT}/src/site_source/ !"
+  echo
+  echo "The preferred way to build the site for local development is with Vagrant. Consult the"
+  echo "README for installation details."
+  echo
+  echo "If you're an avid do-it-yourselfer and you insist on building locally, you can also grab"
+  echo "the dev version:"
+  echo
+  echo " cp deploy/roles/dev/files/_config.yml ${PROJECT_ROOT}/src/site_source/"
+  echo
+  exit 1
+fi
+
 ALL_PIDS=$(pgrep build_site.sh)
 NUM_ALL_PIDS=$(echo "$ALL_PIDS" | wc -l)
 
@@ -36,10 +51,6 @@ mkdir -p $WORK_DIR
 
 # Copy the site source into the work directory
 rsync -Ca $PROJECT_ROOT/src/site_source/ $WORK_DIR/
-
-# Use the default configuration unless a configuration has already been
-# specified.
-[ -f $WORK_DIR/_config.yml ] || cp $WORK_DIR/_config.default.yml $WORK_DIR/_config.yml
 
 # Build the Getting Started guides in the `docs/` directory using Sphinx
 cd $PROJECT_ROOT/src/docs

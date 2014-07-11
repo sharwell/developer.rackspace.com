@@ -13,6 +13,9 @@
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
+  - name: Nuke all existing monitoring on this account
+    command: ../script/rmmon
+
   - name: Create a monitoring entity for the load balancer
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
@@ -46,7 +49,7 @@
       check_type: remote.http
       details:
         url: https://{{ lb_ip }}/
-        body: <h1 class="firstline">Introducing the all-new <br/>developer hosting tier.</h1>
+        body: <span class="boxtitle">SDKs &amp; Tools</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"

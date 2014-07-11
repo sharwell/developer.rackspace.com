@@ -6,6 +6,7 @@
     docroot: /vagrant_data/_site
     backendroot: /vagrant_data/src/sponsorship-form
     server_name: localhost
+    common_region: IAD
   vars_files:
   - [ "secrets.yml", "secrets.nodeless.yml" ]
   roles:
@@ -13,6 +14,7 @@
       content_owner: vagrant
     - role: bennojoy.nginx
       nginx_http_params:
+        client_max_body_size: 50m
         sendfile: "on"
         access_log: /var/log/nginx/access.log
       nginx_sites:

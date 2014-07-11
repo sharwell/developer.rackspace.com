@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
 
-  <!-- fonts: -->
-  <!-- This will need to be cleaned up before prod. I'm just including every style right now; once the styles are locked down it should be pared down to what's necessary. -->
-  <link
-    href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-    rel='stylesheet' type='text/css'>
-
   <!-- our styles: -->
   {% stylesheet main %}
 
+  <link href="{{ site.subscribe_rss }}" rel="alternate" title="{{ site.name }}" type="application/atom+xml">
 </head>
 <body>
 
@@ -21,35 +16,31 @@
 {{ content }}
 {% include footer.html %}
 
+  <div class="redribbon">
+    <a href="https://github.com/rackerlabs/developer.rackspace.com/issues/">Join us on Github!</a>
+  </div>
+
   {% javascript app %}
 
   <!-- syntax highlighter: -->
-  <script src="//yandex.st/highlightjs/8.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-
-  <!-- metrics: -->
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
+  <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+  <!-- analytics -->
+<script type="text/javascript">
+   var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-35639070-1']);
     _gaq.push(['_setDomainName', 'rackspace.com']);
     _gaq.push(['_trackPageview']);
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   (function () {
+       var ga = document.createElement('script');
+       ga.type = 'text/javascript';
+       ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-  <script type="text/javascript" src="//libs.coremetrics.com/eluminate.js"></script>
-  <script type="text/javascript">
-    cmSetClientID('90378974', false, 'dc.rackspace.com', 'rackspace.com');
-  </script>
-  <script type="text/javascript">
-    cmCreatePageviewTag('Rackspace Developer Center: index.html');
-  </script>
+   })();
+ </script>
+ <!-- Tealium -->
+ <script type="text/javascript" src="https://tags.tiqcdn.com/utag/rackspace/developer/prod/utag.js"></script>
 </body>
 </html>

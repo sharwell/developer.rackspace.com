@@ -3,6 +3,7 @@
   hosts: local
   connection: local
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
@@ -19,6 +20,7 @@
         ssl_termination:
           private_key: "{{ production_ssl_key }}"
           certificate: "{{ production_ssl_certificate }}"
+          intermediate_certificate: "{{ production_intermediate_certificate }}"
           secure_traffic_only: yes
         https_redirect: yes
         wait: yes
@@ -64,12 +66,22 @@
       with_items: rax_prod.success
       when: rax_prod.action == 'create'
 
+    - name: Ensure the CDN container exists
+      rax_files:
+        username: "{{ rackspace_username }}"
+        api_key: "{{ rackspace_apikey }}"
+        region: "{{ common_region }}"
+        container: "{{ production_container }}"
+        state: present
+        ttl: "{{ cdn_ttl }}"
+        public: yes
+
 - name: Configure web server(s)
   hosts: prod_webservers
   remote_user: root
   vars_files:
   - ip_access.yml
-  - paths.yml
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   roles:
     - webserver
@@ -78,6 +90,7 @@
       nginx_http_params:
         sendfile: "on"
         access_log: /var/log/nginx/access.log
+        client_max_body_size: 50m
       nginx_sites:
       - server:
           file_name: developer.rackspace.com

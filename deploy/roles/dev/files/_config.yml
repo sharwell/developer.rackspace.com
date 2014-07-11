@@ -11,9 +11,15 @@ permalink: /blog/:title
 paginate_path: /blog/page:num
 recent_posts: 5
 excerpt_separator: "<!-- more -->"
+subscribe_rss: /atom.xml
 
 # jekyll-assets plugin configuration.
 assets:
+  sources:
+    - _assets/img
+    - _assets/js
+    - _assets/css
   js_compressor: ~
   css_compressor: ~
   cache: true
+  gzip: false
