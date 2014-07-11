@@ -1,7 +1,12 @@
 .. code-block:: csharp
 
   LoadBalancerId loadBalancerId = new LoadBalancerId("{load_balancer_id}");
-  await cloudLoadBalancerProvider.SetErrorPageAsync(loadBalancerId, "{custom_error_page}", AsyncCompletionOption.RequestCompleted, CancellationToken.None, null);
+  await cloudLoadBalancerProvider.SetErrorPageAsync(
+	loadBalancerId, 
+	"{custom_error_page}", 
+	AsyncCompletionOption.RequestCompleted, 
+	CancellationToken.None, 
+	null);
 
 .. code-block:: java
 

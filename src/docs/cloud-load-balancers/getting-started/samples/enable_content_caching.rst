@@ -1,7 +1,12 @@
 .. code-block:: csharp
 
   LoadBalancerId loadBalancerId = new LoadBalancerId("{load_balancer_id}");
-  await cloudLoadBalancerProvider.SetContentCachingAsync(loadBalancerId, true, AsyncCompletionOption.RequestCompleted, CancellationToken.None, null);
+  await cloudLoadBalancerProvider.SetContentCachingAsync(
+	loadBalancerId, 
+	true, 
+	AsyncCompletionOption.RequestCompleted, 
+	CancellationToken.None, 
+	null);
 
 .. code-block:: java
 
