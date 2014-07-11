@@ -1,7 +1,11 @@
 .. code-block:: csharp
 
   int limit = 1;
-  ReadOnlyCollection<LoadBalancer> loadBalancers = await (await cloudLoadBalancerProvider.ListLoadBalancersAsync(null, limit, CancellationToken.None)).GetAllPagesAsync(CancellationToken.None, null);
+  ReadOnlyCollection<LoadBalancer> loadBalancers = 
+	await (await cloudLoadBalancerProvider.ListLoadBalancersAsync(
+		null, 
+		limit, 
+		CancellationToken.None)).GetAllPagesAsync(CancellationToken.None, null);
   LoadBalancerStatus loadBalancerStatus = loadBalancers[0].Status;
   // Values include:
   // LoadBalancerStatus.Active;

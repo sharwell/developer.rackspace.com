@@ -5,7 +5,8 @@
       APIKey = "{apiKey}",
       Username = "{username}"
   };
-  CloudAutoScaleProvider cloudAutoScaleProvider = new CloudAutoScaleProvider(cloudIdentity, "{region}", null);
+  CloudAutoScaleProvider cloudAutoScaleProvider = 
+	new CloudAutoScaleProvider(cloudIdentity, "{region}", null);
 
 .. code-block:: java
 

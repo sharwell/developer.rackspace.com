@@ -1,7 +1,11 @@
 .. code-block:: csharp
 
-  cloudFilesProvider.GetObjectSaveToFile("{container_name}", "{output_folder}", "{object_name}", "{output_filename}");
-
+  cloudFilesProvider.GetObjectSaveToFile(
+	"{container_name}", 
+	"{output_folder}", 
+	"{object_name}", 
+	"{output_filename}");
+			
 .. code-block:: java
 
   ObjectApi objectApi =
