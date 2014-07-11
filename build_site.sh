@@ -62,5 +62,11 @@ export LC_ALL=en_US.UTF-8
 cd $WORK_DIR
 /usr/local/bin/jekyll build --source . --destination $BUILD_DIR/_site
 
+# Pre-GZIP all of our HTML
+for file in $( find $BUILD_DIR/_site -type f -name "*.html" )
+do
+	gzip -c $file > $file.gz
+done
+
 # Copy to target dir
 rsync -Ca $BUILD_DIR/_site/ $TARGET_DIR/
