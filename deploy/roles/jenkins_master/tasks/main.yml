@@ -4,6 +4,14 @@
   notify:
   - restart ssh server
 
+- name: Touch up the Jenkins init script
+  sudo: yes
+  template:
+    src: etc/default/jenkins
+    dest: /etc/default/jenkins
+  notify:
+  - Restart Jenkins
+
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
   copy:
