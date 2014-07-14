@@ -19,6 +19,7 @@
         access_log: /var/log/nginx/access.log
       nginx_sites:
       - server:
+          gzip_static: "on"
           file_name: developer.rackspace.com
           listen: 80
           server_name: "{{ server_name }}"
