@@ -88,12 +88,12 @@
     - lockboxweb
     - role: bennojoy.nginx
       nginx_http_params:
-        gzip_static: "on"
         sendfile: "on"
         access_log: /var/log/nginx/access.log
         client_max_body_size: 50m
       nginx_sites:
       - server:
+          gzip_static: "on"
           file_name: developer.rackspace.com
           listen: 80
           server_name: "{{ server_name }}"
