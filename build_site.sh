@@ -69,4 +69,4 @@ do
 done
 
 # Copy to target dir
-rsync -Ca $BUILD_DIR/_site/ $TARGET_DIR/
+rsync -Ca --delete $BUILD_DIR/_site/ $TARGET_DIR/
