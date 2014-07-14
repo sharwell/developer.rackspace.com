@@ -63,10 +63,12 @@ cd $WORK_DIR
 /usr/local/bin/jekyll build --source . --destination $BUILD_DIR/_site
 
 # Pre-GZIP all of our HTML
+echo -n "Gzipping HTML files... "
 for file in $( find $BUILD_DIR/_site -type f -name "*.html" )
 do
 	gzip -c $file > $file.gz
 done
+echo "done"
 
 # Copy to target dir
 rsync -Ca --delete $BUILD_DIR/_site/ $TARGET_DIR/
