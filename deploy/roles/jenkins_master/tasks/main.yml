@@ -18,9 +18,15 @@
   notify:
     - 'Restart Jenkins'
 
-- name: Give root the a certificate for jenkins-cli
+- name: Generate an SSH key for root.
   sudo: yes
-  copy: src=var/lib/jenkins/publisher.id_rsa dest=/root/.ssh/id_rsa
+  command: ssh-keygen -b 2048 -f /root/.ssh/id_rsa -N ''
+           creates=/root/.ssh/id_rsa
+
+- name: Register the corresponding public key.
+  sudo: yes
+  command: ssh-keygen -y -f /root/.ssh/id_rsa
+  register: root_ssh_pubkey
 
 - name: Setup correct permissions
   sudo: yes
@@ -40,31 +46,21 @@
   notify:
     - 'Restart Jenkins'
 
-- name: Create directory for 'build_prod_site' job
+- name: Create directories for Jenkins jobs and users
   sudo: yes
-  file:
-    path: "/var/lib/jenkins/jobs/build_prod_site"
-    state: directory
-    owner: jenkins
-    group: jenkins
+  file: path=/var/lib/jenkins/{{ item }} state=directory owner=jenkins group=jenkins
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins
+  with_items:
+  - jobs/build_prod_site
+  - jobs/build_staging_site
+  - users/drgadmin
 
 - name: Dynamically create 'build_prod_site' job config with production web server IP list
   sudo: yes
   template:
     src: "var/lib/jenkins/jobs/build_prod_site/config.xml.j2"
     dest: "/var/lib/jenkins/jobs/build_prod_site/config.xml"
-  notify:
-    - 'Restart Jenkins'
-
-- name: Create directory for 'build_staging_site' job
-  sudo: yes
-  file:
-    path: "/var/lib/jenkins/jobs/build_staging_site"
-    state: directory
-    owner: jenkins
-    group: jenkins
   notify:
     - 'Restart Jenkins'
 
@@ -75,6 +71,14 @@
     dest: "/var/lib/jenkins/jobs/build_staging_site/config.xml"
   notify:
     - 'Restart Jenkins'
+
+- name: Dynamically create the 'drgadmin' user with root's ssh pubkey
+  sudo: yes
+  template:
+    src: var/lib/jenkins/users/drgadmin/config.xml.j2
+    dest: /var/lib/jenkins/users/drgadmin/config.xml
+  notify:
+  - Restart Jenkins
 
 - name: Setup correct ownerships
   sudo: yes
