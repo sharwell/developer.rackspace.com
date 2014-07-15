@@ -12,11 +12,9 @@
 
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
-  copy:
-    src: var/lib/jenkins/
-    dest: /var/lib/jenkins/
+  copy: src=var/lib/jenkins/ dest=/var/lib/jenkins/
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins
 
 - name: Generate an SSH key for root.
   sudo: yes
