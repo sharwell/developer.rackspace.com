@@ -60,7 +60,7 @@
     src: "var/lib/jenkins/jobs/build_prod_site/config.xml.j2"
     dest: "/var/lib/jenkins/jobs/build_prod_site/config.xml"
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Dynamically create 'build_staging_site' job config with staging web server IP list
   sudo: yes
@@ -68,7 +68,7 @@
     src: "var/lib/jenkins/jobs/build_staging_site/config.xml.j2"
     dest: "/var/lib/jenkins/jobs/build_staging_site/config.xml"
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Dynamically create the 'drgadmin' user with root's ssh pubkey
   sudo: yes
@@ -76,7 +76,7 @@
     src: var/lib/jenkins/users/drgadmin/config.xml.j2
     dest: /var/lib/jenkins/users/drgadmin/config.xml
   notify:
-  - Restart Jenkins
+  - Restart Jenkins Service
 
 - name: Setup correct ownerships
   sudo: yes
@@ -87,7 +87,7 @@
     owner: jenkins
     group: jenkins
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Build tools
   apt: pkg={{ item }} state=installed
