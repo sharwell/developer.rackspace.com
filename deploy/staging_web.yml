@@ -97,6 +97,7 @@
         client_max_body_size: 50m
       nginx_sites:
       - server:
+          gzip_static: "on"
           file_name: developer.rackspace.com
           listen: 80
           server_name: "{{ server_name }}"
@@ -114,3 +115,6 @@
           location3:
             name: /blog
             rewrite: "^/blog/([^/]+)\\.html$ /blog/$1/ permanent"
+          location4:
+            name: /devtrial
+            rewrite: "^/devtrial /signup/ permanent"
