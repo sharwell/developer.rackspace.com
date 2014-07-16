@@ -25,6 +25,9 @@
     <hudson.security.HudsonPrivateSecurityRealm_-Details>
       <passwordHash>#jbcrypt:$2a$10$0gac/lu3pykHgc0lw8yAh.V6oWvoA.saqCDWb8qeGYUkkmQTk01YW</passwordHash>
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
+    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+      <authorizedKeys></authorizedKeys>
+    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
     <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.8">
       <emailAddress>shaunak.kashyap@rackspace.com</emailAddress>
     </hudson.tasks.Mailer_-UserProperty>

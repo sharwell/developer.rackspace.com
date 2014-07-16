@@ -1,22 +1,41 @@
 ---
+- name: Flush any pending handlers
+  meta: flush_handlers
+
 - name: Disable password authentication for SSH
   copy: src=etc/ssh/sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode=0644
   notify:
   - restart ssh server
 
+- name: Touch up the Jenkins init script
+  sudo: yes
+  copy: src=etc/default/jenkins dest=/etc/default/jenkins
+  notify:
+  - Restart Jenkins Service
+
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
-  copy:
-    src: var/lib/jenkins/
-    dest: /var/lib/jenkins/
+  copy: src=var/lib/jenkins/ dest=/var/lib/jenkins/
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
+
+- name: Generate an SSH key for root.
+  sudo: yes
+  command: ssh-keygen -b 2048 -f /root/.ssh/id_rsa -N ''
+           creates=/root/.ssh/id_rsa
+  register: root_ssh_privkey
+
+- name: Register the corresponding public key.
+  sudo: yes
+  command: ssh-keygen -y -f /root/.ssh/id_rsa
+  register: root_ssh_pubkey
 
 - name: Setup correct permissions
   sudo: yes
-  file:
-    path: /var/lib/jenkins/publisher.id_rsa
-    mode: 0600
+  file: path={{ item }} mode=0600
+  with_items:
+  - /var/lib/jenkins/publisher.id_rsa
+  - /root/.ssh/id_rsa
 
 - name: Copy motd file
   copy: src=etc/motd dest=/etc/motd owner=root group=root mode=0644
@@ -27,17 +46,17 @@
     src: var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.j2
     dest: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
-- name: Create directory for 'build_prod_site' job
+- name: Create directories for Jenkins jobs and users
   sudo: yes
-  file:
-    path: "/var/lib/jenkins/jobs/build_prod_site"
-    state: directory
-    owner: jenkins
-    group: jenkins
+  file: path=/var/lib/jenkins/{{ item }} state=directory owner=jenkins group=jenkins
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
+  with_items:
+  - jobs/build_prod_site
+  - jobs/build_staging_site
+  - users/drgadmin
 
 - name: Dynamically create 'build_prod_site' job config with production web server IP list
   sudo: yes
@@ -45,17 +64,7 @@
     src: "var/lib/jenkins/jobs/build_prod_site/config.xml.j2"
     dest: "/var/lib/jenkins/jobs/build_prod_site/config.xml"
   notify:
-    - 'Restart Jenkins'
-
-- name: Create directory for 'build_staging_site' job
-  sudo: yes
-  file:
-    path: "/var/lib/jenkins/jobs/build_staging_site"
-    state: directory
-    owner: jenkins
-    group: jenkins
-  notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Dynamically create 'build_staging_site' job config with staging web server IP list
   sudo: yes
@@ -63,7 +72,15 @@
     src: "var/lib/jenkins/jobs/build_staging_site/config.xml.j2"
     dest: "/var/lib/jenkins/jobs/build_staging_site/config.xml"
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
+
+- name: Dynamically create the 'drgadmin' user with root's ssh pubkey
+  sudo: yes
+  template:
+    src: var/lib/jenkins/users/drgadmin/config.xml.j2
+    dest: /var/lib/jenkins/users/drgadmin/config.xml
+  notify:
+  - Restart Jenkins Service
 
 - name: Setup correct ownerships
   sudo: yes
@@ -74,7 +91,7 @@
     owner: jenkins
     group: jenkins
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Build tools
   apt: pkg={{ item }} state=installed
@@ -150,3 +167,8 @@
 
 - name: Drop everything else
   ufw: policy=reject state=enabled
+
+- name: Restart the service before handlers run if root's ssh key changed.
+  sudo: yes
+  service: name=jenkins state=restarted
+  when: root_ssh_privkey | changed
