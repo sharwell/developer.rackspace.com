@@ -8,13 +8,13 @@
   sudo: yes
   copy: src=etc/default/jenkins dest=/etc/default/jenkins
   notify:
-  - Restart Jenkins
+  - Restart Jenkins Service
 
 - name: Create Jenkins users, jobs and other DRG-specific configuration
   sudo: yes
   copy: src=var/lib/jenkins/ dest=/var/lib/jenkins/
   notify:
-  - Restart Jenkins
+  - Restart Jenkins Service
 
 - name: Generate an SSH key for root.
   sudo: yes
@@ -42,13 +42,13 @@
     src: var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.j2
     dest: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
   notify:
-    - 'Restart Jenkins'
+  - Restart Jenkins Service
 
 - name: Create directories for Jenkins jobs and users
   sudo: yes
   file: path=/var/lib/jenkins/{{ item }} state=directory owner=jenkins group=jenkins
   notify:
-  - Restart Jenkins
+  - Restart Jenkins Service
   with_items:
   - jobs/build_prod_site
   - jobs/build_staging_site
