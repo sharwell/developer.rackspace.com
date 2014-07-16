@@ -1,4 +1,7 @@
 ---
+- name: Flush any pending handlers
+  meta: flush_handlers
+
 - name: Disable password authentication for SSH
   copy: src=etc/ssh/sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode=0644
   notify:
@@ -20,6 +23,7 @@
   sudo: yes
   command: ssh-keygen -b 2048 -f /root/.ssh/id_rsa -N ''
            creates=/root/.ssh/id_rsa
+  register: root_ssh_privkey
 
 - name: Register the corresponding public key.
   sudo: yes
@@ -163,3 +167,8 @@
 
 - name: Drop everything else
   ufw: policy=reject state=enabled
+
+- name: Restart the service before handlers run if root's ssh key changed.
+  sudo: yes
+  service: name=jenkins state=restarted
+  when: root_ssh_privkey | changed
