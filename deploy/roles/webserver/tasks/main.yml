@@ -22,7 +22,7 @@
   file: path={{ backendroot }} owner={{ content_owner }} recurse=yes state=directory
 
 - name: Install the configuration file
-  template: src=sponsorship-form.config.json.j2 dest={{ backendroot }}/config.json
+  template: src=drc-backend.config.json.j2 dest={{ backendroot }}/config.json
             owner={{ content_owner }} group={{ content_owner }} mode=0600
 
 - name: Prequisites for apt_repository tasks

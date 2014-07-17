@@ -6,20 +6,9 @@ var restify = require('restify'),
   logging = require('./logging'),
   Mailgun = require('mailgun-js'),
   pkgcloud = require('pkgcloud'),
-  os = require('os'),
   marked = require('marked'),
   retry = require('retry'),
   _ = require('underscore');
-
-// create our API Server
-var server = restify.createServer();
-
-// configure for uploading files
-server.use(restify.bodyParser({
-  mapParams: true,
-  mapFiles: true,
-  uploadDir: os.tmpdir()
-}));
 
 // Configure out logging
 var log = logging.getLogger(config.logLevel || 'debug');
@@ -35,7 +24,41 @@ var mailgun = new Mailgun({apiKey: config.mailgun.apiKey, domain: config.mailgun
 
 var markdownTemplate, plaintextTemplate;
 
-server.post('/api/sponsorship', function(req, res, next) {
+exports.init = function(callback) {
+  function readMarkdown(next) {
+    fs.readFile(path.join(path.dirname(process.argv[1]), '/sponsor-email.md'), function (err, data) {
+      if (err) {
+        return next(err);
+      }
+
+      markdownTemplate = marked(data.toString());
+      next();
+    });
+  }
+
+  function readPlaintext(next) {
+    fs.readFile(path.join(path.dirname(process.argv[1]), '/sponsor-email.txt'), function (err, data) {
+      if (err) {
+        return next(err);
+      }
+
+      plaintextTemplate = data.toString();
+      next();
+    });
+  }
+
+  async.parallel([ readMarkdown, readPlaintext ], function (err) {
+    if (err) {
+      log.error(err);
+      callback(err);
+      return;
+    }
+
+    callback();
+  });
+};
+
+exports.save = function (req, res, next) {
 
   // Define our standard form values that would need to be returned over the wire
   // in case of an error
@@ -65,7 +88,7 @@ server.post('/api/sponsorship', function(req, res, next) {
    * after the response, we send two notification emails, one to the requestor,
    *   and one to rackspace DRG team
    */
-  async.series([ uploadProspectus, uploadData ], function(err) {
+  async.series([ uploadProspectus, uploadData ], function (err) {
     if (err) {
       log.error('Error uploading to cloud files', err);
       log.error('Error during save', data);
@@ -76,7 +99,7 @@ server.post('/api/sponsorship', function(req, res, next) {
 
     log.info('success...');
 
-    async.parallel([ sendNotificationEmail, sendResponseEmail], function(err) {
+    async.parallel([ sendNotificationEmail, sendResponseEmail], function (err) {
       if (err) {
         log.error('Unable to send notifications', err);
       }
@@ -148,7 +171,7 @@ server.post('/api/sponsorship', function(req, res, next) {
 
     faultTolerantSendEmail(emailData, callback);
   }
-});
+};
 
 function faultTolerantSendEmail(data, callback) {
   var operation = retry.operation({
@@ -166,7 +189,7 @@ function faultTolerantSendEmail(data, callback) {
       subject: data.subject
     });
 
-    mailgun.messages().send(data, function(err) {
+    mailgun.messages().send(data, function (err) {
       if (operation.retry(err)) {
         log.warn('Retrying Message', {
           to: data.to,
@@ -185,38 +208,3 @@ function faultTolerantSendEmail(data, callback) {
     });
   });
 }
-
-function readMarkdown(next) {
-  fs.readFile(path.join(path.dirname(process.argv[1]), '/sponsor-email.md'), function (err, data) {
-    if (err) {
-      return next(err);
-    }
-
-    markdownTemplate = marked(data.toString());
-    next();
-  });
-}
-
-function readPlaintext(next) {
-  fs.readFile(path.join(path.dirname(process.argv[1]), '/sponsor-email.txt'), function (err, data) {
-    if (err) {
-      return next(err);
-    }
-
-    plaintextTemplate = data.toString();
-    next();
-  });
-}
-
-async.parallel([ readMarkdown, readPlaintext ], function(err) {
-  if (err) {
-    log.error(err);
-    process.exit(1);
-    return;
-  }
-
-  server.listen(8111, function () {
-    log.info('Server listening at ' + server.url);
-  });
-});
-

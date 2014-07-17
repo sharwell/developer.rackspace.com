@@ -1,7 +1,7 @@
 {
-  "name": "sponsorship-form",
+  "name": "drc-backend",
   "version": "0.0.0",
-  "description": "A sponsorship form for developer.rackspace.com",
+  "description": "A backend for developer.rackspace.com",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
     "mailgun-js": "0.4.15",
     "winston": "0.7.3",
     "marked": "0.3.2",
-    "retry": "0.6.1"
+    "retry": "0.6.1",
+    "mongodb": "1.4.7"
   }
 }
