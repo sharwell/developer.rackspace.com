@@ -8,6 +8,7 @@ var restify = require('restify'),
   pkgcloud = require('pkgcloud'),
   os = require('os'),
   marked = require('marked'),
+  retry = require('retry'),
   _ = require('underscore');
 
 // create our API Server
@@ -120,7 +121,6 @@ server.post('/api/sponsorship', function(req, res, next) {
   }
 
   function sendNotificationEmail(callback) {
-    log.info('Sending notification to DRG staff');
     var emailData = {
       from: config.fromAddress,
       to: config.notificationAddress,
@@ -134,24 +134,57 @@ server.post('/api/sponsorship', function(req, res, next) {
       emailData.attachment = new Mailgun.Attachment(file, req.files.prospectus.name);
     }
 
-    mailgun.messages().send(emailData, callback);
+    faultTolerantSendEmail(emailData, callback);
   }
 
   function sendResponseEmail(callback) {
-    log.info('Sending response to requestor');
     var emailData = {
       from: config.fromAddress,
       to: data.contact_email,
-      subject: 'Sponsorship Request: ' + data.event_name,
+      subject: 'Your Rackspace Sponsorship Request: ' + data.event_name,
       text: plaintextTemplate.replace('%%%NAME%%%', data.contact_name),
       html: markdownTemplate.replace('%%%NAME%%%', data.contact_name)
     };
 
-    log.verbose('Sending Response Email', emailData);
-
-    mailgun.messages().send(emailData, callback);
+    faultTolerantSendEmail(emailData, callback);
   }
 });
+
+function faultTolerantSendEmail(data, callback) {
+  var operation = retry.operation({
+    retries: 10,
+    factor: 3,
+    minTimeout: 1 * 1000,
+    maxTimeout: 60 * 1000,
+    randomize: true
+  });
+
+  operation.attempt(function (currentAttempt) {
+
+    log.info('Starting Message', {
+      to: data.to,
+      subject: data.subject
+    });
+
+    mailgun.messages().send(data, function(err) {
+      if (operation.retry(err)) {
+        log.warn('Retrying Message', {
+          to: data.to,
+          subject: data.subject
+        });
+        return;
+      }
+
+      log.info('Finished Message', {
+        to: data.to,
+        subject: data.subject,
+        success: err ? false : true
+      });
+
+      callback(err ? operation.mainError() : null);
+    });
+  });
+}
 
 function readMarkdown(next) {
   fs.readFile(path.join(path.dirname(process.argv[1]), '/sponsor-email.md'), function (err, data) {
