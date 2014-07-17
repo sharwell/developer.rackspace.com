@@ -123,6 +123,8 @@
       check_id: "{{ http_check_redirect['check']['id'] }}"
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
+        :set consecutiveCount=2
+
         if (metric['code'] != "301") {
           return new AlarmStatus(CRITICAL, "Non-301 status code #{code} returned.");
         }
@@ -140,6 +142,8 @@
       check_id: "{{ item.check_id }}"
       notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
       criteria: >
+        :set consecutiveCount=2
+
         if (metric['code'] != "200") {
           return new AlarmStatus(CRITICAL, "Non-200 status code #{code} returned.");
         }
