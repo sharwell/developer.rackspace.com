@@ -17,6 +17,7 @@
     "winston": "0.7.3",
     "marked": "0.3.2",
     "retry": "0.6.1",
-    "mongodb": "1.4.7"
+    "mongodb": "1.4.7",
+    "validator": "3.16.1"
   }
 }
