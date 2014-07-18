@@ -22,7 +22,7 @@ exports.save = function(req, res, next) {
 
   var input = validator.trim(validator.toString(req.params.email));
 
-  if (!input || !validator.isEmail(input)) {
+  if (!validator.isEmail(input)) {
     res.send(400, {
       message: 'Email is a required field'
     });
