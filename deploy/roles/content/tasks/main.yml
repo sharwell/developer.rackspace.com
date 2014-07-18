@@ -1,11 +1,11 @@
 ---
 - name: Deploy the static HTML.
   synchronize: src={{ srcroot }}/_site/ dest={{ docroot }}
-               archive=yes checksum=yes delete=yes
+               archive=yes checksum=yes
 
 - name: Deploy the drc-backend backend.
   synchronize: src={{ srcroot }}/src/drc-backend/ dest={{ backendroot }}
-               archive=yes checksum=yes delete=yes
+               archive=yes checksum=yes
   notify:
   - restart the drc-backend
 
