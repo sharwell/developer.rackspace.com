@@ -29,7 +29,7 @@ exports.save = function(req, res, next) {
   var collection = database.collection('developerPlusComingSoon');
 
   collection.insert({
-    email: validator.toString(req.params.email)
+    email: validator.trim(validator.toString(req.params.email))
   }, function (err) {
     res.send(err ? 503 : 200);
   });
