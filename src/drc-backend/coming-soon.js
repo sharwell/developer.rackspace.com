@@ -26,7 +26,7 @@ exports.save = function(req, res, next) {
     return;
   }
 
-  var collection = database.collection('developer-plus-coming-soon');
+  var collection = database.collection('developerPlusComingSoon');
 
   collection.insert({
     email: validator.toString(req.params.email)
