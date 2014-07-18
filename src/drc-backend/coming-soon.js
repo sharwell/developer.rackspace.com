@@ -19,7 +19,10 @@ exports.init = function(callback) {
 };
 
 exports.save = function(req, res, next) {
-  if (!req.params.email || !validator.isEmail(validator.toString(req.params.email))) {
+
+  var input = validator.trim(validator.toString(req.params.email));
+
+  if (!input || !validator.isEmail(input)) {
     res.send(400, {
       message: 'Email is a required field'
     });
@@ -29,7 +32,7 @@ exports.save = function(req, res, next) {
   var collection = database.collection('developerPlusComingSoon');
 
   collection.insert({
-    email: validator.trim(validator.toString(req.params.email))
+    email: input
   }, function (err) {
     res.send(err ? 503 : 200);
   });
