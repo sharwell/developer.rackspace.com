@@ -5,7 +5,7 @@
 docroot: /var/www/html/developer.rackspace.com
 
 # Directory for the sponsorship-form backend.
-backendroot: /var/webapp/sponsorship-form
+backendroot: /var/webapp/drc-backend
 
 # Rackspace region in which the CDN and sponsorship form upload containers should be created.
 common_region: IAD

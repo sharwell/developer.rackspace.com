@@ -1,8 +1,9 @@
 ---
-- name: Install fileschanged for the watcher service
+- name: Install apt packages
   apt: name={{ item }} update_cache=yes
   with_items:
   - fileschanged
+  - mongodb
   sudo: yes
 
 - name: Fix the permissions of the site destination folder
