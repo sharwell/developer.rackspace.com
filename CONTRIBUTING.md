@@ -20,4 +20,4 @@ Once you send in your contribution PR, the following steps will take place:
 
 If you are contributing to the Getting Started documentation in this repository, please review our [Documention Conventions](src/docs/CONTRIBUTING.rst).
 
-If you are contributing content to our DevBlog, please review our [workflow and procedures](src/site_source/CONTRIBUTING.md).
+If you are contributing content to our Developer focused Blog, please review our [workflow and procedures](src/site_source/CONTRIBUTING.md).
