@@ -25,6 +25,7 @@
         wait: yes
         state: present
       register: clb_staging
+      tags: [ "monitoring" ]
 
     # This is a workaround for the rax_clb module not supporting access list
     # manipulation.

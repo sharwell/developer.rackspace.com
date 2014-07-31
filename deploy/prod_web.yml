@@ -26,6 +26,7 @@
         wait: yes
         state: present
       register: clb_prod
+      tags: [ "monitoring" ]
 
     - name: Provision 2 production web servers
       rax:
