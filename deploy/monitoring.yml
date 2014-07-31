@@ -99,7 +99,19 @@
       notification_type: pagerduty
       details:
         service_key: "{{ pagerduty_servicekey }}"
-    register: pagerduty_notification
+    register: active_notification
+    when: notification_email_address is not defined
+
+  - name: Email notification.
+    rax_mon_notification:
+      credentials: ~/.rackspace_cloud_credentials
+      state: present
+      label: email_notification
+      notification_type: email
+      details:
+        address: "{{ notification_email_address }}"
+    register: active_notification
+    when: notification_email_address is defined
 
   - name: Create a notification plan.
     rax_mon_notification_plan:
@@ -107,11 +119,11 @@
       state: present
       label: escalation_station
       ok_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
+      - "{{ active_notification['notification']['id'] }}"
       warning_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
+      - "{{ active_notification['notification']['id'] }}"
       critical_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
+      - "{{ active_notification['notification']['id'] }}"
     register: escalation_station
 
   - name: Trigger an alarm when the redirection doesn't happen.
