@@ -1,4 +1,26 @@
 ---
+- name: Collect facts about the load balancers.
+  hosts: local
+  connection: local
+  gather_facts: false
+  vars_files:
+  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  tasks:
+
+  - name: Production load balancer facts
+    rax_clb:
+      credentials: ~/.rackspace_cloud_credentials
+      name: prod_developer.rackspace.com
+      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      state: present
+      ssl_termination:
+        private_key: "{{ production_ssl_key }}"
+        certificate: "{{ production_ssl_certificate }}"
+        intermediate_certificate: "{{ production_intermediate_certificate }}"
+        secure_traffic_only: yes
+      https_redirect: yes
+    register: clb_prod
+
 - name: Configure Cloud Monitoring
   hosts: local
   connection: local
