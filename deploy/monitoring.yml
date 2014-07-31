@@ -3,7 +3,11 @@
   connection: local
   gather_facts: false
   vars:
-    lb_ip: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
+    load_balancers:
+    - name: production
+      ip_address: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
+    - name: staging
+      ip_address: "{{ clb_staging['balancer']['virtual_ips'][0]['address'] }}"
     monitoring_zones:
     - mzdfw
     - mziad
@@ -15,80 +19,85 @@
   - name: Nuke all existing monitoring on this account
     command: ../script/rmmon
 
-  - name: Create a monitoring entity for the load balancer
+  - name: Create a monitoring entity for each load balancer
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      name: entity_{{ lb_ip }}
+      name: entity_{{ item.name }}
       named_ip_addresses:
-        load_balancer: "{{ lb_ip }}"
-    register: entity
+        load_balancer: "{{ item.ip_address }}"
+    with_items: load_balancers
+    register: entities
 
   - name: Verify that port 80 is redirecting to 443
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_redirect
       check_type: remote.http
       details:
-        url: http://{{ lb_ip }}/
+        url: http://{{ item.item.ip_address }}/
         method: GET
         follow_redirects: false
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_redirect
+    with_items: entities.results
+    register: http_checks_redirect
 
-  - name: Create a check on index.html
+  - name: Create checks on index.html
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_index
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/
+        url: https://{{ item.item.ip_address }}/
         body: <span class="boxtitle">SDKs &amp; Tools</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_index
+    with_items: entities.results
+    register: http_checks_index
 
   - name: Create a check on the blog index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_blog
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/blog/
+        url: https://{{ item.item.ip_address }}/blog/
         body: <span class="headline">Developer Blog</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_blog
+    with_items: entities.results
+    register: http_checks_blog
 
   - name: Create a check on the SDK index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_sdk
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/sdks/
+        url: https://{{ item.item.ip_address }}/sdks/
         body: <span class="headline">SDKs &amp; Tools</span>
         include_body: false
         method: GET
         follow_redirects: true
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_sdk
+    with_items: entities.results
+    register: http_checks_sdk
 
   - name: PagerDuty notification.
     rax_mon_notification:
@@ -118,21 +127,21 @@
       state: present
       label: escalation_station
       ok_state:
-      - "{{ active_notification['notification']['id'] }}"
+      - "{{ active_notification.notification.id }}"
       warning_state:
-      - "{{ active_notification['notification']['id'] }}"
+      - "{{ active_notification.notification.id }}"
       critical_state:
-      - "{{ active_notification['notification']['id'] }}"
+      - "{{ active_notification.notification.id }}"
     register: escalation_station
 
-  - name: Trigger an alarm when the redirection doesn't happen.
+  - name: Trigger alarms when the redirection doesn't happen.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       label: redirection
-      entity_id: "{{ entity['entity']['id'] }}"
-      check_id: "{{ http_check_redirect['check']['id'] }}"
-      notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
+      entity_id: "{{ item.entity_id }}"
+      check_id: "{{ item.check_id }}"
+      notification_plan_id: "{{ escalation_station.notification_plan.id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -143,6 +152,11 @@
           return new AlarmStatus(WARNING, "Redirectin took #{duration}ms > 500ms.");
         }
         return new AlarmStatus(OK);
+    with_items:
+    - entity_id: entities.results[0].entity.id
+      check_id: http_checks_redirect[0].check.id
+    - entity:id: entities.results[1].entity.id
+      check_id: http_checks_redirect[0].check.id
 
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
@@ -170,8 +184,20 @@
         return new AlarmStatus(OK);
     with_items:
     - label: index_is_down
-      check_id: "{{ http_check_index['check']['id'] }}"
+      entity_id: entities.results[0].entity.id
+      check_id: http_checks_index[0].check.id
     - label: blog_is_down
-      check_id: "{{ http_check_blog['check']['id'] }}"
+      entity_id: entities.results[0].entity.id
+      check_id: http_checks_blog[0].check.id
     - label: sdk_is_down
-      check_id: "{{ http_check_sdk['check']['id'] }}"
+      entity_id: entities.results[0].entity.id
+      check_id: http_checks_sdk[0].check.id
+    - label: index_is_down
+      entity_id: entities.results[1].entity.id
+      check_id: http_checks_index[1].check.id
+    - label: blog_is_down
+      entity_id: entities.results[1].entity.id
+      check_id: http_checks_blog[1].check.id
+    - label: sdk_is_down
+      entity_id: entities.results[1].entity.id
+      check_id: http_checks_sdk[1].check.id
