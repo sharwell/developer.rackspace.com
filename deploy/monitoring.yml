@@ -153,19 +153,19 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - entity_id: entities.results[0].entity.id
-      check_id: http_checks_redirect[0].check.id
-    - entity:id: entities.results[1].entity.id
-      check_id: http_checks_redirect[0].check.id
+    - entity_id: "{{ entities.results[0].entity.id }}"
+      check_id: "{{ http_checks_redirect.results[0].check.id }}"
+    - entity_id: "{{ entities.results[1].entity.id }}"
+      check_id: "{{ http_checks_redirect.results[1].check.id }}"
 
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       label: "{{ item.label }}"
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity_id }}"
       check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
+      notification_plan_id: "{{ escalation_station.notification_plan.id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -184,20 +184,20 @@
         return new AlarmStatus(OK);
     with_items:
     - label: index_is_down
-      entity_id: entities.results[0].entity.id
-      check_id: http_checks_index[0].check.id
+      entity_id: "{{ entities.results[0].entity.id }}"
+      check_id: "{{ http_checks_index.results[0].check.id }}"
     - label: blog_is_down
-      entity_id: entities.results[0].entity.id
-      check_id: http_checks_blog[0].check.id
+      entity_id: "{{ entities.results[0].entity.id }}"
+      check_id: "{{ http_checks_blog.results[0].check.id }}"
     - label: sdk_is_down
-      entity_id: entities.results[0].entity.id
-      check_id: http_checks_sdk[0].check.id
+      entity_id: "{{ entities.results[0].entity.id }}"
+      check_id: "{{ http_checks_sdk.results[0].check.id }}"
     - label: index_is_down
-      entity_id: entities.results[1].entity.id
-      check_id: http_checks_index[1].check.id
+      entity_id: "{{ entities.results[1].entity.id }}"
+      check_id: "{{ http_checks_index.results[1].check.id }}"
     - label: blog_is_down
-      entity_id: entities.results[1].entity.id
-      check_id: http_checks_blog[1].check.id
+      entity_id: "{{ entities.results[1].entity.id }}"
+      check_id: "{{ http_checks_blog.results[1].check.id }}"
     - label: sdk_is_down
-      entity_id: entities.results[1].entity.id
-      check_id: http_checks_sdk[1].check.id
+      entity_id: "{{ entities.results[1].entity.id }}"
+      check_id: "{{ http_checks_sdk.results[1].check.id }}"
