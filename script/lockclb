@@ -44,9 +44,22 @@ whitelist = None
 with open(whitelist_path) as inf:
     whitelist = yaml.load(inf.read())['ip_accesses']
 
+# Add source IPs for monitoring zones.
+
+vars_path = os.path.join(root, 'deploy', 'vars.yml')
+with open(vars_path) as inf:
+    zone_ids = yaml.load(inf.read())['monitoring_zones']
+
+cm = pyrax.cloud_monitoring
+zones = cm.list_monitoring_zones()
+
+for zone in zones:
+    if zone.id in zone_ids:
+        whitelist.extend(zone.source_ips)
+
 # Create the access list.
 
-access_list = [dict(address=addr, type='ALLOW') for addr in whitelist]
+access_list = [dict(address=addr, type='ALLOW') for addr in set(whitelist)]
 access_list.append(dict(address='0.0.0.0/0', type='DENY'))
 
 pyrax.utils.wait_until(the_balancer, "status", "ACTIVE", interval=1, attempts=30)
