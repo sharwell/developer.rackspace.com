@@ -8,11 +8,8 @@
       ip_address: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
     - name: staging
       ip_address: "{{ clb_staging['balancer']['virtual_ips'][0]['address'] }}"
-    monitoring_zones:
-    - mzdfw
-    - mziad
-    - mzord
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 

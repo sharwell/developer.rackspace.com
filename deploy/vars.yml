@@ -10,6 +10,12 @@ backendroot: /var/webapp/drc-backend
 # Rackspace region in which the CDN and sponsorship form upload containers should be created.
 common_region: IAD
 
+# Zones from which monitoring checks will be performed.
+monitoring_zones:
+- mzdfw
+- mziad
+- mzord
+
 # Destination container for production static assets.
 production_container: drc-static-prod
 
