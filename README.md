@@ -20,7 +20,7 @@ To do:
 
 ## Full Site Setup
 
-__Note__: You should use this setup if you work on the entire d.r.c. site, its infrastrcuture, etc.
+__Note__: You should use this setup if you work on the entire d.r.c. site, its infrastructure, etc.
 
 1. Download and install [Vagrant 1.6 or higher](http://www.vagrantup.com/downloads.html).
 
@@ -73,10 +73,10 @@ __Note__: You should use this setup if you work on the entire d.r.c. site, its i
 
 __Note__: You should use this setup only if you are looking to contribute blog posts and do not require the Full Site Setup
 
-1. Install Ruby 1.9.3 with RVM
+1. Install Ruby 2.1.2 with RVM
 
     ```bash
-    $ curl -L https://get.rvm.io | bash -s stable --rails --autolibs=enabled --ruby=1.9.3
+    $ curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.2
     ```
 
 2. Fork devblog
@@ -102,10 +102,11 @@ __Note__: You should use this setup only if you are looking to contribute blog p
     * Install sphinx-build
 
         Ubuntu:
+
         ```bash
-        $ sudo apt-get update && sudo apt-get install python-setuptools -y ; sudo easy_install -U Sphinx
+        $ sudo apt-get update && sudo apt-get install python-setuptools -y ; sudo easy_install pip; sudo pip install sphinx
         ```
-    * Add default & requried config.yml
+    * Add default & required config.yml
 
         ```bash
         $ cp deploy/roles/dev/files/_config.yml src/site_source/
@@ -120,13 +121,7 @@ __Note__: You should use this setup only if you are looking to contribute blog p
 
     ```bash
     $ git remote add upstream https://github.com/rackerlabs/developer.rackspace.com.git
-    ```
-
-    ```bash
     $ git fetch upstream
-    ```
-
-    ```bash
     $ git checkout -b devblog upstream/devblog
     ```
 
@@ -179,21 +174,9 @@ __Note__: You should use this setup only if you are looking to contribute blog p
 
         ```bash
         $ git checkout devblog
-        ```
-
-        ```bash
         $ git fetch upstream
-        ```
-
-        ```bash
         $ git merge upstream/devblog
-        ```
-
-        ```bash
         $ git checkout newpost
-        ```
-
-        ```bash
         $ git rebase devblog
         ```
 
