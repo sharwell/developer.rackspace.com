@@ -10,6 +10,7 @@ import org.jclouds.http.HttpRequest;
 import org.jclouds.io.Payload;
 import org.jclouds.io.Payloads;
 import org.jclouds.openstack.swift.v1.blobstore.RegionScopedBlobStoreContext;
+import org.jclouds.openstack.swift.v1.domain.Container;
 import org.jclouds.openstack.swift.v1.domain.SwiftObject;
 import org.jclouds.openstack.swift.v1.features.AccountApi;
 import org.jclouds.openstack.swift.v1.features.ContainerApi;
@@ -68,6 +69,10 @@ public class CloudFiles {
 
     public static void createContainer(ContainerApi containerApi) {
         containerApi.create(CONTAINER_NAME);
+    }
+
+    public static void getContainer(ContainerApi containerApi) {
+        Container container = containerApi.get(CONTAINER_NAME);
     }
 
     public static void uploadObject(ObjectApi objectApi) {
