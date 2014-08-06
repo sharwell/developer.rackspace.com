@@ -96,16 +96,46 @@
     with_items: entities.results
     register: http_checks_sdk
 
-  - name: PagerDuty notification.
+  # PagerDuty notifications and notification plans.
+  # Active when notification_email_address has not been provided.
+
+  - name: PagerDuty notifications.
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: pagerduty_notification
+      label: "{{ item.name }}"
       notification_type: pagerduty
       details:
-        service_key: "{{ pagerduty_servicekey }}"
-    register: active_notification
+        service_key: "{{ item.key }}"
+    with_items:
+    - name: pd_notification_production
+      key: "{{ production_pagerduty_servicekey }}"
+    - name: pd_notification_staging
+      key: "{{ staging_pagerduty_servicekey }}"
+    register: pd_notifications
     when: notification_email_address is not defined
+
+  - name: PagerDuty notification plans.
+    rax_mon_notification_plan:
+      credentials: ~/.rackspace_cloud_credentials
+      state: present
+      label: escalation_station
+      ok_state:
+      - "{{ item.notification_id }}"
+      warning_state:
+      - "{{ item.notification_id }}"
+      critical_state:
+      - "{{ item.notification_id }}"
+    with_items:
+    - name: pd_plan_production
+      notification_id: "{{ pd_notifications[0].notification.id }}"
+    - name: pd_plan_staging
+      notification_id: "{{ pd_notifications[1].notification.id }}"
+    register: active_plans
+    when: notification_email_address is not defined
+
+  # Email notifications and notification plans.
+  # Active when notification_email_address has been provided.
 
   - name: Email notification.
     rax_mon_notification:
@@ -115,21 +145,27 @@
       notification_type: email
       details:
         address: "{{ notification_email_address }}"
-    register: active_notification
+    register: email_notification
     when: notification_email_address is defined
 
-  - name: Create a notification plan.
+  - name: Create email notification plans.
     rax_mon_notification_plan:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       label: escalation_station
       ok_state:
-      - "{{ active_notification.notification.id }}"
+      - "{{ item.notification_id }}"
       warning_state:
-      - "{{ active_notification.notification.id }}"
+      - "{{ item.notification_id }}"
       critical_state:
-      - "{{ active_notification.notification.id }}"
-    register: escalation_station
+      - "{{ item.notification_id }}"
+    with_items:
+    - name: email_plan_production
+      notification_id: "{{ email_notification.notification.id }}"
+    - name: email_plan_staging
+      notification_id: "{{ email_notification.notification.id }}"
+    register: active_plans
+    when: notification_email_address is defined
 
   - name: Trigger alarms when the redirection doesn't happen.
     rax_mon_alarm:
@@ -138,7 +174,7 @@
       label: redirection
       entity_id: "{{ item.entity_id }}"
       check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ escalation_station.notification_plan.id }}"
+      notification_plan_id: "{{ item.notification_plan_id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -152,8 +188,10 @@
     with_items:
     - entity_id: "{{ entities.results[0].entity.id }}"
       check_id: "{{ http_checks_redirect.results[0].check.id }}"
+      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
     - entity_id: "{{ entities.results[1].entity.id }}"
       check_id: "{{ http_checks_redirect.results[1].check.id }}"
+      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
 
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
@@ -162,7 +200,7 @@
       label: "{{ item.label }}"
       entity_id: "{{ item.entity_id }}"
       check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ escalation_station.notification_plan.id }}"
+      notification_plan_id: "{{ item.notification_plan_id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -183,18 +221,24 @@
     - label: index_is_down
       entity_id: "{{ entities.results[0].entity.id }}"
       check_id: "{{ http_checks_index.results[0].check.id }}"
+      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
     - label: blog_is_down
       entity_id: "{{ entities.results[0].entity.id }}"
       check_id: "{{ http_checks_blog.results[0].check.id }}"
+      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
     - label: sdk_is_down
       entity_id: "{{ entities.results[0].entity.id }}"
       check_id: "{{ http_checks_sdk.results[0].check.id }}"
+      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
     - label: index_is_down
       entity_id: "{{ entities.results[1].entity.id }}"
       check_id: "{{ http_checks_index.results[1].check.id }}"
+      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
     - label: blog_is_down
       entity_id: "{{ entities.results[1].entity.id }}"
       check_id: "{{ http_checks_blog.results[1].check.id }}"
+      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
     - label: sdk_is_down
       entity_id: "{{ entities.results[1].entity.id }}"
       check_id: "{{ http_checks_sdk.results[1].check.id }}"
+      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
