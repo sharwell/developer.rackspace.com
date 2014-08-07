@@ -50,6 +50,14 @@
     with_items: load_balancers
     register: entities
 
+  - name: Production entity.
+    set_fact: production_entity_id={{ entities.results[0].entity.id }}
+
+  - name: Staging entity.
+    set_fact: staging_entity_id={{ entities.results[1].entity.id }}
+
+  # Create checks.
+
   - name: Verify that port 80 is redirecting to 443
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
@@ -65,6 +73,12 @@
       target_alias: load_balancer
     with_items: entities.results
     register: http_checks_redirect
+
+  - name: Production redirection check.
+    set_fact: production_http_check_redirect_id={{ http_checks_redirect.results[0].check.id }}
+
+  - name: Staging redirection check.
+    set_fact: staging_http_check_redirect_id={{ http_checks_redirect.results[1].check.id }}
 
   - name: Create checks on index.html
     rax_mon_check:
@@ -84,6 +98,12 @@
     with_items: entities.results
     register: http_checks_index
 
+  - name: Production index.html content check.
+    set_fact: production_http_check_index_id={{ http_checks_index.results[0].check.id }}
+
+  - name: Staging index.html content check.
+    set_fact: staging_http_check_index_id={{ http_checks_index.results[1].check.id }}
+
   - name: Create a check on the blog index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
@@ -102,6 +122,12 @@
     with_items: entities.results
     register: http_checks_blog
 
+  - name: Production blog index content check.
+    set_fact: production_http_check_blog_id={{ http_checks_blog.results[0].check.id }}
+
+  - name: Staging blog index content check.
+    set_fact: staging_http_check_blog_id={{ http_checks_blog.results[1].check.id }}
+
   - name: Create a check on the SDK index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
@@ -119,6 +145,12 @@
       target_alias: load_balancer
     with_items: entities.results
     register: http_checks_sdk
+
+  - name: Production SDK index content check.
+    set_fact: production_http_check_sdk_id={{ http_checks_sdk.results[0].check.id }}
+
+  - name: Staging SDK index content check.
+    set_fact: staging_http_check_skd_id={{ http_checks_sdk.results[1].check.id }}
 
   # PagerDuty notifications and notification plans.
   # Active when notification_email_address has not been provided.
@@ -224,16 +256,18 @@
           return new AlarmStatus(CRITICAL, "Non-301 status code #{code} returned.");
         }
         if (metric['duration'] > 500) {
-          return new AlarmStatus(WARNING, "Redirectin took #{duration}ms > 500ms.");
+          return new AlarmStatus(WARNING, "Redirection took #{duration}ms > 500ms.");
         }
         return new AlarmStatus(OK);
     with_items:
-    - entity_id: "{{ entities.results[0].entity.id }}"
-      check_id: "{{ http_checks_redirect.results[0].check.id }}"
-      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
-    - entity_id: "{{ entities.results[1].entity.id }}"
-      check_id: "{{ http_checks_redirect.results[1].check.id }}"
-      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
+    - label: production_redirection
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_redirect_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: staging_redirection
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_redirect_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
 
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
@@ -260,27 +294,27 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - label: index_is_down
-      entity_id: "{{ entities.results[0].entity.id }}"
-      check_id: "{{ http_checks_index.results[0].check.id }}"
-      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
-    - label: blog_is_down
-      entity_id: "{{ entities.results[0].entity.id }}"
-      check_id: "{{ http_checks_blog.results[0].check.id }}"
-      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
-    - label: sdk_is_down
-      entity_id: "{{ entities.results[0].entity.id }}"
-      check_id: "{{ http_checks_sdk.results[0].check.id }}"
-      notification_plan_id: "{{ active_plans[0].notification_plan.id }}"
-    - label: index_is_down
-      entity_id: "{{ entities.results[1].entity.id }}"
-      check_id: "{{ http_checks_index.results[1].check.id }}"
-      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
-    - label: blog_is_down
-      entity_id: "{{ entities.results[1].entity.id }}"
-      check_id: "{{ http_checks_blog.results[1].check.id }}"
-      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
-    - label: sdk_is_down
-      entity_id: "{{ entities.results[1].entity.id }}"
-      check_id: "{{ http_checks_sdk.results[1].check.id }}"
-      notification_plan_id: "{{ active_plans[1].notification_plan.id }}"
+    - label: production_index_is_down
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_index_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: production_blog_is_down
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_blog_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: production_sdk_is_down
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_sdk_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: staging_index_is_down
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_index_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
+    - label: staging_blog_is_down
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_blog_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
+    - label: staging_sdk_is_down
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_sdk_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
