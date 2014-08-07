@@ -150,7 +150,7 @@
     set_fact: production_http_check_sdk_id={{ http_checks_sdk.results[0].check.id }}
 
   - name: Staging SDK index content check.
-    set_fact: staging_http_check_skd_id={{ http_checks_sdk.results[1].check.id }}
+    set_fact: staging_http_check_sdk_id={{ http_checks_sdk.results[1].check.id }}
 
   # PagerDuty notifications and notification plans.
   # Active when notification_email_address has not been provided.
