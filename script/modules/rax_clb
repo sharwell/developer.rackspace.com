@@ -338,7 +338,7 @@ def cloud_load_balancer(module, state, name, meta, algorithm, port, protocol,
                                                    attempts=attempts)
                     balancer.add_ssl_termination(**ssl_atts)
                     changed = True
-            elif existing_ssl:
+            elif existing_ssl and ssl_termination is not None:
                 if changed:
                     pyrax.utils.wait_for_build(balancer, interval=5,
                                                attempts=attempts)
