@@ -30,11 +30,12 @@ for e in cm.list_entities():
 
 print ">> CHECKS ::"
 for e in cm.list_entities():
-    checks = e.list_checks()
-    if len(checks) > 0:
-        print "- %s" % e.label
-    for c in e.list_checks():
-        attempt_nuke(c)
+    if e.label.startswith(prefix):
+        checks = e.list_checks()
+        if len(checks) > 0:
+            print "- %s" % e.label
+        for c in e.list_checks():
+            attempt_nuke(c)
 
 print ">> NOTIFICATIONS ::"
 for n in cm.list_notifications():
@@ -48,9 +49,10 @@ for np in cm.list_notification_plans():
 
 print ">> ALARMS ::"
 for e in cm.list_entities():
-    alarms = e.list_alarms()
-    if len(alarms) > 0:
-        print "- %s" % e.label
+    if e.label.startswith(prefix):
+        alarms = e.list_alarms()
+        if len(alarms) > 0:
+            print "- %s" % e.label
 
-    for a in e.list_alarms():
-        attempt_nuke(a)
+        for a in e.list_alarms():
+            attempt_nuke(a)
