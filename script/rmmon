@@ -12,12 +12,12 @@ pyrax.set_credential_file(os.path.expanduser("~/.rackspace_cloud_credentials"))
 cm = pyrax.cloud_monitoring
 
 def attempt_nuke(monitor_element):
-  try:
-    monitor_element.delete()
-    print("DELETED {}".format(monitor_element))
-  except Exception as e:
-    print("Can't delete {}".format(monitor_element))
-    print(e)
+    try:
+        monitor_element.delete()
+        print("DELETED {}".format(monitor_element))
+    except Exception as e:
+        print("Can't delete {}".format(monitor_element))
+        print(e)
 
 print ">> ENTITIES ::"
 for e in cm.list_entities():
