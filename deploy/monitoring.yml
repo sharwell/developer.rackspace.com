@@ -175,7 +175,7 @@
     rax_mon_notification_plan:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: escalation_station
+      label: "{{ item.label }}"
       ok_state:
       - "{{ item.notification_id }}"
       warning_state:
@@ -183,9 +183,9 @@
       critical_state:
       - "{{ item.notification_id }}"
     with_items:
-    - name: pd_plan_production
+    - label: pd_plan_production
       notification_id: "{{ pd_notifications.results[0].notification.id }}"
-    - name: pd_plan_staging
+    - label: pd_plan_staging
       notification_id: "{{ pd_notifications.results[1].notification.id }}"
     register: pd_plans
     when: use_pagerduty
@@ -245,7 +245,7 @@
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: redirection
+      label: "{{ item.label }}"
       entity_id: "{{ item.entity_id }}"
       check_id: "{{ item.check_id }}"
       notification_plan_id: "{{ item.notification_plan_id }}"
