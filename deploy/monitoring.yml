@@ -37,6 +37,9 @@
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   tasks:
 
+  - name: Use the monitored region as a label prefix.
+    set_fact: prefix={{ lookup('env', 'RAX_REGION') | lower }}
+
   - name: Nuke all existing monitoring on this account
     command: ../script/rmmon
 
@@ -44,7 +47,7 @@
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      name: entity_{{ item.name }}
+      name: "{{ prefix }}_entity_{{ item.name }}"
       named_ip_addresses:
         load_balancer: "{{ item.ip_address }}"
     with_items: load_balancers
@@ -159,14 +162,14 @@
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: "{{ item.name }}"
+      label: "{{ item.label }}"
       notification_type: pagerduty
       details:
         service_key: "{{ item.key }}"
     with_items:
-    - name: pd_notification_production
+    - label: "{{ prefix }}_pd_notification_production"
       key: "{{ production_pagerduty_servicekey }}"
-    - name: pd_notification_staging
+    - label: "{{ prefix }}_pd_notification_staging"
       key: "{{ staging_pagerduty_servicekey }}"
     register: pd_notifications
     when: use_pagerduty
@@ -183,9 +186,9 @@
       critical_state:
       - "{{ item.notification_id }}"
     with_items:
-    - label: pd_plan_production
+    - label: "{{ prefix }}_pd_plan_production"
       notification_id: "{{ pd_notifications.results[0].notification.id }}"
-    - label: pd_plan_staging
+    - label: "{{ prefix }}_pd_plan_staging"
       notification_id: "{{ pd_notifications.results[1].notification.id }}"
     register: pd_plans
     when: use_pagerduty
@@ -205,7 +208,7 @@
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: email_notification
+      label: "{{ prefix }}_email_notification"
       notification_type: email
       details:
         address: "{{ notification_email_address }}"
@@ -216,7 +219,7 @@
     rax_mon_notification_plan:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: escalation_station
+      label: "{{ item.label }}"
       ok_state:
       - "{{ item.notification_id }}"
       warning_state:
@@ -224,9 +227,9 @@
       critical_state:
       - "{{ item.notification_id }}"
     with_items:
-    - name: email_plan_production
+    - label: "{{ prefix }}_email_plan_production"
       notification_id: "{{ email_notification.notification.id }}"
-    - name: email_plan_staging
+    - label: "{{ prefix}}_email_plan_staging"
       notification_id: "{{ email_notification.notification.id }}"
     register: email_plans
     when: use_email
@@ -260,11 +263,11 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - label: production_redirection
+    - label: "{{ prefix }}_production_redirection"
       entity_id: "{{ production_entity_id }}"
       check_id: "{{ production_http_check_redirect_id }}"
       notification_plan_id: "{{ production_plan_id }}"
-    - label: staging_redirection
+    - label: "{{ prefix }}_staging_redirection"
       entity_id: "{{ staging_entity_id }}"
       check_id: "{{ staging_http_check_redirect_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
@@ -294,27 +297,27 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - label: production_index_is_down
+    - label: "{{ prefix }}_production_index_is_down"
       entity_id: "{{ production_entity_id }}"
       check_id: "{{ production_http_check_index_id }}"
       notification_plan_id: "{{ production_plan_id }}"
-    - label: production_blog_is_down
+    - label: "{{ prefix }}_production_blog_is_down"
       entity_id: "{{ production_entity_id }}"
       check_id: "{{ production_http_check_blog_id }}"
       notification_plan_id: "{{ production_plan_id }}"
-    - label: production_sdk_is_down
+    - label: "{{ prefix }}_production_sdk_is_down"
       entity_id: "{{ production_entity_id }}"
       check_id: "{{ production_http_check_sdk_id }}"
       notification_plan_id: "{{ production_plan_id }}"
-    - label: staging_index_is_down
+    - label: "{{ prefix }}_staging_index_is_down"
       entity_id: "{{ staging_entity_id }}"
       check_id: "{{ staging_http_check_index_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
-    - label: staging_blog_is_down
+    - label: "{{ prefix }}_staging_blog_is_down"
       entity_id: "{{ staging_entity_id }}"
       check_id: "{{ staging_http_check_blog_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
-    - label: staging_sdk_is_down
+    - label: "{{ prefix }}_staging_sdk_is_down"
       entity_id: "{{ staging_entity_id }}"
       check_id: "{{ staging_http_check_sdk_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
