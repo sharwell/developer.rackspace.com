@@ -17,6 +17,8 @@
         client_max_body_size: 50m
         sendfile: "on"
         access_log: /var/log/nginx/access.log
+        server_tokens: "off"
+        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
       nginx_sites:
       - server:
           gzip_static: "on"
