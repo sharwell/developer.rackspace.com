@@ -102,6 +102,9 @@
     - jekyll
     - sphinx
     - role: bennojoy.nginx
+      nginx_http_params:
+        server_tokens: "off"
+        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
       nginx_sites:
       - server:
           file_name: jenkins_proxy
