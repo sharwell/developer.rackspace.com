@@ -4,7 +4,7 @@
   connection: local
   vars_files:
   - vars.yml
-  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   tasks:
 
     - name: Provision production web load balancer
@@ -82,7 +82,7 @@
   vars_files:
   - ip_access.yml
   - vars.yml
-  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   roles:
     - prod
     - webserver
