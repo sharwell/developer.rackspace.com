@@ -8,7 +8,7 @@
     server_name: localhost
     common_region: IAD
   vars_files:
-  - [ "secrets.yml", "secrets.nodeless.yml" ]
+  - [ "secrets.yml", "secrets.minimal.yml" ]
   roles:
     - role: webserver
       content_owner: vagrant
