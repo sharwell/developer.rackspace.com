@@ -84,6 +84,7 @@
   - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
   roles:
+    - prod
     - webserver
     - lockboxweb
     - role: bennojoy.nginx
