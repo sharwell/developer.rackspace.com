@@ -30,8 +30,6 @@
       ip_address: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
     - name: staging
       ip_address: "{{ clb_staging['balancer']['virtual_ips'][0]['address'] }}"
-    use_pagerduty: "{{ notification_email_address is not defined }}"
-    use_email: "{{ notification_email_address is defined }}"
   vars_files:
   - vars.yml
   - [ 'secrets.yml', 'secrets.prod.yml' ]
@@ -156,7 +154,7 @@
     set_fact: staging_http_check_sdk_id={{ http_checks_sdk.results[1].check.id }}
 
   # PagerDuty notifications and notification plans.
-  # Active when notification_email_address has not been provided.
+  # Active when mon_email has not been provided.
 
   - name: PagerDuty notifications.
     rax_mon_notification:
@@ -172,7 +170,7 @@
     - label: "{{ prefix }}_pd_notification_staging"
       key: "{{ staging_pagerduty_servicekey }}"
     register: pd_notifications
-    when: use_pagerduty
+    when: mon_pagerduty
 
   - name: PagerDuty notification plans.
     rax_mon_notification_plan:
@@ -191,18 +189,18 @@
     - label: "{{ prefix }}_pd_plan_staging"
       notification_id: "{{ pd_notifications.results[1].notification.id }}"
     register: pd_plans
-    when: use_pagerduty
+    when: mon_pagerduty
 
   - name: Set PagerDuty as the active notification plan for production.
     set_fact: production_plan_id={{ pd_plans.results[0].notification_plan.id }}
-    when: use_pagerduty
+    when: mon_pagerduty
 
   - name: Set PagerDuty as the active notification plan for staging.
     set_fact: staging_plan_id={{ pd_plans.results[1].notification_plan.id }}
-    when: use_pagerduty
+    when: mon_pagerduty
 
   # Email notifications and notification plans.
-  # Active when notification_email_address has been provided.
+  # Active when mon_email has been provided.
 
   - name: Email notification.
     rax_mon_notification:
@@ -211,9 +209,9 @@
       label: "{{ prefix }}_email_notification"
       notification_type: email
       details:
-        address: "{{ notification_email_address }}"
+        address: "{{ mon_email }}"
     register: email_notification
-    when: use_email
+    when: mon_email is defined
 
   - name: Create email notification plans.
     rax_mon_notification_plan:
@@ -232,15 +230,15 @@
     - label: "{{ prefix}}_email_plan_staging"
       notification_id: "{{ email_notification.notification.id }}"
     register: email_plans
-    when: use_email
+    when: mon_email is defined
 
   - name: Set email as the active notification plan for production.
     set_fact: production_plan_id={{ email_plans.results[0].notification_plan.id }}
-    when: use_email
+    when: mon_email is defined
 
   - name: Set email as the active notification plan for staging.
     set_fact: staging_plan_id={{ email_plans.results[1].notification_plan.id }}
-    when: use_email
+    when: mon_email is defined
 
   # Create alarms.
 
