@@ -1,127 +1,257 @@
----
+- name: Gather information about the load balancers.
+  hosts: local
+  connection: local
+  gather_facts: false
+  vars_files:
+  - vars.yml
+  tasks:
+
+  - name: Inspect production load balancer
+    rax_clb:
+      credentials: ~/.rackspace_cloud_credentials
+      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      name: prod_developer.rackspace.com
+    register: clb_prod
+
+  - name: Inspect staging load balancer
+    rax_clb:
+      credentials: ~/.rackspace_cloud_credentials
+      region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+      name: staging.developer.rackspace.com
+    register: clb_staging
+
 - name: Configure Cloud Monitoring
   hosts: local
   connection: local
   gather_facts: false
   vars:
-    lb_ip: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
-    monitoring_zones:
-    - mzdfw
-    - mziad
-    - mzord
+    load_balancers:
+    - name: production
+      ip_address: "{{ clb_prod['balancer']['virtual_ips'][0]['address'] }}"
+    - name: staging
+      ip_address: "{{ clb_staging['balancer']['virtual_ips'][0]['address'] }}"
+    use_pagerduty: "{{ notification_email_address is not defined }}"
+    use_email: "{{ notification_email_address is defined }}"
   vars_files:
-  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - vars.yml
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   tasks:
+
+  - name: Use the monitored region as a label prefix.
+    set_fact: prefix={{ lookup('env', 'RAX_REGION') | lower }}
 
   - name: Nuke all existing monitoring on this account
     command: ../script/rmmon
 
-  - name: Create a monitoring entity for the load balancer
+  - name: Create a monitoring entity for each load balancer
     rax_mon_entity:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      name: entity_{{ lb_ip }}
+      name: "{{ prefix }}_entity_{{ item.name }}"
       named_ip_addresses:
-        load_balancer: "{{ lb_ip }}"
-    register: entity
+        load_balancer: "{{ item.ip_address }}"
+    with_items: load_balancers
+    register: entities
+
+  - name: Production entity.
+    set_fact: production_entity_id={{ entities.results[0].entity.id }}
+
+  - name: Staging entity.
+    set_fact: staging_entity_id={{ entities.results[1].entity.id }}
+
+  # Create checks.
 
   - name: Verify that port 80 is redirecting to 443
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_redirect
       check_type: remote.http
       details:
-        url: http://{{ lb_ip }}/
+        url: http://{{ item.item.ip_address }}/
         method: GET
         follow_redirects: false
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_redirect
+    with_items: entities.results
+    register: http_checks_redirect
 
-  - name: Create a check on index.html
+  - name: Production redirection check.
+    set_fact: production_http_check_redirect_id={{ http_checks_redirect.results[0].check.id }}
+
+  - name: Staging redirection check.
+    set_fact: staging_http_check_redirect_id={{ http_checks_redirect.results[1].check.id }}
+
+  - name: Create checks on index.html
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_index
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/
+        url: https://{{ item.item.ip_address }}/
         body: <span class="boxtitle">SDKs &amp; Tools</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_index
+    with_items: entities.results
+    register: http_checks_index
+
+  - name: Production index.html content check.
+    set_fact: production_http_check_index_id={{ http_checks_index.results[0].check.id }}
+
+  - name: Staging index.html content check.
+    set_fact: staging_http_check_index_id={{ http_checks_index.results[1].check.id }}
 
   - name: Create a check on the blog index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_blog
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/blog/
+        url: https://{{ item.item.ip_address }}/blog/
         body: <span class="headline">Developer Blog</span>
         include_body: "true"
         method: GET
         follow_redirects: "true"
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_blog
+    with_items: entities.results
+    register: http_checks_blog
+
+  - name: Production blog index content check.
+    set_fact: production_http_check_blog_id={{ http_checks_blog.results[0].check.id }}
+
+  - name: Staging blog index content check.
+    set_fact: staging_http_check_blog_id={{ http_checks_blog.results[1].check.id }}
 
   - name: Create a check on the SDK index page
     rax_mon_check:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity.id }}"
       label: http_check_sdk
       check_type: remote.http
       details:
-        url: https://{{ lb_ip }}/sdks/
+        url: https://{{ item.item.ip_address }}/sdks/
         body: <span class="headline">SDKs &amp; Tools</span>
         include_body: false
         method: GET
         follow_redirects: true
       monitoring_zones_poll: "{{ monitoring_zones }}"
       target_alias: load_balancer
-    register: http_check_sdk
+    with_items: entities.results
+    register: http_checks_sdk
 
-  - name: PagerDuty notification.
+  - name: Production SDK index content check.
+    set_fact: production_http_check_sdk_id={{ http_checks_sdk.results[0].check.id }}
+
+  - name: Staging SDK index content check.
+    set_fact: staging_http_check_sdk_id={{ http_checks_sdk.results[1].check.id }}
+
+  # PagerDuty notifications and notification plans.
+  # Active when notification_email_address has not been provided.
+
+  - name: PagerDuty notifications.
     rax_mon_notification:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: pagerduty_notification
+      label: "{{ item.label }}"
       notification_type: pagerduty
       details:
-        service_key: "{{ pagerduty_servicekey }}"
-    register: pagerduty_notification
+        service_key: "{{ item.key }}"
+    with_items:
+    - label: "{{ prefix }}_pd_notification_production"
+      key: "{{ production_pagerduty_servicekey }}"
+    - label: "{{ prefix }}_pd_notification_staging"
+      key: "{{ staging_pagerduty_servicekey }}"
+    register: pd_notifications
+    when: use_pagerduty
 
-  - name: Create a notification plan.
+  - name: PagerDuty notification plans.
     rax_mon_notification_plan:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: escalation_station
+      label: "{{ item.label }}"
       ok_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
+      - "{{ item.notification_id }}"
       warning_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
+      - "{{ item.notification_id }}"
       critical_state:
-      - "{{ pagerduty_notification['notification']['id'] }}"
-    register: escalation_station
+      - "{{ item.notification_id }}"
+    with_items:
+    - label: "{{ prefix }}_pd_plan_production"
+      notification_id: "{{ pd_notifications.results[0].notification.id }}"
+    - label: "{{ prefix }}_pd_plan_staging"
+      notification_id: "{{ pd_notifications.results[1].notification.id }}"
+    register: pd_plans
+    when: use_pagerduty
 
-  - name: Trigger an alarm when the redirection doesn't happen.
+  - name: Set PagerDuty as the active notification plan for production.
+    set_fact: production_plan_id={{ pd_plans.results[0].notification_plan.id }}
+    when: use_pagerduty
+
+  - name: Set PagerDuty as the active notification plan for staging.
+    set_fact: staging_plan_id={{ pd_plans.results[1].notification_plan.id }}
+    when: use_pagerduty
+
+  # Email notifications and notification plans.
+  # Active when notification_email_address has been provided.
+
+  - name: Email notification.
+    rax_mon_notification:
+      credentials: ~/.rackspace_cloud_credentials
+      state: present
+      label: "{{ prefix }}_email_notification"
+      notification_type: email
+      details:
+        address: "{{ notification_email_address }}"
+    register: email_notification
+    when: use_email
+
+  - name: Create email notification plans.
+    rax_mon_notification_plan:
+      credentials: ~/.rackspace_cloud_credentials
+      state: present
+      label: "{{ item.label }}"
+      ok_state:
+      - "{{ item.notification_id }}"
+      warning_state:
+      - "{{ item.notification_id }}"
+      critical_state:
+      - "{{ item.notification_id }}"
+    with_items:
+    - label: "{{ prefix }}_email_plan_production"
+      notification_id: "{{ email_notification.notification.id }}"
+    - label: "{{ prefix}}_email_plan_staging"
+      notification_id: "{{ email_notification.notification.id }}"
+    register: email_plans
+    when: use_email
+
+  - name: Set email as the active notification plan for production.
+    set_fact: production_plan_id={{ email_plans.results[0].notification_plan.id }}
+    when: use_email
+
+  - name: Set email as the active notification plan for staging.
+    set_fact: staging_plan_id={{ email_plans.results[1].notification_plan.id }}
+    when: use_email
+
+  # Create alarms.
+
+  - name: Trigger alarms when the redirection doesn't happen.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
-      label: redirection
-      entity_id: "{{ entity['entity']['id'] }}"
-      check_id: "{{ http_check_redirect['check']['id'] }}"
-      notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
+      label: "{{ item.label }}"
+      entity_id: "{{ item.entity_id }}"
+      check_id: "{{ item.check_id }}"
+      notification_plan_id: "{{ item.notification_plan_id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -129,18 +259,27 @@
           return new AlarmStatus(CRITICAL, "Non-301 status code #{code} returned.");
         }
         if (metric['duration'] > 500) {
-          return new AlarmStatus(WARNING, "Redirectin took #{duration}ms > 500ms.");
+          return new AlarmStatus(WARNING, "Redirection took #{duration}ms > 500ms.");
         }
         return new AlarmStatus(OK);
+    with_items:
+    - label: "{{ prefix }}_production_redirection"
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_redirect_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: "{{ prefix }}_staging_redirection"
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_redirect_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
 
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
       state: present
       label: "{{ item.label }}"
-      entity_id: "{{ entity['entity']['id'] }}"
+      entity_id: "{{ item.entity_id }}"
       check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ escalation_station['notification_plan']['id'] }}"
+      notification_plan_id: "{{ item.notification_plan_id }}"
       criteria: >
         :set consecutiveCount=2
 
@@ -158,9 +297,27 @@
         }
         return new AlarmStatus(OK);
     with_items:
-    - label: index_is_down
-      check_id: "{{ http_check_index['check']['id'] }}"
-    - label: blog_is_down
-      check_id: "{{ http_check_blog['check']['id'] }}"
-    - label: sdk_is_down
-      check_id: "{{ http_check_sdk['check']['id'] }}"
+    - label: "{{ prefix }}_production_index_is_down"
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_index_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: "{{ prefix }}_production_blog_is_down"
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_blog_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: "{{ prefix }}_production_sdk_is_down"
+      entity_id: "{{ production_entity_id }}"
+      check_id: "{{ production_http_check_sdk_id }}"
+      notification_plan_id: "{{ production_plan_id }}"
+    - label: "{{ prefix }}_staging_index_is_down"
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_index_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
+    - label: "{{ prefix }}_staging_blog_is_down"
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_blog_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"
+    - label: "{{ prefix }}_staging_sdk_is_down"
+      entity_id: "{{ staging_entity_id }}"
+      check_id: "{{ staging_http_check_sdk_id }}"
+      notification_plan_id: "{{ staging_plan_id }}"

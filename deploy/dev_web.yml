@@ -2,13 +2,16 @@
 - name: Configure web server(s)
   hosts: webservers
   sudo: yes
+  vars_files:
+  - [ "secrets.yml", "secrets.minimal.yml" ]
   vars:
     docroot: /vagrant_data/_site
     backendroot: /vagrant_data/src/drc-backend
     server_name: localhost
     common_region: IAD
-  vars_files:
-  - [ "secrets.yml", "secrets.nodeless.yml" ]
+    mailgun_domain: "{{ dev_mailgun_domain }}"
+    sponsorship_notification_email: "{{ dev_sponsorship_notification_email }}"
+    sponsorship_container: "{{ dev_sponsorship_container }}"
   roles:
     - role: webserver
       content_owner: vagrant
@@ -17,6 +20,8 @@
         client_max_body_size: 50m
         sendfile: "on"
         access_log: /var/log/nginx/access.log
+        server_tokens: "off"
+        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
       nginx_sites:
       - server:
           gzip_static: "on"

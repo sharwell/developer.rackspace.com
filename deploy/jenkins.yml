@@ -55,7 +55,7 @@
   connection: local
   vars_files:
   - vars.yml
-  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   gather_facts: False
   tasks:
 
@@ -86,7 +86,7 @@
   vars_files:
   - vars.yml
   - ip_access.yml
-  - [ 'secrets.yml', 'secrets.prod.yml' ]
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   sudo: yes
   vars:
     plugins:
@@ -102,6 +102,9 @@
     - jekyll
     - sphinx
     - role: bennojoy.nginx
+      nginx_http_params:
+        server_tokens: "off"
+        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
       nginx_sites:
       - server:
           file_name: jenkins_proxy
