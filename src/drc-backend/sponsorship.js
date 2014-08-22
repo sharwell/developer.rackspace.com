@@ -141,6 +141,7 @@ exports.save = function (req, res, next) {
 
     // Serialize our data payload to json over the wire
     stream.write(JSON.stringify(data, null, '  '));
+    stream.end();
   }
 
   function sendNotificationEmail(callback) {
