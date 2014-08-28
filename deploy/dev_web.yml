@@ -41,6 +41,9 @@
           location4:
             name: /devtrial
             rewrite: "^/devtrial /signup/ permanent"
+          location5:
+            name: /speed
+            rewrite: "^/speed /signup/ permanent"
     - jekyll
     - sphinx
     - dev
