@@ -87,6 +87,7 @@
     mailgun_domain: "{{ production_mailgun_domain }}"
     sponsorship_notification_email: "{{ production_sponsorship_notification_email }}"
     sponsorship_container: "{{ production_sponsorship_container }}"
+    mongodb_connection_url: "{{ production_mongodb_connection_url }}"
   roles:
     - prod
     - webserver
@@ -121,3 +122,6 @@
           location4:
             name: /devtrial
             rewrite: "^/devtrial /signup/ permanent"
+          location5:
+            name: /speed
+            rewrite: "^/speed /signup/ permanent"
