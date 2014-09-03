@@ -84,7 +84,6 @@
   hosts: staging_webservers
   remote_user: root
   vars_files:
-  - ip_access.yml
   - vars.yml
   - [ 'secrets.yml', 'secrets.vault.yml' ]
   vars:
