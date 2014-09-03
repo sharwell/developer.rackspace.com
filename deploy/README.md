@@ -5,7 +5,6 @@ Before you begin, you'll need to collect a number of private keys and passphrase
  * `~/.ssh/drg.pem`
  * `publisher.id_rsa`
  * The `ansible-vault` password.
- * The canonical IP whitelist for `ip_access.yml`
 
 0. Initialize and update git submodules
 
@@ -48,17 +47,15 @@ Before you begin, you'll need to collect a number of private keys and passphrase
   ```bash
   $ chmod 600 roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa
   ```
-7. Create `ip_access.yml`. The format is specified in `ip_access.yml.example`. Don't use those IPs though, they're completely hokey. Replace them with the canonical list.
-
-8. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region. Enter the vault password when prompted to do so.
+7. Run the Ansible playbook to set up the production and staging environments and Jenkins within a region. Enter the vault password when prompted to do so.
 
   ```bash
   $ RAX_REGION=DFW script/deploy
   ```
 
-9. Each cloud server has nginx installed, configured and running.
+8. Each cloud server has nginx installed, configured and running.
 
-10. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
+9. Each cloud server has a `publisher` user. The Jenkins jobs `build_prod_site` and `build_staging_site` use this key to publish content to the production and staging web sites respectively. Content is published over rsync + ssh.
 
 ## Folder Layout
 

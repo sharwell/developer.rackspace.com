@@ -7,7 +7,7 @@
 - name: Provision Jenkins setup
   hosts: local
   vars_files:
-    - ip_access.yml
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   connection: local
   gather_facts: False
   tasks:
@@ -85,7 +85,6 @@
   hosts: jenkins_masters
   vars_files:
   - vars.yml
-  - ip_access.yml
   - [ 'secrets.yml', 'secrets.vault.yml' ]
   sudo: yes
   vars:
