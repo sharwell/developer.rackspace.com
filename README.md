@@ -111,11 +111,6 @@ __Note__: You should use this setup only if you are looking to contribute blog p
         ```bash
         $ cp deploy/roles/dev/files/_config.yml src/site_source/
         ```
-    * Create softlink for jekyll as the build_script.sh (below) expects it in a specific location
-
-        ```bash
-        $ ln -s /usr/local/rvm/gems/ruby-1.9.3-p547/bin/jekyll /usr/local/bin/jekyll
-        ```
 
 5. Set upstream & pull devblog (the branch you'll be PR'ing to / working off of)
 
@@ -131,7 +126,7 @@ __Note__: You should use this setup only if you are looking to contribute blog p
         ```bash
         $ git checkout -b newpost
         ```
-    * Create your new post in src/site\_source/\_posts/. The post must be in markdown & follow these guidelines 
+    * Create your new post in src/site\_source/\_posts/. The post must be in markdown & follow these guidelines
 
         [https://github.com/rackerlabs/developer.rackspace.com/blob/dev/src/site_source/CONTRIBUTING.md](https://github.com/rackerlabs/developer.rackspace.com/blob/dev/src/site_source/CONTRIBUTING.md)
     * Tips
