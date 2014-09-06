@@ -10,7 +10,7 @@
     - name: Provision production web load balancer
       rax_clb:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_{{ server_name }}"
+        name: "{{ deployment_region }}_prod_{{ server_name }}"
         port: 80
         protocol: HTTP
         algorithm: ROUND_ROBIN
@@ -30,7 +30,7 @@
     - name: Provision 2 production web servers
       rax:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_webserver_%01d"
+        name: "{{ deployment_region }}_prod_webserver_%01d"
         flavor: performance1-1
         image: ubuntu-1204-lts-precise-pangolin
         networks:

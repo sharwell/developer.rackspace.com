@@ -10,14 +10,14 @@
     rax_clb:
       credentials: ~/.rackspace_cloud_credentials
       region: "{{ deployment_region }}"
-      name: prod_developer.rackspace.com
+      name: "{{ deployment_region }}_prod_developer.rackspace.com"
     register: clb_prod
 
   - name: Inspect staging load balancer
     rax_clb:
       credentials: ~/.rackspace_cloud_credentials
       region: "{{ deployment_region }}"
-      name: staging.developer.rackspace.com
+      name: "{{ deployment_region }}_staging.developer.rackspace.com"
     register: clb_staging
 
 - name: Configure Cloud Monitoring

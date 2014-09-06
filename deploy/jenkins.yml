@@ -16,7 +16,7 @@
     - name: Provision jenkins master server
       rax:
         credentials: ~/.rackspace_cloud_credentials
-        name: jenkins_master_%01d
+        name: "{{ deployment_region }}_jenkins_master_%01d"
         flavor: performance1-4
         image: ubuntu-1204-lts-precise-pangolin
         networks:
