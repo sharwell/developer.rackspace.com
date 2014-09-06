@@ -91,6 +91,7 @@
     - prod
     - webserver
     - lockboxweb
+    - editors
     - role: bennojoy.nginx
       nginx_http_params:
         sendfile: "on"
