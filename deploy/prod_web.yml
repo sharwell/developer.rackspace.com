@@ -124,3 +124,6 @@
           location5:
             name: /speed
             rewrite: "^/speed /signup/ permanent"
+          location6:
+            name: /categories
+            rewrite: "^/categories/([^/]+)/*$ /blog/categories/$1/ permanent"
