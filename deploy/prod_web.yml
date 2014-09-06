@@ -16,7 +16,7 @@
         algorithm: ROUND_ROBIN
         type: PUBLIC
         timeout: 30
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         ssl_termination:
           private_key: "{{ production_ssl_key }}"
           certificate: "{{ production_ssl_certificate }}"
@@ -36,7 +36,7 @@
         networks:
           - public
           - private
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         state: present
         count: 2
         exact_count: yes
@@ -54,7 +54,7 @@
         condition: enabled
         type: primary
         wait: yes
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
       with_items: rax_prod.success
       when: rax_prod.action == 'create'
 

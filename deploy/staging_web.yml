@@ -16,7 +16,7 @@
         algorithm: ROUND_ROBIN
         type: PUBLIC
         timeout: 30
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         ssl_termination:
           private_key: "{{ staging_ssl_key }}"
           certificate: "{{ staging_ssl_certificate }}"
@@ -40,7 +40,7 @@
         networks:
           - public
           - private
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         state: present
         count: 2
         exact_count: yes
@@ -58,7 +58,7 @@
         condition: enabled
         type: primary
         wait: yes
-        region: "{{ common_region }}"
+        region: "{{ deployment_region }}"
       with_items: rax_staging.success
       when: rax_staging.action == 'create'
 

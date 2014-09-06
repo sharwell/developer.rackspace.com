@@ -7,6 +7,7 @@
 - name: Provision Jenkins setup
   hosts: local
   vars_files:
+  - vars.yml
   - [ 'secrets.yml', 'secrets.vault.yml' ]
   connection: local
   gather_facts: False
@@ -21,7 +22,7 @@
         networks:
           - public
           - private
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         state: present
         count: 1
         exact_count: yes
