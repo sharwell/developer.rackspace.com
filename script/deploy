@@ -16,7 +16,6 @@ HAS_IPLIST=false
 python -c 'import pyrax' 2>/dev/null && HAS_PYRAX=true
 [ -f ${HOME}/.ssh/drg.pem ] && HAS_DRGPEM=true
 [ -f ${ROOT}/deploy/roles/jenkins_master/files/var/lib/jenkins/publisher.id_rsa ] && HAS_PUBLISHERKEY=true
-[ -f ${ROOT}/deploy/ip_access.yml ] && HAS_IPLIST=true
 
 if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
     ! $HAS_DRGPEM || ! $HAS_PUBLISHERKEY || ! $HAS_IPLIST ; then
@@ -56,13 +55,6 @@ if ! $HAS_RAXREGION || ! $HAS_ANSIBLE || ! $HAS_PYRAX ||
   if ! $HAS_PUBLISHERKEY ; then
     echo "* The publisher.id_rsa private key is missing."
     echo "  Download it and put it in deploy/roles/jenkins_masters/files/var/lib/jenkins/publisher.id_rsa."
-    echo
-  fi
-
-  if ! $HAS_IPLIST ; then
-    echo "* The IP whitelist is missing."
-    echo "  Put it at deploy/ip_access.yml. You can also set it to your own IP for testing"
-    echo "  and development. Follow the format found in deploy/ip_access.yml.example."
     echo
   fi
 
