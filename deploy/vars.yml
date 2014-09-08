@@ -24,3 +24,6 @@ staging_container: drc-static-staging
 
 # TTL value for CDN containers.
 cdn_ttl: 31536000
+
+# Deployment region, parsed from environment variable and normalized
+deployment_region: "{{ lookup('env', 'RAX_REGION') | upper }}"
