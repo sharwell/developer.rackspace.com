@@ -46,6 +46,7 @@
             rewrite: "^/speed /signup/ permanent"
     - jekyll
     - sphinx
+    - editors
     - dev
 
 - name: Launch the backend form submission script
