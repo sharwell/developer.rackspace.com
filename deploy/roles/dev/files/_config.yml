@@ -27,3 +27,6 @@ assets:
   css_compressor: ~
   cache: true
   gzip: false
+
+# Blog categories
+category_dir: blog/categories
