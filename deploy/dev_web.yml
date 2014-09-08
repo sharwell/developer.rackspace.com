@@ -3,6 +3,7 @@
   hosts: webservers
   sudo: yes
   vars_files:
+  - vars.yml
   - [ "secrets.yml", "secrets.minimal.yml" ]
   vars:
     docroot: /vagrant_data/_site
@@ -16,37 +17,7 @@
   roles:
     - role: webserver
       content_owner: vagrant
-    - role: bennojoy.nginx
-      nginx_http_params:
-        client_max_body_size: 50m
-        sendfile: "on"
-        access_log: /var/log/nginx/access.log
-        server_tokens: "off"
-        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
-      nginx_sites:
-      - server:
-          gzip_static: "on"
-          file_name: developer.rackspace.com
-          listen: 80
-          server_name: "{{ server_name }}"
-          root: "{{ docroot }}"
-          location1:
-            name: /api
-            proxy_pass: http://127.0.0.1:8111
-          location2:
-            name: /blog/index.html
-          location3:
-            name: /blog
-            rewrite: "^/blog/([^/]+)\\.html$ /blog/$1/ permanent"
-          location4:
-            name: /devtrial
-            rewrite: "^/devtrial /signup/ permanent"
-          location5:
-            name: /speed
-            rewrite: "^/speed /signup/ permanent"
-          location6:
-            name: /categories
-            rewrite: "^/categories/([^/]+)/*$ /blog/categories/$1/ permanent"
+    - "{{ nginx_role_config }}"
     - jekyll
     - sphinx
     - editors
