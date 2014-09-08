@@ -13,7 +13,7 @@ if len(sys.argv) < 3:
     raise RuntimeError("%s requires two arguments: the load balancer name and the IP whitelist (as a YAML list)." %
                        sys.argv[0])
 the_lbname = sys.argv[1]
-whitelist = yaml.load(sys.argv[2])
+whitelist = yaml.safe_load(sys.argv[2])
 
 # Get our bearings within the filesystem.
 
