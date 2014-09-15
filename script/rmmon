@@ -11,7 +11,7 @@ pyrax.set_setting("identity_type", "rackspace")
 pyrax.set_setting("region", region.upper())
 pyrax.set_credential_file(os.path.expanduser("~/.rackspace_cloud_credentials"))
 
-prefix = region.lower()
+prefix = region.upper()
 
 cm = pyrax.cloud_monitoring
 
