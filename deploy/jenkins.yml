@@ -7,7 +7,8 @@
 - name: Provision Jenkins setup
   hosts: local
   vars_files:
-    - ip_access.yml
+  - vars.yml
+  - [ 'secrets.yml', 'secrets.vault.yml' ]
   connection: local
   gather_facts: False
   tasks:
@@ -15,13 +16,13 @@
     - name: Provision jenkins master server
       rax:
         credentials: ~/.rackspace_cloud_credentials
-        name: jenkins_master_%01d
+        name: "{{ deployment_region }}_jenkins_master_%01d"
         flavor: performance1-4
         image: ubuntu-1204-lts-precise-pangolin
         networks:
           - public
           - private
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         state: present
         count: 1
         exact_count: yes
@@ -85,7 +86,6 @@
   hosts: jenkins_masters
   vars_files:
   - vars.yml
-  - ip_access.yml
   - [ 'secrets.yml', 'secrets.vault.yml' ]
   sudo: yes
   vars:
@@ -101,6 +101,7 @@
     - jenkins_master
     - jekyll
     - sphinx
+    - editors
     - role: bennojoy.nginx
       nginx_http_params:
         server_tokens: "off"

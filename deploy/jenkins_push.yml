@@ -24,6 +24,9 @@
   remote_user: publisher
   vars_files:
   - vars.yml
+  vars:
+    docroot: /var/www/html/developer.rackspace.com
+    backendroot: /var/webapp/drc-backend
   roles:
   - role: content
     srcroot: ..

@@ -10,13 +10,13 @@
     - name: Provision production web load balancer
       rax_clb:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_{{ server_name }}"
+        name: "{{ deployment_region }}_prod_{{ server_name }}"
         port: 80
         protocol: HTTP
         algorithm: ROUND_ROBIN
         type: PUBLIC
         timeout: 30
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         ssl_termination:
           private_key: "{{ production_ssl_key }}"
           certificate: "{{ production_ssl_certificate }}"
@@ -30,13 +30,13 @@
     - name: Provision 2 production web servers
       rax:
         credentials: ~/.rackspace_cloud_credentials
-        name: "prod_webserver_%01d"
+        name: "{{ deployment_region }}_prod_webserver_%01d"
         flavor: performance1-1
         image: ubuntu-1204-lts-precise-pangolin
         networks:
           - public
           - private
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
         state: present
         count: 2
         exact_count: yes
@@ -54,7 +54,7 @@
         condition: enabled
         type: primary
         wait: yes
-        region: "{{ lookup('env', 'RAX_REGION') | upper }}"
+        region: "{{ deployment_region }}"
       with_items: rax_prod.success
       when: rax_prod.action == 'create'
 
@@ -80,44 +80,18 @@
   hosts: prod_webservers
   remote_user: root
   vars_files:
-  - ip_access.yml
   - vars.yml
   - [ 'secrets.yml', 'secrets.vault.yml' ]
   vars:
+    docroot: /var/www/html/developer.rackspace.com
+    backendroot: /var/webapp/drc-backend
     mailgun_domain: "{{ production_mailgun_domain }}"
     sponsorship_notification_email: "{{ production_sponsorship_notification_email }}"
     sponsorship_container: "{{ production_sponsorship_container }}"
+    mongodb_connection_url: "{{ production_mongodb_connection_url }}"
   roles:
     - prod
     - webserver
     - lockboxweb
-    - role: bennojoy.nginx
-      nginx_http_params:
-        sendfile: "on"
-        access_log: /var/log/nginx/access.log
-        client_max_body_size: 50m
-        server_tokens: "off"
-        more_set_headers: '"Server: Nintendo WiiOS; Server 1.up"'
-      nginx_sites:
-      - server:
-          gzip_static: "on"
-          file_name: developer.rackspace.com
-          listen: 80
-          server_name: "{{ server_name }}"
-          root: "{{ docroot }}"
-          gzip: "on"
-          gzip_min_length: 1400
-          gzip_types: text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript
-          gzip_vary: "on"
-          gzip_proxied: any
-          location1:
-            name: /api
-            proxy_pass: http://127.0.0.1:8111
-          location2:
-            name: /blog/index.html
-          location3:
-            name: /blog
-            rewrite: "^/blog/([^/]+)\\.html$ /blog/$1/ permanent"
-          location4:
-            name: /devtrial
-            rewrite: "^/devtrial /signup/ permanent"
+    - editors
+    - "{{ nginx_role_config }}"

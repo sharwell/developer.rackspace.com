@@ -54,13 +54,13 @@ rsync -Ca $PROJECT_ROOT/src/site_source/ $WORK_DIR/
 
 # Build the Getting Started guides in the `docs/` directory using Sphinx
 cd $PROJECT_ROOT/src/docs
-/usr/local/bin/sphinx-build . $WORK_DIR/docs
+sphinx-build . $WORK_DIR/docs
 
 # Build the web site HTML
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 cd $WORK_DIR
-/usr/local/bin/jekyll build --source . --destination $BUILD_DIR/_site
+jekyll build --source . --destination $BUILD_DIR/_site
 
 # Pre-GZIP all of our HTML
 echo -n "Gzipping HTML files... "
