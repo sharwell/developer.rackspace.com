@@ -267,31 +267,6 @@
       check_id: "{{ staging_http_check_redirect_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
 
-  - name: Trigger an alarm when the redirection is too slow.
-    rax_mon_alarm:
-      credentials: ~/.rackspace_cloud_credentials
-      state: present
-      label: "{{ item.label }}"
-      entity_id: "{{ item.entity_id }}"
-      check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ item.notification_plan_id }}"
-      criteria: >
-        :set consecutiveCount=5
-
-        if (metric['duration'] > 5000) {
-          return new AlarmStatus(WARNING, "Redirection took #{duration}ms > 5000ms.");
-        }
-        return new AlarmStatus(OK);
-    with_items:
-    - label: "{{ prefix }}_production_redirection_slow"
-      entity_id: "{{ production_entity_id }}"
-      check_id: "{{ production_http_check_redirect_id }}"
-      notification_plan_id: "{{ production_plan_id }}"
-    - label: "{{ prefix }}_staging_redirection_slow"
-      entity_id: "{{ staging_entity_id }}"
-      check_id: "{{ staging_http_check_redirect_id }}"
-      notification_plan_id: "{{ staging_plan_id }}"
-
   - name: Trigger an alarm when a page has incorrect content.
     rax_mon_alarm:
       credentials: ~/.rackspace_cloud_credentials
@@ -335,47 +310,6 @@
       check_id: "{{ staging_http_check_blog_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
     - label: "{{ prefix }}_staging_sdk_is_down"
-      entity_id: "{{ staging_entity_id }}"
-      check_id: "{{ staging_http_check_sdk_id }}"
-      notification_plan_id: "{{ staging_plan_id }}"
-
-  - name: Trigger an alarm when a page is slow to load.
-    rax_mon_alarm:
-      credentials: ~/.rackspace_cloud_credentials
-      state: present
-      label: "{{ item.label }}"
-      entity_id: "{{ item.entity_id }}"
-      check_id: "{{ item.check_id }}"
-      notification_plan_id: "{{ item.notification_plan_id }}"
-      criteria: >
-        :set consecutiveCount=5
-
-        if (metric['duration'] > 5000) {
-          return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 5000ms.");
-        }
-        return new AlarmStatus(OK);
-    with_items:
-    - label: "{{ prefix }}_production_index_is_slow"
-      entity_id: "{{ production_entity_id }}"
-      check_id: "{{ production_http_check_index_id }}"
-      notification_plan_id: "{{ production_plan_id }}"
-    - label: "{{ prefix }}_production_blog_is_slow"
-      entity_id: "{{ production_entity_id }}"
-      check_id: "{{ production_http_check_blog_id }}"
-      notification_plan_id: "{{ production_plan_id }}"
-    - label: "{{ prefix }}_production_sdk_is_slow"
-      entity_id: "{{ production_entity_id }}"
-      check_id: "{{ production_http_check_sdk_id }}"
-      notification_plan_id: "{{ production_plan_id }}"
-    - label: "{{ prefix }}_staging_index_is_slow"
-      entity_id: "{{ staging_entity_id }}"
-      check_id: "{{ staging_http_check_index_id }}"
-      notification_plan_id: "{{ staging_plan_id }}"
-    - label: "{{ prefix }}_staging_blog_is_slow"
-      entity_id: "{{ staging_entity_id }}"
-      check_id: "{{ staging_http_check_blog_id }}"
-      notification_plan_id: "{{ staging_plan_id }}"
-    - label: "{{ prefix }}_staging_sdk_is_slow"
       entity_id: "{{ staging_entity_id }}"
       check_id: "{{ staging_http_check_sdk_id }}"
       notification_plan_id: "{{ staging_plan_id }}"
