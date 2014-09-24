@@ -256,9 +256,6 @@
         if (metric['code'] != "301") {
           return new AlarmStatus(CRITICAL, "Non-301 status code #{code} returned.");
         }
-        if (metric['duration'] > 500) {
-          return new AlarmStatus(WARNING, "Redirection took #{duration}ms > 500ms.");
-        }
         return new AlarmStatus(OK);
     with_items:
     - label: "{{ prefix }}_production_redirection"
@@ -289,9 +286,6 @@
         }
         if (metric['cert_end_in'] < 5184000) {
           return new AlarmStatus(WARNING, "SSL certificate will expire in less than 60 days.");
-        }
-        if (metric['duration'] > 500) {
-          return new AlarmStatus(WARNING, "Page took #{duration}ms to serve > 500ms.");
         }
         return new AlarmStatus(OK);
     with_items:
