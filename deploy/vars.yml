@@ -59,3 +59,6 @@ nginx_role_config:
       location6:
         name: /categories
         rewrite: "^/categories/([^/]+)/*$ /blog/categories/$1/ permanent"
+      location7:
+        name: /blog/atom.xml
+        alias: "{{ docroot }}/atom.xml"
