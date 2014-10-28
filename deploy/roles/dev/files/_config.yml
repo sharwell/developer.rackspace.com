@@ -21,6 +21,7 @@ disqus_show_comment_count: false
 assets:
   sources:
     - _assets/img
+    - _assets/fonts
     - _assets/js
     - _assets/css
   js_compressor: ~
