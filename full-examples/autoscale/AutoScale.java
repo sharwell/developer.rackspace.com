@@ -39,7 +39,7 @@ public class AutoScale {
     // Ubuntu 14.04 LTS Server Image
     private static final String IMAGE_ID = "5cc098a5-7286-4b96-b3a2-49f4c4f82537";
 
-    public static final String FLAVOR_ID = System.getProperty("flavorid", "performance1-1");
+    public static final String FLAVOR_ID = System.getProperty("flavorid", "general1-1");
 
     private static final String GROUP_NAME = "autoscale-group";
     private static final String WEBHOOK_NAME = "autoscale-webhook";

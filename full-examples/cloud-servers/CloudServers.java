@@ -37,7 +37,7 @@ public class CloudServers {
     public static final String USERNAME = System.getProperty("username", "{username}");
     public static final String API_KEY = System.getProperty("apikey", "{apiKey}");
 
-    public static final String FLAVOR_ID = System.getProperty("flavorid", "performance1-1");
+    public static final String FLAVOR_ID = System.getProperty("flavorid", "general1-1");
 
     public static void main(String[] args) throws Exception {
         NovaApi novaApi = authenticate(USERNAME, API_KEY);

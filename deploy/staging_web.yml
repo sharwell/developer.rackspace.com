@@ -35,7 +35,7 @@
       rax:
         credentials: ~/.rackspace_cloud_credentials
         name: "{{ deployment_region }}_staging_webserver_%01d"
-        flavor: performance1-1
+        flavor: general1-1
         image: ubuntu-1204-lts-precise-pangolin
         networks:
           - public
