@@ -2,6 +2,10 @@
 
    FlavorDetails flavorDetails = cloudServersProvider.GetFlavor("{flavor_id}");
 
+.. code-block:: go
+
+	flavor, err := flavors.Get(serviceClient, "{flavorId}").Extract()
+
 .. code-block:: java
 
   FlavorApi flavorApi = novaApi.getFlavorApiForZone("{region}");

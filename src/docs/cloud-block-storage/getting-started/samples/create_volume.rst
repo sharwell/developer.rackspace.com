@@ -1,10 +1,18 @@
 .. code-block:: csharp
 
    new CloudBlockStorageProvider({cloudIdentity}).CreateVolume(
-	size: {size}, 
-	displayDescription: "{description}", 
-	displayName: "{name}", 
+	size: {size},
+	displayDescription: "{description}",
+	displayName: "{name}",
 	region: "{region}");
+
+.. code-block:: go
+
+  opts := osvolumes.CreateOpts{
+    Name: "photos",
+    Size: 100,
+  }
+  vol, err := volumes.Create(serviceClient, opts).Extract()
 
 .. code-block:: java
 

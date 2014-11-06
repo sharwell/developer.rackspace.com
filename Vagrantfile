@@ -25,7 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./", "/vagrant_data", type: "rsync",
     rsync__args: [
       "--verbose", "--archive", "-z",
-      "--chmod=Dug+rwx,Fug+rw"
+      "--chmod=Dug+rwx,Fug+rw",
+      "--exclude=.git/"
     ]
 
   ## Ansible Config

@@ -2,8 +2,16 @@
 
   CloudFilesProvider cloudFilesProvider = new CloudFilesProvider(cloudIdentity);
   long timeToLive = 604800;
-  Dictionary<string, string> header = 
+  Dictionary<string, string> header =
 	cloudFilesProvider.EnableCDNOnContainer("{container_name}", timeToLive);
+
+.. code-block:: go
+
+  opts := cdncontainers.EnableOpts{
+    CDNEnabled: true,
+    TTL:        300,
+  }
+  _, err := cdncontainers.Enable(cdnClient, "{containerName}", opts).ExtractHeader()
 
 .. code-block:: java
 

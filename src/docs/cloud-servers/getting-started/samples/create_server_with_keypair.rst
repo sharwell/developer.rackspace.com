@@ -2,6 +2,15 @@
 
   // This is not supported through the .NET SDK at this time
 
+.. code-block:: go
+
+  server, err := servers.Create(serviceClient, servers.CreateOpts{
+    Name:      "My server",
+    ImageRef:  image.ID,
+    FlavorRef: flavor.ID,
+    KeyPair:   "my-keypair",
+  }).Extract()
+
 .. code-block:: java
 
   ServerApi serverApi = novaApi.getServerApiForZone("{region}");

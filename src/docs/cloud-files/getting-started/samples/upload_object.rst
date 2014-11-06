@@ -17,6 +17,20 @@
   // OR, much simpler...
   cloudFilesProvider.CreateObjectFromFile("{container_name}", "{path_to_file}", "{object_name}");
 
+.. code-block:: go
+
+  f, err := os.Open("{pathToFile}")
+  defer f.Close()
+  reader := bufio.NewReader(f)
+
+  _, err := objects.Create(
+    serviceClient,
+    "{containerName}",
+    "{objectName}",
+    reader,
+    nil,
+  ).ExtractHeaders()
+
 .. code-block:: java
 
   ObjectApi objectApi =

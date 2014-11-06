@@ -1,10 +1,15 @@
 .. code-block:: csharp
 
   new CloudBlockStorageProvider({cloudIdentity}).CreateSnapshot(
-	"{volumeId}", 
-	displayName: "{name}", 
-	displayDescription: "{description}", 
+	"{volumeId}",
+	displayName: "{name}",
+	displayDescription: "{description}",
 	region: "{region}");
+
+.. code-block:: go
+
+  opts := snapshots.CreateOpts{VolumeID: "{volumeId}", Name: "{snapshotName}"}
+  s, err := snapshots.Create(serviceClient, opts).Extract()
 
 .. code-block:: java
 

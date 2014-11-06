@@ -8,6 +8,27 @@
   CloudIdentityProvider cloudIdentityProvider = new CloudIdentityProvider(cloudIdentity);
   UserAccess userAccess = cloudIdentityProvider.Authenticate(cloudIdentity);
 
+.. code-block:: go
+
+  import (
+    "github.com/rackspace/gophercloud"
+    "github.com/rackspace/gophercloud/rackspace"
+    "github.com/rackspace/gophercloud/rackspace/blockstorage/v1/snapshots"
+    "github.com/rackspace/gophercloud/rackspace/blockstorage/v1/volumes"
+
+    osvolumes "github.com/rackspace/gophercloud/openstack/blockstorage/v1/volumes"
+  )
+
+  ao := gophercloud.AuthOptions{
+    Username: "{username}",
+    APIKey: "{apiKey}",
+  }
+  provider, err := rackspace.AuthenticatedClient(ao)
+
+  serviceClient, err := rackspace.NewBlockStorageV1(provider, gophercloud.EndpointOpts{
+    Region: "{region}",
+  })
+
 .. code-block:: java
 
   // Authentication in jclouds is lazy and happens on the first call to the cloud.

@@ -2,6 +2,12 @@
 
   // This is not supported through the .NET SDK at this time
 
+.. code-block:: go
+
+  kp, err := keypairs.Create(serviceClient, oskeypairs.CreateOpts{
+    Name: "my-keypair",
+  }).Extract()
+
 .. code-block:: java
 
   KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone("{region}").get();

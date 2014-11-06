@@ -7,6 +7,30 @@
   };
   CloudFilesProvider cloudFilesProvider = new CloudFilesProvider(cloudIdentity);
 
+.. code-block:: go
+
+  import (
+    "github.com/rackspace/gophercloud"
+    "github.com/rackspace/gophercloud/rackspace"
+    "github.com/rackspace/gophercloud/rackspace/objectstorage/v1/containers"
+    "github.com/rackspace/gophercloud/rackspace/objectstorage/v1/objects"
+    "github.com/rackspace/gophercloud/rackspace/objectstorage/v1/cdncontainers"
+  )
+
+  ao := gophercloud.AuthOptions{
+    Username: "{username}",
+    APIKey: "{apiKey}",
+  }
+  provider, err := rackspace.AuthenticatedClient(ao)
+
+  serviceClient, err := rackspace.NewObjectStorageV1(provider, gophercloud.EndpointOpts{
+    Region: "{region}",
+  })
+
+  cdnClient, err := rackspace.NewObjectCDNV1(provider, gophercloud.EndpointOpts{
+    Region: "{region}",
+  })
+
 .. code-block:: java
 
   // Authentication in jclouds is lazy and happens on the first call to the cloud.

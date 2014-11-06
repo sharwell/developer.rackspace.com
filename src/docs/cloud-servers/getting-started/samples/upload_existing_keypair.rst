@@ -2,6 +2,14 @@
 
   // This is not supported through the .NET SDK at this time
 
+.. code-block:: go
+
+  pubkey, err := ioutil.ReadFile("/home/my-user/.ssh/id_rsa.pub")
+  kp, err := keypairs.Create(serviceClient, oskeypairs.CreateOpts{
+    Name: "my-keypair",
+    PublicKey: string(pubkey),
+  }).Extract()
+
 .. code-block:: java
 
   KeyPairApi keyPairApi = novaApi.getKeyPairExtensionForZone("{region}").get();

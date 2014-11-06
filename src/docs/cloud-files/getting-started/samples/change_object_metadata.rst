@@ -5,6 +5,16 @@
   metadata.Add("{key}","{value}");
   cloudFilesProvider.UpdateObjectMetadata("{container_name}", "{object_name}", metadata, "{region}");
 
+.. code-block:: go
+
+  metadata := map[string]string{"some-key": "some-data"}
+  _, err := objects.Update(
+    serviceClient,
+    "{containerName}",
+    "{objectName}",
+    objects.UpdateOpts{Metadata: metadata},
+  ).ExtractHeader()
+
 .. code-block:: java
 
   ObjectApi objectApi =
@@ -53,4 +63,3 @@
     -H "X-Auth-Token: $TOKEN" \
     -H "Content-Type: application/json" \
     -H "X-Object-Meta-Some-Key: some-value"
-

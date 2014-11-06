@@ -2,6 +2,10 @@
 
   cloudServersProvider.DeleteServer("{server_id}");
 
+.. code-block:: go
+
+	err := servers.Delete(serviceClient, server.ID)
+
 .. code-block:: java
 
   ServerApi serverApi = novaApi.getServerApiForZone("{region}");

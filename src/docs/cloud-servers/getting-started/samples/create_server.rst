@@ -2,6 +2,14 @@
 
   cloudServersProvider.CreateServer("{server_name}", "{image_id}", "{flavor_id}");
 
+.. code-block:: go
+
+  server, err := servers.Create(serviceClient, servers.CreateOpts{
+    Name:      "My new server",
+    ImageRef:  image.ID,
+    FlavorRef: flavor.ID,
+  }).Extract()
+
 .. code-block:: java
 
   ServerApi serverApi = novaApi.getServerApiForZone("{region}");

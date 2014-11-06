@@ -2,6 +2,16 @@
 
   IEnumerable<Snapshot> snapshots = cbsProvider.ListSnapshots(region: "{region}");
 
+.. code-block:: go
+
+  err := snapshots.List(serviceClient).EachPage(func(page pagination.Page) (bool, error) {
+    snapshotList, err := snapshots.ExtractSnapshots(page)
+    for _, s := range snapshotList {
+      // ...
+    }
+    return true, nil
+  })
+
 .. code-block:: java
 
   SnapshotApi snapshotApi = cinderApi.getSnapshotApiForZone("{region}");

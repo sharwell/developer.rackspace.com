@@ -2,6 +2,10 @@
 
   ServerImage serverImage = cloudServersProvider.GetImage("{image_id}");
 
+.. code-block:: go
+
+  image, err := images.Get(serviceClient, "{imageId}").Extract()
+
 .. code-block:: java
 
   ImageApi imageApi = novaApi.getImageApiForZone("{region}");
